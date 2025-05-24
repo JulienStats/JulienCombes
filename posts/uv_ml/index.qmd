@@ -1,0 +1,49 @@
+---
+title: "UV setup for computer vision using deep learning "
+author: "Julien Combes"
+date: "2025-04-13"
+categories: [DeepLearning, code, ComputerVision, python, linux]
+image: "image.jpg"
+---
+
+UV is a drop-in replacement for pip and global python installation.
+I allows the management of python versions and packages.
+
+
+# What is uv
+
+uv is a python package manager that can replace pip and the installation of python itself on any machine.
+Its coded in rust and is make the management of python project very fast and robust.
+
+All the example provided in this article are assuming you run on a linux system.
+
+it is installable with a simple line in the terminal 
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+This should make the uv command available through your shell.
+
+you can check the python versions already available by running 
+
+```bash
+uv python list
+``` 
+if the version of python you want is not already installed you can run the next command (change the 3.14 to the required python version)
+
+```python
+uv python install 3.14
+```
+
+# Creation on the environment
+
+Unlike conda, uv is based on project directories and not on global environments. So each project will have its own uv configuration.
+
+```python
+uv venv --python 3.12
+uv init
+uv add -r requirements.txt
+
+```
+

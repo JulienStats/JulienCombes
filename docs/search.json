@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "posts/uv_ml/index.html",
+    "href": "posts/uv_ml/index.html",
+    "title": "UV setup for computer vision using deep learning",
+    "section": "",
+    "text": "UV is a drop-in replacement for pip and global python installation. I allows the management of python versions and packages.\n# What is uv\nuv is a python package manager that can replace pip and the installation of python itself on any machine. Its coded in rust and is make the management of python project very fast and robust.\nAll the example provided in this article are assuming you run on a linux system.\nit is installable with a simple line in the terminal\ncurl -LsSf https://astral.sh/uv/install.sh | sh\nThis should make the uv command available through your shell.\nyou can check the python versions already available by running\nuv python list\nif the version of python you want is not already installed you can run the next command (change the 3.14 to the required python version)\nuv python install 3.14\n\nCreation on the environment\nUnlike conda, uv is based on project directories and not on global environments. So each project will have its own uv configuration.\nuv venv --python 3.12\nuv init\nuv add -r requirements.txt"
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Welcome To My Blog",
+    "section": "",
+    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Julien Combes",
+    "section": "",
+    "text": "Post With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nUV setup for computer vision using deep learning\n\n\n\n\n\n\nDeepLearning\n\n\ncode\n\n\nComputerVision\n\n\npython\n\n\nlinux\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nApr 10, 2025\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This blog will serve as a self-reminder and a repository for useful software code that I can easily share with others.\nI am currently in the first year of a PhD in Applied Mathematics. My research focuses on active learning applied to computer vision. I am doing my PhD at Michelin, where there is a high demand for machine vision and not enough experts to label the data.\nI love learning and am very curious but software development is far from being a strength."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "This is a post with executable code."
+  }
+]
