@@ -8,13 +8,19 @@ website:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
-      - icon: twitter
-        href: https://twitter.com
+        href: https://github.com/JulienStats
+        
 format:
   html:
-    theme: cosmo
+    respect-user-color-scheme: true
+    code-tools: true
+    theme:   
+      light: flatly
+      dark: darkly
     css: styles.css
+
+execute:
+  freeze: auto
 
 
 

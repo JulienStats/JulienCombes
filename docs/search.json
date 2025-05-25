@@ -1,24 +1,17 @@
 [
   {
-    "objectID": "posts/uv_ml/index.html",
-    "href": "posts/uv_ml/index.html",
-    "title": "UV setup for computer vision using deep learning",
+    "objectID": "posts/cifar_classif/index.html",
+    "href": "posts/cifar_classif/index.html",
+    "title": "Classify CIFAR",
     "section": "",
-    "text": "UV is a drop-in replacement for pip and global python installation. I allows the management of python versions and packages.\n# What is uv\nuv is a python package manager that can replace pip and the installation of python itself on any machine. Its coded in rust and is make the management of python project very fast and robust.\nAll the example provided in this article are assuming you run on a linux system.\nit is installable with a simple line in the terminal\ncurl -LsSf https://astral.sh/uv/install.sh | sh\nThis should make the uv command available through your shell.\nyou can check the python versions already available by running\nuv python list\nif the version of python you want is not already installed you can run the next command (change the 3.14 to the required python version)\nuv python install 3.14\n\nCreation on the environment\nUnlike conda, uv is based on project directories and not on global environments. So each project will have its own uv configuration.\nuv venv --python 3.12\nuv init\nuv add -r requirements.txt"
+    "text": "CIFAR is a trivial problem in image classification. We will be using Pytorch and lightning in order to do the training."
   },
   {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
-    "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Julien Combes",
-    "section": "",
-    "text": "Post With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nUV setup for computer vision using deep learning\n\n\n\n\n\n\nDeepLearning\n\n\ncode\n\n\nComputerVision\n\n\npython\n\n\nlinux\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nApr 10, 2025\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "objectID": "posts/cifar_classif/index.html#the-data",
+    "href": "posts/cifar_classif/index.html#the-data",
+    "title": "Classify CIFAR",
+    "section": "The data",
+    "text": "The data\n\nimport torchvision\nimport torch\nimport matplotlib.pyplot as plt\nimport albumentations as A\nfrom albumentations.pytorch import ToTensorV2\nimport numpy as np\n# to make the transform usable by torchvision dataset it needs to be a function that takes an image as input and return an image as well\n\n\n\ndef train_trans(image)-&gt;torch.tensor:\n    transform = A.Compose([\n        A.HorizontalFlip(),\n        A.Normalize(),\n        ToTensorV2()\n    ]) \n\n    transformed = transform(image = np.array(image))\n\n    return transformed[\"image\"]\n\ndef test_trans(image)-&gt;torch.tensor:\n    transform = A.Compose([\n        A.Normalize(),\n        ToTensorV2()\n    ]) \n\n    transformed = transform(image = np.array(image))\n\n    return transformed[\"image\"]\n\ntrain_set = torchvision.datasets.CIFAR10(\n    root=\"data\", \n    download=True, \n    train=True,\n    transform=train_trans)\n\nval_set = torchvision.datasets.CIFAR10(\n    root=\"data\", \n    download=True, \n    train=False,\n    transform=test_trans)\n\ntrain_loader= torch.utils.data.DataLoader(\n    train_set,\n    # shuffle=True,\n    sampler = torch.utils.data.SubsetRandomSampler(np.random.choice(len(train_set), 10000)),\n    batch_size=64,\n    num_workers=5,\n\n)\n\nval_loader= torch.utils.data.DataLoader(\n    val_set,\n    shuffle=False,\n    batch_size=64*2,\n    num_workers=5,\n)"
   },
   {
     "objectID": "about.html",
@@ -28,10 +21,24 @@
     "text": "This blog will serve as a self-reminder and a repository for useful software code that I can easily share with others.\nI am currently in the first year of a PhD in Applied Mathematics. My research focuses on active learning applied to computer vision. I am doing my PhD at Michelin, where there is a high demand for machine vision and not enough experts to label the data.\nI love learning and am very curious but software development is far from being a strength."
   },
   {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Julien Combes",
     "section": "",
-    "text": "This is a post with executable code."
+    "text": "UV setup for computer vision using deep learning\n\n\n\n\n\n\nDeepLearning\n\n\ncode\n\n\nComputerVision\n\n\npython\n\n\nlinux\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nClassify CIFAR\n\n\n\n\n\n\nDeepLearning\n\n\ncode\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nJulien Combes\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/uv_ml/index.html",
+    "href": "posts/uv_ml/index.html",
+    "title": "UV setup for computer vision using deep learning",
+    "section": "",
+    "text": "UV is a drop-in replacement for pip and global python installation. It allows the management of python versions and packages.\n# What is uv\nuv is a python package manager that can replace pip and the installation of python itself on any machine. Its coded in rust and is make the management of python project very fast and robust.\nAll the example provided in this article are assuming you run on a linux system.\nit is installable with a simple line in the terminal\nThis should make the uv command available through your shell.\nyou can check the python versions already available by running\nif the version of python you want is not already installed you can run the next command (change the 3.14 to the required python version)"
+  },
+  {
+    "objectID": "posts/uv_ml/index.html#example-of-requirement.txt-allowing-training-of-deep-neural-network",
+    "href": "posts/uv_ml/index.html#example-of-requirement.txt-allowing-training-of-deep-neural-network",
+    "title": "UV setup for computer vision using deep learning",
+    "section": "Example of requirement.txt allowing training of deep neural network",
+    "text": "Example of requirement.txt allowing training of deep neural network\nnumpy\npandas\nseaborn\nmatplotlib\n\n\ntorch\ntorchvision\nopencv-python\nlightning\nalbumentations"
   }
 ]

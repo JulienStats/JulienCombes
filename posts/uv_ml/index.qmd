@@ -7,7 +7,7 @@ image: "image.jpg"
 ---
 
 UV is a drop-in replacement for pip and global python installation.
-I allows the management of python versions and packages.
+It allows the management of python versions and packages.
 
 
 # What is uv
@@ -40,10 +40,26 @@ uv python install 3.14
 
 Unlike conda, uv is based on project directories and not on global environments. So each project will have its own uv configuration.
 
-```python
+```bash
 uv venv --python 3.12
-uv init
-uv add -r requirements.txt
+uv init .
+uv pip install -r requirements.txt
+
+```
+## Example of requirement.txt allowing training of deep neural network
+
+```txt
+numpy
+pandas
+seaborn
+matplotlib
+
+
+torch
+torchvision
+opencv-python
+lightning
+albumentations
 
 ```
 
