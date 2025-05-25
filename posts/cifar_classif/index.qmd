@@ -2,13 +2,22 @@
 title: "Classify CIFAR"
 author: "Julien Combes"
 date: "2025-04-13"
-categories: [DeepLearning, code]
+categories: [DeepLearning, code, ImageClassification, ComputerVision, ENG]
 image: "image.jpg"
 ---
 
 
 CIFAR is a trivial problem in image classification.
 We will be using Pytorch and lightning in order to do the training.
+
+
+The advantage of this approach, is that the workflow can be done locally
+one the cpu of your computer or on ten H100 of any cloud you could get access to. 
+
+[Lightning](https://lightning.ai/docs/pytorch/stable/) handles the location of data and optimization related objects (model, optimizer, scheduler etc...), and last be not least, the metrics computation done with [torchmetrics](https://lightning.ai/docs/torchmetrics/stable/).
+
+The metrics have the gathering across gpus/device already implemented so you just have to decide of which ones you want to add to your project. If some computations are not already present in the library, you can [add your own metric](https://lightning.ai/docs/torchmetrics/stable/pages/implement.html) very easily.
+
 
 ## The data
 
@@ -248,4 +257,4 @@ trainer=  L.Trainer(
 
 # And it is Done ! 
 
-The weights of the model are saved with the config produced them.
+The weights of the model are saved with the config that produced them.

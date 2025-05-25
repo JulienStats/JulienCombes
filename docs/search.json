@@ -25,14 +25,14 @@
     "href": "index.html",
     "title": "Julien Combes",
     "section": "",
-    "text": "UV setup for computer vision using deep learning\n\n\n\n\n\n\nDeepLearning\n\n\ncode\n\n\nComputerVision\n\n\npython\n\n\nlinux\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nClassify CIFAR\n\n\n\n\n\n\nDeepLearning\n\n\ncode\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nJulien Combes\n\n\n\n\n\n\nNo matching items"
+    "text": "UV setup for computer vision using deep learning\n\n\n\n\n\n\nDeepLearning\n\n\ncode\n\n\nComputerVision\n\n\npython\n\n\nlinux\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nClassify CIFAR\n\n\n\n\n\n\nDeepLearning\n\n\ncode\n\n\nImageClassification\n\n\nComputerVision\n\n\nENG\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nJulien Combes\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/uv_ml/index.html",
     "href": "posts/uv_ml/index.html",
     "title": "UV setup for computer vision using deep learning",
     "section": "",
-    "text": "UV is a drop-in replacement for pip and global python installation. It allows the management of python versions and packages.\n# What is uv\nuv is a python package manager that can replace pip and the installation of python itself on any machine. Its coded in rust and is make the management of python project very fast and robust.\nAll the example provided in this article are assuming you run on a linux system.\nit is installable with a simple line in the terminal\nThis should make the uv command available through your shell.\nyou can check the python versions already available by running\nif the version of python you want is not already installed you can run the next command (change the 3.14 to the required python version)"
+    "text": "UV is a drop-in replacement for pip and global python installation. I allows the management of python versions and packages.\n# What is uv\nuv is a python package manager that can replace pip and the installation of python itself on any machine. Its coded in rust and is make the management of python project very fast and robust.\nAll the example provided in this article are assuming you run on a linux system.\nit is installable with a simple line in the terminal\nThis should make the uv command available through your shell.\nyou can check the python versions already available by running\nif the version of python you want is not already installed you can run the next command (change the 3.14 to the required python version)"
   },
   {
     "objectID": "posts/uv_ml/index.html#example-of-requirement.txt-allowing-training-of-deep-neural-network",

@@ -7,7 +7,7 @@ image: "image.jpg"
 ---
 
 UV is a drop-in replacement for pip and global python installation.
-It allows the management of python versions and packages.
+I allows the management of python versions and packages.
 
 
 # What is uv
