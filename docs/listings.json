@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/phd_tools/index.html",
       "/posts/uv_ml/index.html",
       "/posts/cifar_classif/index.html"
     ]

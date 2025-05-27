@@ -151,6 +151,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                                 <div class="quarto-categories">
                 <div class="quarto-category">DeepLearning</div>
                 <div class="quarto-category">code</div>
+                <div class="quarto-category">ImageClassification</div>
+                <div class="quarto-category">ComputerVision</div>
+                <div class="quarto-category">ENG</div>
               </div>
                   </div>
   </div>
@@ -188,9 +191,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>CIFAR is a trivial problem in image classification. We will be using Pytorch and lightning in order to do the training.</p>
+<p>The advantage of this approach, is that the workflow can be done locally one the cpu of your computer or on ten H100 of any cloud you could get access to.</p>
+<p><a href="https://lightning.ai/docs/pytorch/stable/">Lightning</a> handles the location of data and optimization related objects (model, optimizer, scheduler etc…), and last be not least, the metrics computation done with <a href="https://lightning.ai/docs/torchmetrics/stable/">torchmetrics</a>.</p>
+<p>The metrics have the gathering across gpus/device already implemented so you just have to decide of which ones you want to add to your project. If some computations are not already present in the library, you can <a href="https://lightning.ai/docs/torchmetrics/stable/pages/implement.html">add your own metric</a> very easily.</p>
 <section id="the-data" class="level2">
 <h2 class="anchored" data-anchor-id="the-data">The data</h2>
-<div id="ec0e9e36" class="cell" data-execution_count="1">
+<div id="8063d4be" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -251,9 +257,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="the-model" class="level1">
-<h1>The model</h1>
-<div id="6f0e9f60" class="cell" data-execution_count="2">
+<section id="the-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-model">The model</h2>
+<div id="937ceb8e" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> lightning <span class="im">as</span> L</span>
@@ -396,8 +402,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>#&nbsp;Use everything for train</p>
-<div id="6718626b" class="cell" data-execution_count="3">
+<p>##&nbsp;Use everything for train</p>
+<div id="284dd5db" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>trainer<span class="op">=</span>  L.Trainer(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    max_epochs<span class="op">=</span><span class="dv">3</span>,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    precision <span class="op">=</span> <span class="st">"16-mixed"</span>,</span>
@@ -421,9 +427,9 @@ HPU available: False, using: 0 HPUs</code></pre>
 </div>
 </div>
 </section>
-<section id="and-it-is-done" class="level1">
-<h1>And it is Done !</h1>
-<p>The weights of the model are saved with the config produced them.</p>
+<section id="and-it-is-done" class="level2">
+<h2 class="anchored" data-anchor-id="and-it-is-done">And it is Done !</h2>
+<p>The weights of the model are saved with the config that produced them.</p>
 
 
 <!-- -->
@@ -1133,7 +1139,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a><span class="fu"># The model</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a><span class="fu">## The model</span></span>
 <span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a></span>
@@ -1281,7 +1287,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a><span class="fu">#&nbsp;Use everything for train</span></span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a><span class="fu">##&nbsp;Use everything for train</span></span>
 <span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
@@ -1303,9 +1309,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-261"><a href="#cb5-261" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-262"><a href="#cb5-262" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-263"><a href="#cb5-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-264"><a href="#cb5-264" aria-hidden="true" tabindex="-1"></a><span class="fu"># And it is Done ! </span></span>
+<span id="cb5-264"><a href="#cb5-264" aria-hidden="true" tabindex="-1"></a><span class="fu">## And it is Done ! </span></span>
 <span id="cb5-265"><a href="#cb5-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-266"><a href="#cb5-266" aria-hidden="true" tabindex="-1"></a>The weights of the model are saved with the config produced them.</span>
+<span id="cb5-266"><a href="#cb5-266" aria-hidden="true" tabindex="-1"></a>The weights of the model are saved with the config that produced them.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

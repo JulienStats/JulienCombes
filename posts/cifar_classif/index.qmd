@@ -85,7 +85,7 @@ val_loader= torch.utils.data.DataLoader(
 ```
 
 
-# The model
+## The model
 
 
 
@@ -233,7 +233,7 @@ model = ClassificationModule(
 
 ```
 
-# Use everything for train
+## Use everything for train
 
 
 ```{python}
@@ -255,6 +255,6 @@ trainer=  L.Trainer(
 
 ```
 
-# And it is Done ! 
+## And it is Done ! 
 
 The weights of the model are saved with the config that produced them.

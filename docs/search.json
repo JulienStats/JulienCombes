@@ -4,7 +4,7 @@
     "href": "posts/cifar_classif/index.html",
     "title": "Classify CIFAR",
     "section": "",
-    "text": "CIFAR is a trivial problem in image classification. We will be using Pytorch and lightning in order to do the training."
+    "text": "CIFAR is a trivial problem in image classification. We will be using Pytorch and lightning in order to do the training.\nThe advantage of this approach, is that the workflow can be done locally one the cpu of your computer or on ten H100 of any cloud you could get access to.\nLightning handles the location of data and optimization related objects (model, optimizer, scheduler etc…), and last be not least, the metrics computation done with torchmetrics.\nThe metrics have the gathering across gpus/device already implemented so you just have to decide of which ones you want to add to your project. If some computations are not already present in the library, you can add your own metric very easily."
   },
   {
     "objectID": "posts/cifar_classif/index.html#the-data",
@@ -14,18 +14,74 @@
     "text": "The data\n\nimport torchvision\nimport torch\nimport matplotlib.pyplot as plt\nimport albumentations as A\nfrom albumentations.pytorch import ToTensorV2\nimport numpy as np\n# to make the transform usable by torchvision dataset it needs to be a function that takes an image as input and return an image as well\n\n\n\ndef train_trans(image)-&gt;torch.tensor:\n    transform = A.Compose([\n        A.HorizontalFlip(),\n        A.Normalize(),\n        ToTensorV2()\n    ]) \n\n    transformed = transform(image = np.array(image))\n\n    return transformed[\"image\"]\n\ndef test_trans(image)-&gt;torch.tensor:\n    transform = A.Compose([\n        A.Normalize(),\n        ToTensorV2()\n    ]) \n\n    transformed = transform(image = np.array(image))\n\n    return transformed[\"image\"]\n\ntrain_set = torchvision.datasets.CIFAR10(\n    root=\"data\", \n    download=True, \n    train=True,\n    transform=train_trans)\n\nval_set = torchvision.datasets.CIFAR10(\n    root=\"data\", \n    download=True, \n    train=False,\n    transform=test_trans)\n\ntrain_loader= torch.utils.data.DataLoader(\n    train_set,\n    # shuffle=True,\n    sampler = torch.utils.data.SubsetRandomSampler(np.random.choice(len(train_set), 10000)),\n    batch_size=64,\n    num_workers=5,\n\n)\n\nval_loader= torch.utils.data.DataLoader(\n    val_set,\n    shuffle=False,\n    batch_size=64*2,\n    num_workers=5,\n)"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "posts/cifar_classif/index.html#the-model",
+    "href": "posts/cifar_classif/index.html#the-model",
+    "title": "Classify CIFAR",
+    "section": "The model",
+    "text": "The model\n\n\nCode\nimport lightning as L\nfrom typing import Optional, List\nimport torchmetrics\nfrom omegaconf import DictConfig, OmegaConf\n\nclass ClassificationModule(L.LightningModule):\n    def __init__(\n        self, \n        categories :List[str],\n        config:DictConfig,\n        model: Optional[torch.nn.Module] = None, \n        ):\n        \n        super().__init__()\n        self.categories = categories\n        num_classes = len(categories)\n        self.config = config\n        if model is None:\n            self.model = torchvision.models.resnet18(num_classes=num_classes)\n\n        self.criterion = torch.nn.CrossEntropyLoss()\n\n        metrics = torchmetrics.MetricCollection([\n            torchmetrics.classification.Accuracy(task = \"multiclass\", num_classes = num_classes),\n            torchmetrics.F1Score(task = \"multiclass\", num_classes = num_classes),\n            torchmetrics.Precision(task = \"multiclass\", num_classes = num_classes),\n            torchmetrics.Recall(task = \"multiclass\", num_classes = num_classes),\n            torchmetrics.CalibrationError(task = \"multiclass\", num_classes = num_classes),\n        ])\n\n        self.train_metric = metrics.clone(prefix=\"Train/\")\n        self.val_metrics = metrics.clone(prefix=\"Validation/\")\n        self.test_metrics = metrics.clone(prefix=\"Test/\")\n\n        self.per_category_metrics = torchmetrics.MetricCollection([\n            torchmetrics.classification.Accuracy(task = \"multiclass\", num_classes = num_classes, average = None),\n            torchmetrics.F1Score(task = \"multiclass\", num_classes = num_classes, average = None),\n            torchmetrics.Precision(task = \"multiclass\", num_classes = num_classes, average = None),\n            torchmetrics.Recall(task = \"multiclass\", num_classes = num_classes, average = None),\n        ])\n\n    def forward(self, X):\n        return self.model(X)\n\n    def configure_optimizers(self):\n\n        # Define Optimizer here\n        optimizer = torch.optim.Adam(self.parameters(), lr = self.config.lr, weight_decay=1e-5)\n\n        # you cna add a scheduler here as well and return it as \n        # return [optimizer], [scheduler]\n        # \n        return optimizer\n\n    def training_step(self, batch, batch_idx):\n        images, targets = batch\n\n        outputs = self(images)\n\n        loss = self.criterion(outputs, targets)\n        \n        self.train_metric(outputs, targets)\n\n        self.log(\"Train/Loss\",loss, on_epoch=True, on_step=True, prog_bar=True)\n\n        return loss\n    \n    def on_train_epoch_end(self):\n\n        train_metrics=  self.train_metric.compute()\n\n        self.log_dict(train_metrics)\n\n        self.train_metric.reset()\n    \n    def validation_step(self, batch, batch_idx):\n        images, targets = batch\n\n        outputs = self(images)\n\n        loss = self.criterion(outputs, targets)\n        self.log(\"Validation/Loss\", loss, on_epoch=True, on_step=False)\n\n        self.val_metrics(outputs, targets)\n        self.per_category_metrics(outputs, targets)\n\n        \n    \n    def on_validation_epoch_end(self):\n\n        val_metrics =  self.val_metrics.compute()\n\n        self.log_dict(val_metrics)\n\n        m = self.per_category_metrics.compute()\n        for mname, mresults in m.items():\n            for i, catname in enumerate(self.categories):\n                self.log(f\"Validation/{mname}_{catname}\", mresults[i])\n\n        self.val_metrics.reset()\n        self.per_category_metrics.reset()\n    \n\n    def test_step(self, batch, batch_idx):\n        images, targets = batch\n\n        outputs = self(images)\n\n        loss = self.criterion(outputs, targets)\n        self.log(\"Test/Loss\", loss, on_epoch=True, on_step=False)\n\n        self.test_metrics(outputs, targets)\n        self.per_category_metrics(outputs, targets)\n\n        \n    \n    def on_test_epoch_end(self):\n\n        test_metrics =  self.test_metrics.compute()\n\n        self.log_dict(test_metrics)\n        m = self.per_category_metrics.compute()\n        for mname, mresults in m.items():\n            for i, catname in enumerate(self.categories):\n                self.log(f\"Validation/{mname}_{catname}\", mresults[i])\n\n        self.test_metrics.reset()\n        self.per_category_metrics.reset()\n\n\nconfig = OmegaConf.create({\n    \"lr\": 1e-5\n})\n\nmodel = ClassificationModule(\n    categories=train_set.classes,\n    config=config\n)\n\n\n## Use everything for train\n\ntrainer=  L.Trainer(\n    max_epochs=3,\n    precision = \"16-mixed\",\n    enable_checkpointing=True,\n    num_sanity_val_steps=2,\n    log_every_n_steps=50,\n    check_val_every_n_epoch=1,\n)\n\n# trainer.fit(\n#     model,\n#     train_loader,\n#     val_loader\n# )\n\nUsing 16bit Automatic Mixed Precision (AMP)\nUsing default `ModelCheckpoint`. Consider installing `litmodels` package to enable `LitModelCheckpoint` for automatic upload to the Lightning model registry.\nGPU available: True (cuda), used: True\nTPU available: False, using: 0 TPU cores\nHPU available: False, using: 0 HPUs"
+  },
+  {
+    "objectID": "posts/cifar_classif/index.html#and-it-is-done",
+    "href": "posts/cifar_classif/index.html#and-it-is-done",
+    "title": "Classify CIFAR",
+    "section": "And it is Done !",
+    "text": "And it is Done !\nThe weights of the model are saved with the config that produced them."
+  },
+  {
+    "objectID": "posts/phd_tools/index.html",
+    "href": "posts/phd_tools/index.html",
+    "title": "Tools for Phd",
     "section": "",
-    "text": "This blog will serve as a self-reminder and a repository for useful software code that I can easily share with others.\nI am currently in the first year of a PhD in Applied Mathematics. My research focuses on active learning applied to computer vision. I am doing my PhD at Michelin, where there is a high demand for machine vision and not enough experts to label the data.\nI love learning and am very curious but software development is far from being a strength."
+    "text": "Phd is a long and likely hard journey, if some tools can make the way easier we won’t complain about it. I want to gather tool that i find useful in this post.\nIt can be related to bibliography, writing, coding or anything that pass to mind, it should be updated at some point when new things come to my mind.\n# Research"
+  },
+  {
+    "objectID": "posts/phd_tools/index.html#scholar-inbox",
+    "href": "posts/phd_tools/index.html#scholar-inbox",
+    "title": "Tools for Phd",
+    "section": "Scholar inbox",
+    "text": "Scholar inbox\nThis tool is so nice to be updated anytime an article in our field of research is published. You need to create an account an train a recommendation system based on literature that you are interested in. When it’s done, you will have new article pre-published in the past week that relates to your research.\nS/O to MG that let me know this tool !"
+  },
+  {
+    "objectID": "posts/phd_tools/index.html#bibliography",
+    "href": "posts/phd_tools/index.html#bibliography",
+    "title": "Tools for Phd",
+    "section": "Bibliography",
+    "text": "Bibliography\nI can’t recommend Zotero enough. You can save article from the browser in one click. Read and annotate all in one place."
+  },
+  {
+    "objectID": "posts/phd_tools/index.html#note-taking",
+    "href": "posts/phd_tools/index.html#note-taking",
+    "title": "Tools for Phd",
+    "section": "Note taking",
+    "text": "Note taking\nI like to use obsidian with the citation extension. It connects the notes with the zotero library and allows you to link all the article and is very helpful when you want to write about any topic."
+  },
+  {
+    "objectID": "posts/phd_tools/index.html#literature-graph",
+    "href": "posts/phd_tools/index.html#literature-graph",
+    "title": "Tools for Phd",
+    "section": "Literature Graph",
+    "text": "Literature Graph\nConnected papers : not free. Lit map could be an alternative."
+  },
+  {
+    "objectID": "posts/phd_tools/index.html#redaction",
+    "href": "posts/phd_tools/index.html#redaction",
+    "title": "Tools for Phd",
+    "section": "Redaction",
+    "text": "Redaction\nmy favorite software of this stack Quarto. It allow you to write anything in markdown and generate pdfs (with latex or typst), beamers or revealjs and this blog your are currently reading !\nIt is an amazing piece of software based on Pandoc the Haskell unicorn.\nIf you are in stats or working with any type of data, quarto is nice since you can code in the same file as the one you write in. It is like a notebook but plain text, that allows version control systems to follow it nicely."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Julien Combes",
     "section": "",
-    "text": "UV setup for computer vision using deep learning\n\n\n\n\n\n\nDeepLearning\n\n\ncode\n\n\nComputerVision\n\n\npython\n\n\nlinux\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nClassify CIFAR\n\n\n\n\n\n\nDeepLearning\n\n\ncode\n\n\nImageClassification\n\n\nComputerVision\n\n\nENG\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nJulien Combes\n\n\n\n\n\n\nNo matching items"
+    "text": "Tools for Phd\n\n\n\n\n\n\nPhd\n\n\nproductivity\n\n\nENG\n\n\n\n\n\n\n\n\n\nMay 27, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nUV setup for computer vision using deep learning\n\n\n\n\n\n\nDeepLearning\n\n\ncode\n\n\nComputerVision\n\n\npython\n\n\nlinux\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nClassify CIFAR\n\n\n\n\n\n\nDeepLearning\n\n\ncode\n\n\nImageClassification\n\n\nComputerVision\n\n\nENG\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nJulien Combes\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This blog will serve as a self-reminder and a repository for useful software code that I can easily share with others.\nI am currently in the first year of a PhD in Applied Mathematics. My research focuses on active learning applied to computer vision. I am doing my PhD at Michelin, where there is a high demand for machine vision and not enough experts to label the data.\nI love learning and am very curious but software development is far from being a strength."
   },
   {
     "objectID": "posts/uv_ml/index.html",

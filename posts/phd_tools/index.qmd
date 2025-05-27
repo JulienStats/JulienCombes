@@ -1,0 +1,55 @@
+---
+title: Tools for Phd
+author: "Julien Combes"
+date: "2025-05-27"
+categories: [Phd, productivity, ENG]
+image: "image.jpeg"
+---
+
+Phd is a long and likely hard journey, if some tools can make the way easier we won't complain about it.
+I want to gather tool that i find useful in this post.
+
+It can be related to bibliography, writing, coding or anything that pass to mind, it should be updated at some point when new things come to my mind.
+
+# Research 
+
+## Scholar inbox
+
+[This tool](https://www.scholar-inbox.com/) is so nice to be updated anytime an article in our field of research is published.
+You need to create an account an train a recommendation system based on literature that you are interested in. When it's done, you will have new article pre-published in the past week that relates to your research.
+
+S/O to MG that let me know this tool !
+
+## Bibliography
+
+I can't recommend [Zotero](https://www.zotero.org/) enough. You can save article from the browser in one click. Read and annotate all in one place.
+
+## Note taking
+
+I like to use [obsidian](https://obsidian.md/) with the citation extension. It connects the notes with the zotero library and allows you to link all the article and is very helpful when you want to write about any topic.
+
+## Literature Graph 
+
+Connected papers : not free. Lit map could be an alternative.
+
+## Redaction
+
+my favorite software of this stack [Quarto](https://quarto.org/). It allow you to write anything in markdown and generate pdfs (with latex or typst), beamers or revealjs and this blog your are currently reading ! 
+
+It is an amazing piece of software based on [Pandoc](https://pandoc.org/) the Haskell unicorn.
+
+If you are in stats or working with any type of data, quarto is nice since you can code in the same file as the one you write in. It is like a notebook but plain text, that allows version control systems to follow it nicely.
+
+
+# Coding
+
+When you code neural networks there are many things you don't want to take care of. I understand we would want to control everything for pedagogy purposes but when you want to write reproducible research code that is going to be shared you want to write your pipeline with reproducible tools that make the training and the parametrization agnostic from the system features (os, devices, nodes ...).
+
+That is why for my Deep Learning stack i chose to use the following libraries/framework : 
+
+- [Lightning](https://lightning.ai/docs/pytorch/stable/) : library that handle distributed training, validation testing with a full control over training loop.
+- [torchmetrics](https://lightning.ai/docs/torchmetrics/stable/) : Handle the computation of any metrics you would want in a distributed manner. You can write your own if you want and the device gathering will be taken care of. 
+- [SMP](https://segmentation-models-pytorch.readthedocs.io/en/latest/quickstart.html) : Set of models usable in semantic segmentation, there are losses as well (be careful when using them on empty mask)
+
+
+# 

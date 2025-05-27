@@ -19,8 +19,6 @@ format:
       dark: darkly
     css: styles.css
 
+bibliography: biblio.bib
 execute:
   freeze: auto
-
-
-
