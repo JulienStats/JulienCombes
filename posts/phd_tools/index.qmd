@@ -7,7 +7,7 @@ image: "image.jpeg"
 ---
 
 Phd is a long and likely hard journey, if some tools can make the way easier we won't complain about it.
-I want to gather tool that i find useful in this post.
+I want to gather tools that i find useful in this post.
 
 It can be related to bibliography, writing, coding or anything that pass to mind, it should be updated at some point when new things come to my mind.
 

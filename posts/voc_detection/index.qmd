@@ -1,0 +1,417 @@
+---
+title: Faster RCNN on pascal Voc
+author: "Julien Combes"
+date: "2025-06-02"
+categories: [Phd, code, DeepLearning, ComputerVision, ENG]
+image: "image.jpeg"
+---
+
+Object detection is the second type of problem we will be solving in this blog using lightning and pascal voc.
+This problem is very common because it allow to locate a variable number of  objects in images.
+
+Since it is used in case of autonomous driving, real time object counting object detection architectures are grouped into two categories.
+The real time object detection where the boss is the [YOLO](https://docs.ultralytics.com/fr/models/yolo11/) version 11 at the time i write this article. The more recent networks that can fight with yolo in RTOD (Real time object detection) is the [D-Fine architecture](https://arxiv.org/abs/2410.13842) which is an improved DETR.
+
+We will focus in this blog with the simplest model for object detection which is the good old [Faster-RCNN](https://arxiv.org/abs/1506.01497).
+
+
+# Data 
+
+```{python}
+from torchvision.datasets import VOCDetection
+from torchvision.transforms import v2 
+import matplotlib.pyplot as plt
+import numpy as np
+from torch.utils.data import DataLoader
+import torch 
+from omegaconf import OmegaConf
+from torchvision.utils import draw_bounding_boxes
+import albumentations as A
+from albumentations.pytorch import ToTensorV2
+from torchvision.ops import batched_nms
+import torchmetrics
+import lightning as L
+from torchvision.models.detection import fasterrcnn_mobilenet_v3_large_fpn
+from typing import Dict, List, Optional
+```
+
+
+```{python}
+
+categories = ['pottedplant', 'bottle', 'chair', 'diningtable', 'person', 'car', 'train', 'bus', 'bicycle', 'cat', 'aeroplane', 'tvmonitor', 'sofa', 'sheep', 'dog', 'bird', 'motorbike', 'horse', 'boat', 'cow', "bg"]
+
+
+def unpack_box(box_dict:Dict):
+    """
+    Unpack the box dictionary into a list of coordinates
+    """
+    return torch.tensor(np.array([
+        box_dict["xmin"],
+        box_dict["ymin"],
+        box_dict["xmax"],
+        box_dict["ymax"]
+    ], dtype = float))
+
+def annotation_to_torch(target:Dict):
+    rep = {}
+    detections = target["annotation"]["object"]
+    
+    rep["labels"] = np.array([categories.index(i["name"]) for i in detections])
+    # xmin ymin xmax ymax
+    rep["boxes"] = torch.stack([unpack_box(i["bndbox"]) for i in detections])
+
+    return rep    
+
+class MyVoc(VOCDetection):
+    def __getitem__(self, index):
+        image, target = super().__getitem__(index)
+        # Apply your transformations here
+        target = annotation_to_torch(target)
+
+        transform = A.Compose([
+            A.PadIfNeeded(500,500),
+            A.HorizontalFlip(),
+            A.RandomCrop(400,400),
+            A.Resize(224, 224),
+            A.Normalize(normalization="min_max"),
+            ToTensorV2()
+        ],
+        bbox_params=A.BboxParams(
+            format='pascal_voc', # Specify input format
+            label_fields=['class_labels'],
+            filter_invalid_bboxes=True)
+        )
+
+        transformed = transform(
+            image=np.array(image), 
+            bboxes=target["boxes"], 
+            class_labels=target["labels"]
+        )
+
+        transformed["labels"] = transformed["class_labels"]
+        transformed["boxes"] = transformed["bboxes"]
+        transformed.pop("class_labels")
+        transformed.pop("bboxes")
+
+        image = transformed.pop("image")
+        transformed["boxes"] = torch.from_numpy(transformed["boxes"])
+        transformed["labels"] = torch.from_numpy(transformed["labels"])
+        return image.float(), transformed
+
+    def draw_item(self, index:Optional[int] = None, n=5):
+        if index is None:
+            index = np.random.randint(0, len(self))
+
+        image, labels = self[index]
+
+
+        with_boxes = draw_bounding_boxes(
+            image =  image,
+            boxes=labels["boxes"],
+            labels = [categories[i] for i in labels["labels"]],
+            colors = "red"
+
+        )
+
+
+        plt.figure(figsize=(10, 10))
+        plt.imshow(with_boxes.permute(1, 2, 0).numpy())
+        plt.axis('off')
+        plt.show()
+        return 
+
+```
+
+
+```{python}
+ds = MyVoc(
+    root = "./data", 
+    download = False,
+    image_set="train"
+)
+val_ds = MyVoc(
+    root = "./data", 
+    download = False,
+    image_set="val",
+)
+ds.draw_item()
+```
+
+# Modeling
+
+
+```{python}
+#| code-fold: true
+config = OmegaConf.create({
+    "lr": 1e-4,
+    "batch_size":2,
+    "epochs":3,
+    "world_size":1
+})
+def apply_nms(preds:Dict, iou_thr:float = .5):
+    nms_indices = batched_nms(
+        preds["boxes"],
+        scores = preds["scores"],
+        idxs=preds["labels"],
+        iou_threshold=iou_thr
+    )
+    preds_nms = {}
+    preds_nms["boxes"] = preds["boxes"][nms_indices,:]
+    preds_nms["scores"] = preds["scores"][nms_indices]
+    preds_nms["labels"] = preds["labels"][nms_indices]
+    
+    # high_scores_indices = preds_nms["scores"] > .3
+    # preds_nms["boxes"] = preds_nms["boxes"][high_scores_indices]
+    # preds_nms["scores"] = preds_nms["scores"][high_scores_indices]
+    # preds_nms["labels"] = preds_nms["labels"][high_scores_indices]
+
+    return preds_nms
+
+class odModule(L.LightningModule):
+    def __init__(self, config, categories:List[str], nms_thr:float = .5):
+        super().__init__()
+        # if config.checkpoint is not None:
+        # print(f"checkpoint from {config.checkpoint}")
+        num_classes = len(categories)
+        self.categories = categories
+
+        self.nms_thr = nms_thr
+        self.config = config
+        self.model = fasterrcnn_mobilenet_v3_large_fpn(pretrained = False, num_classes=num_classes)
+
+        metrics = torchmetrics.MetricCollection(
+            [
+                torchmetrics.detection.mean_ap.MeanAveragePrecision(
+                    # extended_summary=True, 
+                    iou_thresholds=np.linspace(0,1,20).tolist(),
+                    class_metrics=True, 
+                    iou_type="bbox",
+                ),
+            ]
+        )   
+        self.val_metrics = metrics.clone(prefix="Validation/")
+        self.test_metrics = metrics.clone(prefix="Test/")
+    
+        self.save_hyperparameters(ignore=["train_ds"])
+
+    @staticmethod
+    def prepare_batch(batch):
+        images, targets = batch
+        return images, targets
+
+    def forward(self, x, y=None):
+        if y is not None:
+            return self.model(x, y)
+        else:
+            preds = self.model(x)
+            return preds
+
+    def predict(self, x):
+        """Forward the model then run NMS (for evaluation)
+
+        Args:
+            x (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """        
+        preds:List = self.model(x)
+        preds_nms = [apply_nms(i, self.nms_thr) for i in preds]
+        return preds_nms
+
+    def forward_proba(self, x):
+        """used in AL functions, in Instance segmentation == forward
+
+        Args:
+            x (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """        
+        return self.forward(x)
+
+    def forward_embedding(self, x):
+        """used in Core-Set algorithms the create the embedding matrix
+
+        Args:
+            x (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """        
+        bs = len(x)
+        images = torch.stack(x)
+        return self.model.backbone(images)["pool"].view(bs, -1)
+
+    def training_step(self, batch, batch_idx):
+        img_b, target_b = self.prepare_batch(batch)
+        bs = len(img_b)
+
+        loss_dict = self.model(img_b, target_b)
+        loss_dict["loss_total"] = sum(loss_dict.values())
+
+        self.log_dict(
+            loss_dict,
+            on_step=False,
+            on_epoch=True,
+            sync_dist=True,
+            batch_size=bs,
+            prog_bar=True,
+        )
+
+        return {"loss": loss_dict["loss_total"]}
+
+    def validation_step(self, batch, batch_idx):
+        img_b, target_b = self.prepare_batch(batch)
+        output_nms = self.predict(img_b)
+
+        self.val_metrics(output_nms, target_b)
+        return
+
+    def on_validation_epoch_end(self):
+        
+        m = self.val_metrics.compute()
+        m = {i:j for i,j in m.items() if j.nelement() ==1}
+        
+        self.log_dict(m, on_epoch=True, sync_dist=False)
+
+        for i, class_id in enumerate(m["classes"]):
+            self.log(f"Validation/MAP {self.categories[class_id]}", m["map_per_class"][i])
+
+        self.val_metrics.reset()
+        return
+
+    def test_step(self, batch, batch_idx):
+        img_b, target_b = self.prepare_batch(batch)
+
+        output_nms = self.predict(img_b)
+
+        self.test_metrics(output_nms, target_b)
+        return
+
+    def on_test_epoch_end(self):
+        m = self.test_metrics.compute()
+        m = {i:j for i,j in m.items() if j.nelement() ==1}
+
+        self.log_dict(m, on_epoch=True, sync_dist=False)
+        
+        for i, class_id in enumerate(m["classes"]):
+            self.log(f"Test/MAP {self.categories[class_id]}", m["map_per_class"][i])
+
+        self.test_metrics.reset()
+
+        return 
+
+    def configure_optimizers(self):
+        optimizer = torch.optim.Adam(
+            self.parameters(),
+            lr=self.config.lr,
+            weight_decay=1e-4 * self.config.batch_size / 16,
+        )
+
+        scheduler_nsteps = self.config.epochs * self.config.world_size
+        # scheduler1 = torch.optim.lr_scheduler.CosineAnnealingLR(
+        #     optimizer, T_max=scheduler_nsteps, eta_min=self.config.lr / 10
+        # )
+
+        # sched_config1 = {"scheduler": scheduler1, "interval": "epoch"}
+
+
+        return [optimizer]#, [sched_config1]
+
+model = odModule(
+    config,
+    categories
+)
+
+```
+
+
+
+```{python}
+index = np.random.randint(len(ds))
+with torch.no_grad():
+    model.eval()
+    o = model(ds[index][0].unsqueeze(0))
+
+
+with_boxes = draw_bounding_boxes(
+    ds[index][0],
+    o[0]["boxes"],
+    labels=[categories[i] for i in o[0]["labels"]]
+)
+plt.imshow(with_boxes.permute(1,2,0))
+```
+
+As you can see the model predictions are bad because he not trained yet.
+
+
+```{python}
+
+def collate_fn(batch):
+    # Separate the images and targets
+    images = []
+    targets = []
+    
+    for image, target in batch:
+        images.append(image)  # Assuming each item has an 'image' key
+        targets.append(target)  # Assuming each item has a 'target' key
+
+    # Stack images into a single tensor
+    images = torch.stack(images, dim=0)
+
+    # Convert targets to a list of dictionaries or tensors
+    # This depends on how your targets are structured
+    # For example, if targets are dictionaries with bounding boxes and labels
+    return images, targets
+train_loader = DataLoader(
+    ds,
+    batch_size = 2,
+    shuffle = True,
+    collate_fn = collate_fn
+)
+val_loader = DataLoader(
+    val_ds,
+    batch_size = 2,
+    shuffle = False,
+    collate_fn = collate_fn
+)
+im, tar = next(iter(train_loader))
+
+tar
+```
+
+
+
+```{python}
+
+metric = torchmetrics.detection.mean_ap.MeanAveragePrecision(
+                    # extended_summary=True, 
+                    iou_thresholds=np.linspace(0,1,20).tolist(),
+                    class_metrics=True, 
+                    iou_type="bbox",
+)
+
+with torch.no_grad():
+    o = model(im)
+
+metric(o, tar)
+```
+
+# Training
+
+
+```{python}
+model.train()
+trainer=  L.Trainer(
+    max_epochs=3,
+    precision = "16-mixed",
+    enable_checkpointing=True,
+    num_sanity_val_steps=2,
+    log_every_n_steps=50,
+    check_val_every_n_epoch=1,
+)
+
+# trainer.fit(model, train_loader, val_loader)
+
+```
