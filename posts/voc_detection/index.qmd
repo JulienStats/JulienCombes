@@ -3,7 +3,7 @@ title: Faster RCNN on pascal Voc
 author: "Julien Combes"
 date: "2025-06-02"
 categories: [Phd, code, DeepLearning, ComputerVision, ENG]
-image: "image.jpeg"
+image: "image.png"
 ---
 
 Object detection is the second type of problem we will be solving in this blog using lightning and pascal voc.

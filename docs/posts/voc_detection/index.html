@@ -195,7 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We will focus in this blog with the simplest model for object detection which is the good old <a href="https://arxiv.org/abs/1506.01497">Faster-RCNN</a>.</p>
 <section id="data" class="level1">
 <h1>Data</h1>
-<div id="a790b6af" class="cell" data-execution_count="1">
+<div id="b61e8dd7" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torchvision.datasets <span class="im">import</span> VOCDetection</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torchvision.transforms <span class="im">import</span> v2 </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -218,7 +218,7 @@ A new version of Albumentations is available: '2.0.8' (you have '2.0.5'). Upgrad
 </code></pre>
 </div>
 </div>
-<div id="8f05f43b" class="cell" data-execution_count="2">
+<div id="6bbfed1d" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>categories <span class="op">=</span> [<span class="st">'pottedplant'</span>, <span class="st">'bottle'</span>, <span class="st">'chair'</span>, <span class="st">'diningtable'</span>, <span class="st">'person'</span>, <span class="st">'car'</span>, <span class="st">'train'</span>, <span class="st">'bus'</span>, <span class="st">'bicycle'</span>, <span class="st">'cat'</span>, <span class="st">'aeroplane'</span>, <span class="st">'tvmonitor'</span>, <span class="st">'sofa'</span>, <span class="st">'sheep'</span>, <span class="st">'dog'</span>, <span class="st">'bird'</span>, <span class="st">'motorbike'</span>, <span class="st">'horse'</span>, <span class="st">'boat'</span>, <span class="st">'cow'</span>, <span class="st">"bg"</span>]</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -301,7 +301,7 @@ A new version of Albumentations is available: '2.0.8' (you have '2.0.5'). Upgrad
 <span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>        plt.show()</span>
 <span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="8ff57eaa" class="cell" data-execution_count="3">
+<div id="59d04b40" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> MyVoc(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    root <span class="op">=</span> <span class="st">"./data"</span>, </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    download <span class="op">=</span> <span class="va">False</span>,</span>
@@ -324,7 +324,7 @@ A new version of Albumentations is available: '2.0.8' (you have '2.0.5'). Upgrad
 </section>
 <section id="modeling" class="level1">
 <h1>Modeling</h1>
-<div id="c85d5fb1" class="cell" data-execution_count="4">
+<div id="61d2ff57" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> OmegaConf.create({</span>
@@ -520,7 +520,7 @@ Arguments other than a weight enum or `None` for 'weights' are deprecated since 
 </code></pre>
 </div>
 </div>
-<div id="06831f9f" class="cell" data-execution_count="5">
+<div id="977ca300" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>index <span class="op">=</span> np.random.randint(<span class="bu">len</span>(ds))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> torch.no_grad():</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    model.<span class="bu">eval</span>()</span>
@@ -542,7 +542,7 @@ Arguments other than a weight enum or `None` for 'weights' are deprecated since 
 </div>
 </div>
 <p>As you can see the model predictions are bad because he not trained yet.</p>
-<div id="a990f087" class="cell" data-execution_count="6">
+<div id="2df9d61b" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> collate_fn(batch):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Separate the images and targets</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    images <span class="op">=</span> []</span>
@@ -575,13 +575,13 @@ Arguments other than a weight enum or `None` for 'weights' are deprecated since 
 <span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>tar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>[{'labels': tensor([15]),
-  'boxes': tensor([[ 90.7200, 112.0000, 133.8400, 208.3200]], dtype=torch.float64)},
- {'labels': tensor([16]),
-  'boxes': tensor([[  0.0000,   2.2400, 217.2800, 204.9600]], dtype=torch.float64)}]</code></pre>
+<pre><code>[{'labels': tensor([10]),
+  'boxes': tensor([[  0.0000,  35.2800, 224.0000, 194.8800]], dtype=torch.float64)},
+ {'labels': tensor([10]),
+  'boxes': tensor([[ 81.7600, 108.6400,  99.1200, 128.8000]], dtype=torch.float64)}]</code></pre>
 </div>
 </div>
-<div id="8b228581" class="cell" data-execution_count="7">
+<div id="5648776a" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>metric <span class="op">=</span> torchmetrics.detection.mean_ap.MeanAveragePrecision(</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                    <span class="co"># extended_summary=True, </span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                    iou_thresholds<span class="op">=</span>np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">20</span>).tolist(),</span>
@@ -594,27 +594,29 @@ Arguments other than a weight enum or `None` for 'weights' are deprecated since 
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>metric(o, tar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>{'map': tensor(0.),
+<pre><code>{'map': tensor(0.1178),
  'map_50': tensor(-1.),
  'map_75': tensor(-1.),
- 'map_small': tensor(-1.),
- 'map_medium': tensor(0.),
+ 'map_small': tensor(0.2333),
+ 'map_medium': tensor(-1.),
  'map_large': tensor(0.),
- 'mar_1': tensor(0.),
- 'mar_10': tensor(0.),
- 'mar_100': tensor(0.),
- 'mar_small': tensor(-1.),
- 'mar_medium': tensor(0.),
+ 'mar_1': tensor(0.0750),
+ 'mar_10': tensor(0.2250),
+ 'mar_100': tensor(0.2250),
+ 'mar_small': tensor(0.4500),
+ 'mar_medium': tensor(-1.),
  'mar_large': tensor(0.),
- 'map_per_class': tensor([-1., -1., -1., -1., -1., -1., -1.,  0.,  0., -1., -1., -1.]),
- 'mar_100_per_class': tensor([-1., -1., -1., -1., -1., -1., -1.,  0.,  0., -1., -1., -1.]),
- 'classes': tensor([ 1,  2,  3,  6,  7,  9, 11, 15, 16, 18, 19, 20], dtype=torch.int32)}</code></pre>
+ 'map_per_class': tensor([-1.0000, -1.0000, -1.0000, -1.0000, -1.0000,  0.1178, -1.0000, -1.0000,
+         -1.0000, -1.0000, -1.0000, -1.0000]),
+ 'mar_100_per_class': tensor([-1.0000, -1.0000, -1.0000, -1.0000, -1.0000,  0.2250, -1.0000, -1.0000,
+         -1.0000, -1.0000, -1.0000, -1.0000]),
+ 'classes': tensor([ 2,  3,  4,  5,  8, 10, 11, 12, 13, 16, 17, 19], dtype=torch.int32)}</code></pre>
 </div>
 </div>
 </section>
 <section id="training" class="level1">
 <h1>Training</h1>
-<div id="663ad6b7" class="cell" data-execution_count="8">
+<div id="eea92cfb" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>model.train()</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>trainer<span class="op">=</span>  L.Trainer(</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    max_epochs<span class="op">=</span><span class="dv">3</span>,</span>
@@ -1261,7 +1263,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Julien Combes"</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2025-06-02"</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Phd, code, DeepLearning, ComputerVision, ENG]</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "image.jpeg"</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "image.png"</span></span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>Object detection is the second type of problem we will be solving in this blog using lightning and pascal voc.</span>
