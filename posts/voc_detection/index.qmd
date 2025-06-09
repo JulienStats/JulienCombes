@@ -1,7 +1,7 @@
 ---
-title: Faster RCNN on pascal Voc
+title: D-Fine on pascal Voc
 author: "Julien Combes"
-date: "2025-06-02"
+date: "2025-06-09"
 categories: [Phd, code, DeepLearning, ComputerVision, ENG]
 image: "image.png"
 ---
@@ -12,10 +12,12 @@ This problem is very common because it allow to locate a variable number of  obj
 Since it is used in case of autonomous driving, real time object counting object detection architectures are grouped into two categories.
 The real time object detection where the boss is the [YOLO](https://docs.ultralytics.com/fr/models/yolo11/) version 11 at the time i write this article. The more recent networks that can fight with yolo in RTOD (Real time object detection) is the [D-Fine architecture](https://arxiv.org/abs/2410.13842) which is an improved DETR.
 
-We will focus in this blog with the simplest model for object detection which is the good old [Faster-RCNN](https://arxiv.org/abs/1506.01497).
+We implemented it in this article, we chose to train this architecture in lightning since the training loop can be re-used with other models and dataset. I don't know what is the best training paradigm but i want one that keeps as agnostic as possible to any framework, and for me lighting allow strong customization and proximity to pure torchscript while allowing easy multi device training and metrics logging etc..
 
 
 # Data 
+
+We will model pascal voc images in this project because its very easily accessible from torchvision repos.
 
 ```{python}
 from torchvision.datasets import VOCDetection
@@ -25,8 +27,10 @@ import numpy as np
 from torch.utils.data import DataLoader
 import torch 
 from omegaconf import OmegaConf
+from torchvision.ops import box_convert
 from torchvision.utils import draw_bounding_boxes
 import albumentations as A
+from transformers import DFineForObjectDetection, AutoImageProcessor
 from albumentations.pytorch import ToTensorV2
 from torchvision.ops import batched_nms
 import torchmetrics
@@ -35,7 +39,7 @@ from torchvision.models.detection import fasterrcnn_mobilenet_v3_large_fpn
 from typing import Dict, List, Optional
 ```
 
-
+d-fine expect bbox in coco format so we convert it in the get_item part.
 ```{python}
 
 categories = ['pottedplant', 'bottle', 'chair', 'diningtable', 'person', 'car', 'train', 'bus', 'bicycle', 'cat', 'aeroplane', 'tvmonitor', 'sofa', 'sheep', 'dog', 'bird', 'motorbike', 'horse', 'boat', 'cow', "bg"]
@@ -61,6 +65,8 @@ def annotation_to_torch(target:Dict):
     rep["boxes"] = torch.stack([unpack_box(i["bndbox"]) for i in detections])
 
     return rep    
+
+image_processor = AutoImageProcessor.from_pretrained("ustc-community/dfine_x_coco")
 
 class MyVoc(VOCDetection):
     def __getitem__(self, index):
@@ -90,12 +96,16 @@ class MyVoc(VOCDetection):
 
         transformed["labels"] = transformed["class_labels"]
         transformed["boxes"] = transformed["bboxes"]
-        transformed.pop("class_labels")
         transformed.pop("bboxes")
 
         image = transformed.pop("image")
-        transformed["boxes"] = torch.from_numpy(transformed["boxes"])
+        transformed["boxes"] = box_convert(
+            torch.from_numpy(transformed["boxes"],
+            ),
+            "xyxy",
+            "xywh",).float()
         transformed["labels"] = torch.from_numpy(transformed["labels"])
+        transformed["class_labels"] = torch.from_numpy(transformed["class_labels"])
         return image.float(), transformed
 
     def draw_item(self, index:Optional[int] = None, n=5):
@@ -107,7 +117,7 @@ class MyVoc(VOCDetection):
 
         with_boxes = draw_bounding_boxes(
             image =  image,
-            boxes=labels["boxes"],
+            boxes= box_convert(labels["boxes"], "xywh", "xyxy"),
             labels = [categories[i] for i in labels["labels"]],
             colors = "red"
 
@@ -122,6 +132,7 @@ class MyVoc(VOCDetection):
 
 ```
 
+Nothing special here, we show what the data looks like.
 
 ```{python}
 ds = MyVoc(
@@ -140,6 +151,7 @@ ds.draw_item()
 # Modeling
 
 
+Modeling part is here, whith the lightning module.
 ```{python}
 #| code-fold: true
 config = OmegaConf.create({
@@ -177,7 +189,13 @@ class odModule(L.LightningModule):
 
         self.nms_thr = nms_thr
         self.config = config
-        self.model = fasterrcnn_mobilenet_v3_large_fpn(pretrained = False, num_classes=num_classes)
+        # self.model = fasterrcnn_mobilenet_v3_large_fpn(pretrained = False, num_classes=num_classes)
+        self.model = DFineForObjectDetection.from_pretrained(
+            "ustc-community/dfine_x_coco",
+            id2label= {i:cat for i,cat in enumerate(categories)},
+            label2id={cat:i for i,cat in enumerate(categories)},
+            ignore_mismatched_sizes=True,
+        )
 
         metrics = torchmetrics.MetricCollection(
             [
@@ -201,9 +219,14 @@ class odModule(L.LightningModule):
 
     def forward(self, x, y=None):
         if y is not None:
-            return self.model(x, y)
+            return self.model(pixel_values = x, labels = y)
         else:
             preds = self.model(x)
+            n, c, h, w = x.shape
+            preds = image_processor.post_process_object_detection(
+                preds, 
+                target_sizes=[(h,w) for _ in range(n)], 
+                threshold=0.5)
             return preds
 
     def predict(self, x):
@@ -215,43 +238,19 @@ class odModule(L.LightningModule):
         Returns:
             _type_: _description_
         """        
-        preds:List = self.model(x)
-        preds_nms = [apply_nms(i, self.nms_thr) for i in preds]
-        return preds_nms
+        preds:List = self(x)
+        # preds_nms = [apply_nms(i, self.nms_thr) for i in preds]
+        return preds
 
-    def forward_proba(self, x):
-        """used in AL functions, in Instance segmentation == forward
-
-        Args:
-            x (_type_): _description_
-
-        Returns:
-            _type_: _description_
-        """        
-        return self.forward(x)
-
-    def forward_embedding(self, x):
-        """used in Core-Set algorithms the create the embedding matrix
-
-        Args:
-            x (_type_): _description_
-
-        Returns:
-            _type_: _description_
-        """        
-        bs = len(x)
-        images = torch.stack(x)
-        return self.model.backbone(images)["pool"].view(bs, -1)
 
     def training_step(self, batch, batch_idx):
         img_b, target_b = self.prepare_batch(batch)
         bs = len(img_b)
 
-        loss_dict = self.model(img_b, target_b)
-        loss_dict["loss_total"] = sum(loss_dict.values())
+        dfine_output = self(img_b, target_b)
 
         self.log_dict(
-            loss_dict,
+            dfine_output.loss_dict,
             on_step=False,
             on_epoch=True,
             sync_dist=True,
@@ -259,7 +258,7 @@ class odModule(L.LightningModule):
             prog_bar=True,
         )
 
-        return {"loss": loss_dict["loss_total"]}
+        return {"loss": dfine_output.loss}
 
     def validation_step(self, batch, batch_idx):
         img_b, target_b = self.prepare_batch(batch)
@@ -271,12 +270,12 @@ class odModule(L.LightningModule):
     def on_validation_epoch_end(self):
         
         m = self.val_metrics.compute()
-        m = {i:j for i,j in m.items() if j.nelement() ==1}
+        m_single= {i:j for i,j in m.items() if j.nelement() ==1}
         
-        self.log_dict(m, on_epoch=True, sync_dist=False)
+        self.log_dict(m_single, on_epoch=True, sync_dist=False)
 
-        for i, class_id in enumerate(m["classes"]):
-            self.log(f"Validation/MAP {self.categories[class_id]}", m["map_per_class"][i])
+        for i, class_id in enumerate(m["Validation/classes"]):
+            self.log(f"Validation/MAP {self.categories[class_id]}", m["Validation/map_per_class"][i])
 
         self.val_metrics.reset()
         return
@@ -291,12 +290,12 @@ class odModule(L.LightningModule):
 
     def on_test_epoch_end(self):
         m = self.test_metrics.compute()
-        m = {i:j for i,j in m.items() if j.nelement() ==1}
+        m_single= {i:j for i,j in m.items() if j.nelement() ==1}
 
-        self.log_dict(m, on_epoch=True, sync_dist=False)
+        self.log_dict(m_single, on_epoch=True, sync_dist=False)
         
-        for i, class_id in enumerate(m["classes"]):
-            self.log(f"Test/MAP {self.categories[class_id]}", m["map_per_class"][i])
+        for i, class_id in enumerate(m["Test/classes"]):
+            self.log(f"Test/MAP {self.categories[class_id]}", m["Test/map_per_class"][i])
 
         self.test_metrics.reset()
 
@@ -309,7 +308,6 @@ class odModule(L.LightningModule):
             weight_decay=1e-4 * self.config.batch_size / 16,
         )
 
-        scheduler_nsteps = self.config.epochs * self.config.world_size
         # scheduler1 = torch.optim.lr_scheduler.CosineAnnealingLR(
         #     optimizer, T_max=scheduler_nsteps, eta_min=self.config.lr / 10
         # )
@@ -325,25 +323,6 @@ model = odModule(
 )
 
 ```
-
-
-
-```{python}
-index = np.random.randint(len(ds))
-with torch.no_grad():
-    model.eval()
-    o = model(ds[index][0].unsqueeze(0))
-
-
-with_boxes = draw_bounding_boxes(
-    ds[index][0],
-    o[0]["boxes"],
-    labels=[categories[i] for i in o[0]["labels"]]
-)
-plt.imshow(with_boxes.permute(1,2,0))
-```
-
-As you can see the model predictions are bad because he not trained yet.
 
 
 ```{python}
@@ -381,25 +360,12 @@ im, tar = next(iter(train_loader))
 tar
 ```
 
-
-
-```{python}
-
-metric = torchmetrics.detection.mean_ap.MeanAveragePrecision(
-                    # extended_summary=True, 
-                    iou_thresholds=np.linspace(0,1,20).tolist(),
-                    class_metrics=True, 
-                    iou_type="bbox",
-)
-
-with torch.no_grad():
-    o = model(im)
-
-metric(o, tar)
-```
-
 # Training
 
+All the training is shown here.
+The full training is happening here.
+ 
+the full training has not been done yet but no bug has been encountered in first batches.
 
 ```{python}
 model.train()
