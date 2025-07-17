@@ -46,20 +46,25 @@ uv init .
 uv pip install -r requirements.txt
 
 ```
-## Example of requirement.txt allowing training of deep neural network
+## All included requirement.txt
 
 ```txt
+omegaconf
+
 numpy
 pandas
 seaborn
 matplotlib
 
+typer
 
+pycocotools
+albumentationsX
+opencv-python
 torch
 torchvision
-opencv-python
+torchmetrics
 lightning
-albumentations
-
+transformers
 ```
 

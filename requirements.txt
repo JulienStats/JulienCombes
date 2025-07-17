@@ -1,0 +1,17 @@
+omegaconf
+
+numpy
+pandas
+seaborn
+matplotlib
+
+ipykernel
+
+pycocotools
+albumentationsX
+opencv-python
+torch
+torchvision
+torchmetrics
+lightning
+transformers
