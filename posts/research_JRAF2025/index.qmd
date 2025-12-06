@@ -1,0 +1,12 @@
+---
+title: JRAF 2025
+author: "Julien Combes"
+date: "2025-12-01"
+categories: [Phd, conference, ENG, Frugality]
+image: "image.jpeg"
+---
+
+
+JRAF : Journée de Recherche en Apprentissage Frugal (Days of research on Frugal Learning.)
+
+

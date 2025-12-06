@@ -135,13 +135,15 @@ class MyVoc(VOCDetection):
 Nothing special here, we show what the data looks like.
 
 ```{python}
+
+datarootdir = os.environ.get("DATA_ROOTPATH", "~/data_wsl/voc")
 ds = MyVoc(
-    root = "./data", 
+    root = os.path.join(datarootdir, "voc"), 
     download = False,
     image_set="train"
 )
 val_ds = MyVoc(
-    root = "./data", 
+    root = os.path.join(datarootdir, "voc"), 
     download = False,
     image_set="val",
 )
@@ -154,6 +156,7 @@ ds.draw_item()
 Modeling part is here, with the lightning module.
 ```{python}
 #| code-fold: true
+#| output: false
 config = OmegaConf.create({
     "lr": 1e-4,
     "batch_size":2,
@@ -371,13 +374,13 @@ the full training has not been done yet but no bug has been encountered in first
 model.train()
 trainer=  L.Trainer(
     max_epochs=3,
+    max_steps = 10, # limit training to make sure it works.
     precision = "16-mixed",
     enable_checkpointing=True,
-    num_sanity_val_steps=2,
+    num_sanity_val_steps=0,
     log_every_n_steps=50,
     check_val_every_n_epoch=1,
 )
 
-# trainer.fit(model, train_loader, val_loader)
-
+trainer.fit(model, train_loader, val_loader)
 ```

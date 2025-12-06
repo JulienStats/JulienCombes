@@ -9,6 +9,11 @@ website:
       - about.qmd
       - icon: github
         href: https://github.com/JulienStats
+    left:
+      - text: Research
+        href: research.qmd
+      - text: Publications
+        href: publications.qmd
         
 format:
   html:

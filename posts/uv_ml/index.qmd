@@ -8,9 +8,11 @@ image: "image.jpg"
 
 UV is a drop-in replacement for pip and global python installation.
 I allows the management of python versions and packages.
+So far i only used it as a replacement for conda/venv so i only have a shallow understanding of basic feature.
+The **build capabilities** are not handled in this page yet.
 
 
-# What is uv
+# What is uv
 
 uv is a python package manager that can replace pip and the installation of python itself on any machine.
 Its coded in rust and is make the management of python project very fast and robust.
@@ -39,14 +41,19 @@ uv python install 3.14
 # Creation on the environment
 
 Unlike conda, uv is based on project directories and not on global environments. So each project will have its own uv configuration.
+Here, you have two options.
+
+## Local quick environement
+
+Only use a local environement that will be used only for this project. This option is good for prototyping. 
 
 ```bash
-uv venv --python 3.12
-uv init .
-uv pip install -r requirements.txt
-
+uv venv --python 3.12 # <1>
+uv pip install -r requirements.txt # <2>
 ```
-## All included requirement.txt
+
+1. Creating the virtual environement in the current directory with the specified python version.
+2. Install all packages listed in requirement.txt in the local env. 
 
 ```txt
 omegaconf
@@ -67,4 +74,14 @@ torchmetrics
 lightning
 transformers
 ```
+## Complete and reproducible dev
 
+If you want a complete reproducible management of dependencies you should use the project features of uv.
+
+
+```bash
+uv init --python 3.14 . # <1>
+uv add -r requirements.txt # <2>
+```
+
+Here, uv will create 

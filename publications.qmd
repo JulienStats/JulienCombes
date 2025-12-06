@@ -1,0 +1,8 @@
+---
+title: Publications
+listing:
+  contents: 
+    - posts/publi*.qmd
+---
+
+How it will not be empty at the end of the Phd 😢.

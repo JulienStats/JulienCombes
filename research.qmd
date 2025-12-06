@@ -1,0 +1,8 @@
+---
+title: "research"
+listing:
+  contents:
+    - "posts/research_*.qmd"
+page-layout: full
+title-block-banner: true
+---

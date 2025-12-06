@@ -2,7 +2,7 @@
 title: "About"
 image: pp.jpeg
 about:
-  template: jolla
+  template: solana
   links:
     - icon: linkedin
       text: LinkedIn
@@ -12,7 +12,8 @@ about:
 This blog will serve as a self-reminder and a repository for useful software code that I can easily share with others.
 
 
-I am currently in the first year of a PhD in Applied Mathematics. My research focuses on active learning applied to computer vision.
+I am currently in the second year of a PhD in Applied Mathematics. My research focuses on active learning and uncertainty quantification applied to computer vision.
+
 I am doing my PhD at Michelin, where there is a high demand for machine vision and not enough experts to label the data.
 
-I love learning and am very curious but software development is far from being a strength.  
+I love learning and am very curious but software development is far from being a strength.

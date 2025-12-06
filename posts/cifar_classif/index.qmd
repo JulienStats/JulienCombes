@@ -29,9 +29,10 @@ import matplotlib.pyplot as plt
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
 import numpy as np
+import os
 # to make the transform usable by torchvision dataset it needs to be a function that takes an image as input and return an image as well
 
-
+datarootdir = os.environ.get("DATA_ROOTPATH")
 
 def train_trans(image)->torch.tensor:
     transform = A.Compose([
@@ -55,13 +56,13 @@ def test_trans(image)->torch.tensor:
     return transformed["image"]
 
 train_set = torchvision.datasets.CIFAR10(
-    root="data", 
+    root=os.path.join(datarootdir, "cifar10"), 
     download=True, 
     train=True,
     transform=train_trans)
 
 val_set = torchvision.datasets.CIFAR10(
-    root="data", 
+    root=os.path.join(datarootdir, "cifar10"), 
     download=True, 
     train=False,
     transform=test_trans)
@@ -126,7 +127,9 @@ class ClassificationModule(L.LightningModule):
         self.train_metric = metrics.clone(prefix="Train/")
         self.val_metrics = metrics.clone(prefix="Validation/")
         self.test_metrics = metrics.clone(prefix="Test/")
+        
 
+        # conditional performances of our estimator
         self.per_category_metrics = torchmetrics.MetricCollection([
             torchmetrics.classification.Accuracy(task = "multiclass", num_classes = num_classes, average = None),
             torchmetrics.F1Score(task = "multiclass", num_classes = num_classes, average = None),
