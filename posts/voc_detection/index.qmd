@@ -37,9 +37,10 @@ import torchmetrics
 import lightning as L
 from torchvision.models.detection import fasterrcnn_mobilenet_v3_large_fpn
 from typing import Dict, List, Optional
+import os
 ```
 
-d-fine expect bbox in coco format so we convert it in the get_item part.
+d-fine expectS bbox in coco format so we convert it in the get_item part.
 ```{python}
 
 categories = ['pottedplant', 'bottle', 'chair', 'diningtable', 'person', 'car', 'train', 'bus', 'bicycle', 'cat', 'aeroplane', 'tvmonitor', 'sofa', 'sheep', 'dog', 'bird', 'motorbike', 'horse', 'boat', 'cow', "bg"]

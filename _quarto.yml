@@ -6,6 +6,7 @@ website:
   title: "Julien Combes"
   navbar:
     right:
+      - bio.qmd
       - about.qmd
       - icon: github
         href: https://github.com/JulienStats
@@ -14,6 +15,8 @@ website:
         href: research.qmd
       - text: Publications
         href: publications.qmd
+      - text: My Phd
+        href: my_phd.qmd
         
 format:
   html:

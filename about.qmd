@@ -17,3 +17,16 @@ I am currently in the second year of a PhD in Applied Mathematics. My research f
 I am doing my PhD at Michelin, where there is a high demand for machine vision and not enough experts to label the data.
 
 I love learning and am very curious but software development is far from being a strength.
+
+My passions :) 
+
+:::{layout="[[1, 1, 1, 1]]"}
+
+![board games](brass.jpg)
+
+![Euphorbes](euphorbes.jpg)
+
+![Wine](tain.JPG)
+
+
+:::

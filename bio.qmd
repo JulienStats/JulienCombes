@@ -1,0 +1,9 @@
+---
+title: Bio
+---
+
+I am currently pursuing a Phd under the supervision of [Jean-Francois Coeurjolly](https://sites.google.com/site/homepagejfc/) and [Alexandre Dervillé](https://www.linkedin.com/in/alexandre-dervill%C3%A9-08479841/) which takes place between the R&D headquarters of Michelin in Clermont-Ferrand, and the [LJK](https://www-ljk.imag.fr/) in Grenoble. I am interested in active learning and uncertainty quantification applied to machine vision.
+
+I graduated from Grenoble University in Statistics and data science.
+
+I had a one year break in Omuta, Japan.

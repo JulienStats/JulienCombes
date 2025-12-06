@@ -1,8 +1,10 @@
 ---
-title: "research"
+title: "Research"
 listing:
+  type: grid
+  sort: "date desc"
   contents:
-    - "posts/research_*.qmd"
+    - "posts/research_*/*.qmd"
 page-layout: full
 title-block-banner: true
 ---

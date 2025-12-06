@@ -1,0 +1,43 @@
+---
+title: PAISS 2025
+subtitle: Summer SChool
+author: "Julien Combes"
+date: "2025-09-01"
+categories: [Phd, code, DeepLearning, ComputerVision, ENG]
+image: "image.jpeg"
+---
+
+Summer school about Machine Learning Where i presented a poster about the effect of data imbalance on active using on two industrial open source semantic segmentation datasets.
+
+![](poster.jpeg)
+
+
+
+## Posters
+
+![Quantification of resource usage of multiple model by [Matthieu](https://www.linkedin.com/in/matthieu-verlynde/)](poster_frugality.jpg)
+
+![Clean specular rflexion in machine vision using gaussian splatting.](poster_specular.jpg)
+
+
+## Discussions
+
+It was the first time since the start of my Phd that i could talk with someone about active learning and how hard it is to fight with random selection.
+I particularly want to thank Maxime who told me that MC Dropout sampling worked [@galDeepBayesianActive2017]. I could not believe that he said that AL works haha. But besides being computationaly very expensive it looks like it might work as well for me. So thank you very much !
+
+
+
+
+# Thanks
+
+:::{layout="[[1, 1]]"}
+![](mehdi_et_moi.jpg)
+
+![](pres_le.jpeg)
+:::
+
+
+
+I am so grateful to be able to go there and meet my good friends. I want to particularly thank my friends [Mehdi](https://www.linkedin.com/in/mehdi-gharbage-6459b91b1/), [Ilias](https://www.linkedin.com/in/ilias-rami-859430146/), [Maxime](https://www.linkedin.com/in/maxime-metz-0792a2160/), [Ivy](https://www.linkedin.com/in/ivy-tumoine-820204228/) and Thrung
+
+Talking with them was so fun and i learned a lot ! 

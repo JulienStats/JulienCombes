@@ -11,7 +11,7 @@ I want to gather tools that i find useful in this post.
 
 It can be related to bibliography, writing, coding or anything that pass to mind, it should be updated at some point when new things come to my mind.
 
-# Research 
+# Research
 
 ## Scholar inbox
 
@@ -20,9 +20,13 @@ You need to create an account an train a recommendation system based on literatu
 
 S/O to MG that let me know this tool !
 
+edit-0 : It makes the finding of new article very easy, but the rate at which new article are brought to you is higher than the reading speed unfortunately. So it just make your reading list increases haha. Still need to see how to manage it.
+
 ## Bibliography
 
 I can't recommend [Zotero](https://www.zotero.org/) enough. You can save article from the browser in one click. Read and annotate all in one place.
+
+**Folder VS Tags debate**: For the document management, i would recommend you to think of all the folders and subfolders you would make and not create them. Usually, one document belongs to multiple categories, and you don't want to duplicate all your sources et each folders/subfolders. That is why i would assign tags to each document at the time you add them to you library. That way, you can search your document by tag and it makes it very easy. 
 
 ## Note taking
 
@@ -50,6 +54,4 @@ That is why for my Deep Learning stack i chose to use the following libraries/fr
 - [Lightning](https://lightning.ai/docs/pytorch/stable/) : library that handle distributed training, validation testing with a full control over training loop.
 - [torchmetrics](https://lightning.ai/docs/torchmetrics/stable/) : Handle the computation of any metrics you would want in a distributed manner. You can write your own if you want and the device gathering will be taken care of. 
 - [SMP](https://segmentation-models-pytorch.readthedocs.io/en/latest/quickstart.html) : Set of models usable in semantic segmentation, there are losses as well (be careful when using them on empty mask)
-
-
-# 
+- [Torchcp](https://github.com/ml-stat-Sustech/TorchCP) : Library that contains the boilerplate to quantificate the uncertainty one gpu. I prefer to use this lib since all algorithms can be ran on GPU, and that is a requirement in computer vision.

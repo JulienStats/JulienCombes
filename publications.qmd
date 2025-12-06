@@ -2,7 +2,7 @@
 title: Publications
 listing:
   contents: 
-    - posts/publi*.qmd
+    - posts/publi*/*.qmd
 ---
 
-How it will not be empty at the end of the Phd 😢.
+Hope it will not be empty at the end of the Phd 😢.

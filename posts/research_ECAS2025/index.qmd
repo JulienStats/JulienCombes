@@ -1,0 +1,90 @@
+---
+title: ECAS 2025
+subtitle: Winter School
+author: "Julien Combes"
+date: "2025-12-05"
+categories: [Phd, productivity, ENG]
+image: "eglise.jpg"
+---
+
+Winter school where i learned about Conformal prediction (CP) and Transfert Learning.
+
+# Motivation
+
+My Phd relates to Active Learning, where we label images that would minimize the generalization error of an estimator on a dataset. To achieve this goal, two categories of strategies exists, we could focus on the estimator weaknesses where its estimated error is maximal. Or we could use a feature-based approach where we provide the network with as different items as possible.
+
+Strategies based on weaknesses like entropy selection relies on two hypotheses : 
+
+- The images for which the model is the least certain are the most informative ones
+- the prediction vector is a good estimator of the model uncertainty.
+
+The problem is that the second hypothesis is wrong, indeed, as we can see in this image taken from [@brunekreefKandinskyConformalPrediction2023].
+
+
+![The probabilities returned by the net doesn't correspond to the true probabilities of the prediction being predicted.](reliability_curve.png) 
+
+That is why one of my tasks is to quantify the uncertainty of the neural networks with better statistical guarantees, notably by using Conformal prediction. That part was address by the marvelous [Margaux Zaffran](https://mzaffran.github.io/). She took her time and her talk was very clear and well structured. I can't thank her enough for her time and hope i will be able to use CP in my work to improve labeling efficiency.
+
+The second problem is that in industry, the data in production is often different with the data in the database. Indeed, multiple shift can happen (covazriate and label shift mostly). We had the chance to have [Antoine De Mathelin](https://antoinedemathelin.github.io/homepage/) and [Mounir Atiq](https://fr.linkedin.com/in/mounir-atiq-a018159b) to talk about domain adaptation and all the possible methods to try to get the best of our models even where the production data isnot the same as the training data.
+
+And last but not least, we had [Mathilde Mougeot](https://www.linkedin.com/in/mathilde-mougeot-bb5a8a24/) talking about Physics informed neural networks (PINNS). It was the first time i have been exposed to this tool, i have to say i loved to see physics equations directly linked with the gradient descent to model mechanical contraints on tyre materials.
+
+## Conformal Prediction
+
+This is the field i want to become good at. Indeed, my PA fell in love with this field and im afraid i did too during this week. I met so nice people working on it and making the best use of this theoretical tool in the industry i want to make our computer vision more reliable as well.
+
+All the course and the slides are in this  [github repo](https://github.com/mzaffran/ECAS_SFdS_ConformalPrediction). The slides are clear and all the proofs are written as well.
+
+Complete book with theoretical proofs and explanations : [@angelopoulosTheoreticalFoundationsConformal2025].
+
+
+
+## Transfer Learning
+
+This field sounds specific but actually any statistician working with real world data will faced generalization problem one day or another.
+
+All the material is in this [github repo](https://github.com/mzaffran/ECAS_SFdS_ConformalPrediction)
+
+
+## Discussions
+
+
+For classification [@romanoClassificationValidAdaptive2020] provide very strong guarantee with adaptivity. That is what we need in active learning. RAPS
+Extensions with [@angelopoulosUncertaintySetsImage2022] improve this with smaller prediction sets. This gives hope in the use of CP in AL. When some defects are very rare conformal prediction garateeing only marginal coverage some classes might not be covered (no conditional coverage in general cases), she recommanded me the work of Tiffany Ding [@dingConformalPredictionLongTailed2025] in collaboration with Plantnet.
+
+She suggest Y-conditional conformal algorithms to guarantee that the coverage is verified for any classes with this paper [@dingClassConditionalConformalPrediction2023].
+
+This is still a area at the research stage but some solution exists to tackle our problems. We shall not forget that most of people using big neural network do not quantify the uncertainty at all. So it is nice to do the first step.
+
+---
+
+Antoine was so nice to give his insight about his past with active learning and domain transfert i really want to thank him again. He agree that active learning doesn't beat random in most cases, but he believes more in AL than in domain adaptation.... Let's do our best !
+
+It is normal for Al to bias the distribution, because if we didn't want to bias it we would have stayed with random sampling.
+
+:::{.callout-note}
+He prefers k-medoids over core-set selection. It must be similar to typiclust so i will work on that and see how i can make my best of it.
+:::
+
+He liked the idea of the potato project and was surprised that the AL could work that well in some cases. (Might be a bug ? i hope not...). He is not surprised that transfert in strategy independent. Indeed, when there is a distribution shift it is likely that nothing will help you in most real data cases. He notes that even for $\pi^u=10%$ AL can generalize well and beat random.
+
+
+# Thanks
+
+:::{layout="[[1, 1, 1]]"}
+
+![Ruins of an old chapel in Saint-Raphael](ruine.jpg)
+
+![Ice cream on a rainy day](glace.jpg)
+
+![Some roommate with my level in math](sangliers.jpg)
+
+:::
+
+This week has been the most intense of the Phd so far. 
+All the day was filled up with either insane classes or deep conversations. 
+I want to particularly thank 
+
+[Margaux](https://mzaffran.github.io/), [Louis](https://louistier.github.io/), [Guillaume1](https://www.imo.universite-paris-saclay.fr/fr/perso/guillaume-principato/), [Guillaume11](https://guillaumechennetier.owlstown.net/), [Francois](https://fr.linkedin.com/in/francois-victor), [Matthias](https://fr.linkedin.com/in/matthias-pierre-489435194) and [Paul](https://www.linkedin.com/in/paul-michaux-2a83181a1/).
+
+Thank you for all the good time guys. I hope i will be able to become like you one day.

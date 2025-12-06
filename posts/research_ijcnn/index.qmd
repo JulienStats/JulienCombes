@@ -1,0 +1,10 @@
+---
+title: IJCNN 2025
+subtitle: Conference
+author: "Julien Combes"
+date: "2025-06-25"
+categories: [Phd, code, DeepLearning, ComputerVision, ENG]
+image: "rome.jpg"
+---
+
+Conference about advances in deep learning. I had the immense to attend this event thanks to Michelin to support my friend and colleague [Thomas](https://www.linkedin.com/in/thomas-mignot-07319a187/) who presented his work on multilabel instance segmentation applied to machine vision applications.

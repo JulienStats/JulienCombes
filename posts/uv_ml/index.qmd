@@ -47,8 +47,13 @@ Here, you have two options.
 
 Only use a local environement that will be used only for this project. This option is good for prototyping. 
 
+
+
+In order to manage the part with GPU compatibilities, uv provides an [help page](https://docs.astral.sh/uv/guides/integration/pytorch/) to get the torch versions matching your locally installed cuda : 
+
 ```bash
 uv venv --python 3.12 # <1>
+uv pip install torch torchvision --torch-backend=auto
 uv pip install -r requirements.txt # <2>
 ```
 
@@ -68,12 +73,12 @@ typer
 pycocotools
 albumentationsX
 opencv-python
-torch
-torchvision
 torchmetrics
 lightning
 transformers
 ```
+
+
 ## Complete and reproducible dev
 
 If you want a complete reproducible management of dependencies you should use the project features of uv.
@@ -81,7 +86,8 @@ If you want a complete reproducible management of dependencies you should use th
 
 ```bash
 uv init --python 3.14 . # <1>
+uv pip install torch torchvision --torch-backend=auto
 uv add -r requirements.txt # <2>
 ```
 
-Here, uv will create 
+Here, uv will create a full pyproject.toml where the python version and all the dependencies whith their versions are saved.

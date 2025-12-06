@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="Calque_2"
+   data-name="Calque 2"
+   viewBox="0 0 211.55724 397.57002"
+   version="1.1"
+   width="211.55725"
+   height="397.57001"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs19">
+    <style
+       id="style2">
+      .cls-1, .cls-2 {
+        fill: #7ac9e4;
+        stroke: #79c8e2;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        stroke-linecap: round;
+        stroke-width: 7px;
+      }
+
+      .cls-3 {
+        fill: url(#Dégradé_sans_nom_21);
+        stroke-width: 0px;
+      }
+    </style>
+    <linearGradient
+       id="degrade_flamme"
+       data-name="dégradé flamme"
+       x1="588.21997"
+       y1="60.970001"
+       x2="588.21997"
+       y2="362.67001"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-482.4227,-60.96)">
+      <stop
+         offset="0"
+         stop-color="#ffeb28"
+         id="stop4" />
+      <stop
+         offset=".1"
+         stop-color="#fde327"
+         id="stop6" />
+      <stop
+         offset=".24"
+         stop-color="#f9cf27"
+         id="stop8" />
+      <stop
+         offset=".42"
+         stop-color="#f2ad26"
+         id="stop10" />
+      <stop
+         offset=".61"
+         stop-color="#e87f25"
+         id="stop12" />
+      <stop
+         offset=".83"
+         stop-color="#dc4423"
+         id="stop14" />
+      <stop
+         offset="1"
+         stop-color="#d11022"
+         id="stop16" />
+    </linearGradient>
+  </defs>
+  <path
+     class="cls-3"
+     d="m 81.727304,300.39 c -0.03,0.05 -57.65,-18.8 -75.3399999,-60.82 -17.6900001,-42.01 6.9399999,-101.77 7.2899999,-102.58 0,0 0,0 0,0 -1.76,24.57 -2.92,39.2 2.92,47.98 0,0 0,0 0,0 4.52,-27.64 12.93,-47.52 35.61,-76.31 9.87,-12.54 18.35,-26.14 24.97,-40.66 12.15,-26.69 14.07,-46.29 -26.61,-68 0,0 0,0 0,0 46.24,9.37 94.229996,39.81 117.049996,156.86 0,0 0,0 0,0 2.34,-18.73 5.26,-40.96 -6.44,-67.3 0,0 0,0 0,0 0,0 35.85,30.6 46.96,73.17 0.96,3.68 12.32,49.94 -12.52,89.18 -22.44,35.46 -64.95,50.2 -65.22,49.78 -0.12,-0.18 7.34,-3.58 14.88,-11.34 0,0 15.63,-16.09 19.54,-46.55 3.94,-30.65 -15.81,-81.65 -59.26,-132 0.69,3.3 1.34,8.19 0.73,14.05 -0.26,2.5 -0.91,6.75 -2.78,11.63 -2.66,6.92 -6.729996,12.76 -12.589996,20.57 0,0 0,0 0,0 -9.95,13.46 -19.31,18.73 -18.73,45.64 0,0 0,0 0,0 0,0 0,0 0,0 0,0 -7.73,-5.38 -7.79,-17.9 -0.01,-2.26 0.23,-4.1 0.49,-5.46 0.35,-1.86 0.64,-2.72 0.59,-2.73 -0.29,-0.1 -21.59,31.45 -17.82,66.61 0.32,2.96 3.99,33.25 26.59,51.22 4.27,3.39 7.47,4.96 7.46,4.98 z"
+     id="path21"
+     style="fill:url(#degrade_flamme)" />
+  <line
+     class="cls-2"
+     x1="106.52731"
+     y1="224.83998"
+     x2="106.52731"
+     y2="374.41"
+     id="line23"
+     style="fill:#02ccfc;fill-opacity:1;stroke:#02ccfc;stroke-opacity:1" />
+  <line
+     class="cls-2"
+     x1="91.597321"
+     y1="245.33"
+     x2="91.597321"
+     y2="326.70001"
+     id="line25"
+     style="fill:#02ccfc;fill-opacity:1;stroke:#02ccfc;stroke-opacity:1" />
+  <line
+     class="cls-2"
+     x1="91.597321"
+     y1="326.70001"
+     x2="37.157322"
+     y2="326.70001"
+     id="line27"
+     style="fill:#02ccfc;fill-opacity:1;stroke:#02ccfc;stroke-opacity:1" />
+  <line
+     class="cls-2"
+     x1="121.15732"
+     y1="250.30998"
+     x2="121.15732"
+     y2="357.72"
+     id="line29"
+     style="fill:#02ccfc;fill-opacity:1;stroke:#02ccfc;stroke-opacity:1" />
+  <line
+     class="cls-2"
+     x1="158.91733"
+     y1="357.72"
+     x2="121.30728"
+     y2="357.72"
+     id="line31"
+     style="fill:#02ccfc;fill-opacity:1;stroke:#02ccfc;stroke-opacity:1" />
+  <circle
+     class="cls-1"
+     cx="106.52731"
+     cy="385.74002"
+     r="11.33"
+     id="circle33"
+     style="fill:#02ccfc;fill-opacity:1;stroke:#02ccfc;stroke-opacity:1" />
+  <circle
+     class="cls-1"
+     cx="32.977329"
+     cy="326.94"
+     r="11.33"
+     id="circle35"
+     style="fill:#02ccfc;fill-opacity:1;stroke:#02ccfc;stroke-opacity:1" />
+  <circle
+     class="cls-1"
+     cx="162.71732"
+     cy="357.72"
+     r="11.33"
+     id="circle37"
+     style="fill:#02ccfc;fill-opacity:1;stroke:#02ccfc;stroke-opacity:1" />
+</svg>

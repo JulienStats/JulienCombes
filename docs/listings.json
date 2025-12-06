@@ -1,0 +1,28 @@
+[
+  {
+    "listing": "/research.html",
+    "items": [
+      "/posts/research_ECAS2025/index.html",
+      "/posts/research_JRAF2025/index.html",
+      "/posts/research_PAISS2025/index.html",
+      "/posts/research_ijcnn/index.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/research_ECAS2025/index.html",
+      "/posts/research_JRAF2025/index.html",
+      "/posts/research_PAISS2025/index.html",
+      "/posts/research_ijcnn/index.html",
+      "/posts/voc_detection/index.html",
+      "/posts/phd_tools/index.html",
+      "/posts/uv_ml/index.html",
+      "/posts/cifar_classif/index.html"
+    ]
+  },
+  {
+    "listing": "/publications.html",
+    "items": []
+  }
+]
