@@ -20,13 +20,11 @@ I love learning and am very curious but software development is far from being a
 
 My passions :) 
 
-:::{layout="[[1, 1, 1, 1]]"}
+:::{layout="[[1, 1], [1]]"}
 
 ![board games](brass.jpg)
 
-![Euphorbes](euphorbes.jpg)
-
 ![Wine](tain.JPG)
 
-
+![Euphorbes](euphorbes.jpg)
 :::
