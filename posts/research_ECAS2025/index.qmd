@@ -44,7 +44,7 @@ Linear regression with gaussian hypothesis allow a good uncertainty quantificati
 
 Given a labeled dataset of size n $(X_i,Y_i)^n_{i=1}$, we want to be able to predict a new point $X_{n+1}$ with confidence.
 
-Meaning that for any user defined risk $\alpha <_in [0,1]$,  $\mathcal{P}\{Y_{n+1} \in \mathcal{C}_{\alpha}(X_{n+1})\} \geq 1 - \alpha$. $\mathcal{C}_{\alpha}$ should be as small as possible to be informative. Indeed the case where $\mathcal{C}_{\alpha} = \mathcal{Y}$ verifies the $1-\alpha$ coverage but provides no information about the predictive uncertainty.
+Meaning that for any user defined risk $\alpha \in [0,1]$,  $\mathcal{P}\{Y_{n+1} \in \mathcal{C}_{\alpha}(X_{n+1})\} \geq 1 - \alpha$. $\mathcal{C}_{\alpha}$ should be as small as possible to be informative. Indeed the case where $\mathcal{C}_{\alpha} = \mathcal{Y}$ verifies the $1-\alpha$ coverage but provides no information about the predictive uncertainty.
 
 :::{.callout-note title="Exchangeability"}
 
@@ -95,11 +95,11 @@ All the material is in this [github repo](https://github.com/mzaffran/ECAS_SFdS_
 
 
 For classification [@romanoClassificationValidAdaptive2020] provide very strong guarantee with adaptivity. That is what we need in active learning. RAPS
-Extensions with [@angelopoulosUncertaintySetsImage2022] improve this with smaller prediction sets. This gives hope in the use of CP in AL. When some defects are very rare conformal prediction garateeing only marginal coverage some classes might not be covered (no conditional coverage in general cases), she recommanded me the work of Tiffany Ding [@dingConformalPredictionLongTailed2025] in collaboration with Plantnet.
+Extensions with [@angelopoulosUncertaintySetsImage2022] improve this with smaller prediction sets. This gives hope in the use of CP in AL. When some defects are very rare conformal prediction garanteeing only marginal coverage some classes might not be covered (no conditional coverage in general cases), she recommanded me the work of Tiffany Ding [@dingConformalPredictionLongTailed2025] in collaboration with Plantnet.
 
 She suggest Y-conditional conformal algorithms to guarantee that the coverage is verified for any classes with this paper [@dingClassConditionalConformalPrediction2023].
 
-This is still a area at the research stage but some solution exists to tackle our problems. We shall not forget that most of people using big neural network do not quantify the uncertainty at all. So it is nice to do the first step.
+This is still an area at the research stage but some solution exists to tackle our problems. We shall not forget that most of people using big neural network do not quantify the uncertainty at all. So it is nice to do the first step.
 
 ---
 
