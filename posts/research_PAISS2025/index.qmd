@@ -11,16 +11,333 @@ Summer school about Machine Learning Where i presented a poster about the effect
 
 ![](poster.jpeg)
 
+# Semi detailed Report
 
 
-## Posters
+# Lundi 01 Sep
 
-![Quantification of resource usage of multiple model by [Matthieu](https://www.linkedin.com/in/matthieu-verlynde/)](poster_frugality.jpg)
+## Talk 1 : Progress and Prospects in Learning, Optimization, Control and Simulation for Robotics (Justin Carpentier)
 
-![Clean specular rflexion in machine vision using gaussian splatting.](poster_specular.jpg)
+https://mybox.inria.fr/f/7f7567f241434eb9a0c2/?dl=1
+
+Three way of designing software to solve robotics problems :
+
+- Optimal control : Require clear definition fo the problem we want to solve, give the best solutions
+- Policy Learning : Reinforcement Learning (Not Deep)
+- Vision language action flow model for general robot control
+
+Control policies require simulation to train policies. A good reprensentation the world the robot will live in is essential.
+Trainng Deep RL is cotly and involve huge carbon footprint.
+
+**Solution proposed** : Less data + exploiting gradients
+
+GJK algorithm (compute distance between 2 object of any arbitrary shape efficiently) (GJK++)
 
 
-## Discussions
+## Talk 2 : Retrieving, Generating, and Refining for Web-Scale (Ahmet Iscen)
+
+https://paiss.inria.fr/files/2025/09/PAISS-2025-Summer-School.pdf
+
+Fine grained classification is classification with a precise description of what there is in an image (not bird but what specy of bird.)
+
+- Multimodle situations (Text/image) [@iscenRetrievalEnhancedContrastiveVisionText2024]
+- GERALD [@caronGenerativeApproachWikipediaScale2024]
+- LLM data curation [@caronWebScaleVisualEntity2024]
+
+## Talk 3 : LLM training and inference efficiency (Jeremy Reizenstein)
+
+- [x]
+
+> Don't do LLMs (Yann LeCun)
+
+## Poster session
+
+I was presenting so i could not see the other ones.
+Advice from the people who camed to see me : 
+
+- try to get the embeddings from images using Dinov3 without SSL pretraining
+- change the backbone of the mask rcnn to be able to plug in a pre trained backbone.
+- adding other SOTA method (BALD) and benchmark on SOTA datasets instead of potatoes
+- Adding SSL methods to see how the imbalance affects ssl pre-training (MAE, I-JEIPA)
+
+# Mardi 02 Sep
+
+
+
+## Talk 1 : Diffusion Flows and Optimal Transport in Machine Learning (Gabriel Peyré)
+
+
+![](images/OT_diff.png)
+
+
+SemiSlides : https://speakerdeck.com/gpeyre/computational-ot-number-4-gradient-flow-and-diffusion-models?slide=22
+Code : https://github.com/gpeyre/ot4ml/blob/main/README.md
+
+Distribution of what ? 
+
+- points (flow matching)
+- neurons
+- tokens ...
+
+Tways of representing distributions : 
+
+Distribution of points (eulerian $\alpha_t$) VS Distribution of vector fields $v_t$ (Lagrangian : points + behaviour).
+
+Go from lagrangian to eulerian is easy, not the opposite.
+$$div(\alpha_t v_t) + \frac{\partial \alpha_t}{dt} = 0$$
+
+How to go from $\alpha_t$ to $v_t$ ? 
+
+- Otto Calculus (having $\alpha_t$)
+- Stochastic interpolant (i don't have $\alpha_t$)
+- Wasserstein distance
+- Diffusion
+- Wasserstein Gradient Flow
+
+
+## Talk 2 : Learning to Control: An Introduction to Reinforcement Learning (Claire Vernade)
+
+RL is not always Deep ! 
+
+Control theory
+
+RL approximate bellmann operations
+
+
+## Talk 3 : A Collectivist, Economic Perspective on AI (Michael Jordan)
+
+What is intelligence ? 
+The most basic form of intelligence are free markets.
+
+
+## Poster session
+
+- link knowledge graph with image embedding to give meaning to images
+- Creating a method to compare the power efficency for a given model to select the one that has required performance with the least amount of energy consumed. use of evchenko measure
+
+
+# Mercredi 03 Sep
+
+## Talk 1 : AI Security (Lê Nguyên Hoang)
+
+It's possible to recover training data from any trained DL model.
+Three weekness of DL models :
+
+- Data Exfiltration
+- Evasion
+- Poisoning
+
+Agentic AI dramaticaly increases those risks.
+
+5 things to do to protect DL systems to break 
+
+- Continuous monitoring
+- Sandboxing with least privilege
+- Redundancy (Byzantine aggregation rule)
+- Reducing the attack surface (Data Taggant)
+- HR upskilling
+
+
+
+## Talk 2 : governance of AI (Carina Prunkl)
+
+4 risks of using AI systems : 
+
+- misusage
+- unexpected behaviour
+- systemic risks
+- Fairness
+
+Who is accountable if an AI system breaks ?
+
+Ruling : EU AI Act
+
+Risk scale : 
+minimal < < high < unacceptable 
+
+NIST AI : risk management framework
+
+Regulation is not always the answer for AI risks : 
+
+- high risk uncertainty
+- cultural norms 
+- complex or context dependant issues
+- enforcement impossible
+
+Corporate governance is not recommandable unless : 
+
+- Committment free of ...
+- third party monitoring
+- third party enforcement
+- Public scrutiny
+
+
+Midstream Governance :
+
+Neurips add a section where researchers have to suggest what uses (good or bad) could be done by their research.
+
+## Talk 3 : Intro to stat fairness (Solenne Gaucher)
+
+Fairness with awareness or unawareness.
+Awareness require the discriminant data to be collect to check of a discrimination is in place regarding thos criterion.
+
+Individual fairness != Group level fairness;
+
+Fairness properties in classification : 
+$$(X, S, Y) \in \mathbb{R}^d \times [K] \times \{0, 1 \}$$
+
+X : Resume, S : group, Y : is the person qualified
+
+- Demographic parity (DP): 
+
+$$P(g(Z)=1|S=s) = P(g(Z)=1) \forall s \in K$$
+
+- Equality of opportunity (EO)
+
+$$P(g(Z)=1|S=s, Y=1) =  P(g(Z)=1|Y=1)$$
+
+
+Fairness properties in Regression : 
+
+
+- DP, Separation, Sufficiency
+
+
+## talk 4 : AI ethics in practice (Mariia Vladimirova)
+
+https://paiss.inria.fr/files/2025/09/vladimirova_paiss25_tutorial.pdf
+
+https://github.com/fairlearn/fairlearn
+
+
+# Jeudi 04 Sep
+
+## Talk 1 : Data-Driven 3D Vision (Jerome revaud)
+
+https://paiss.inria.fr/files/2025/09/3dpres.pdf
+
+SSl methods that works for 3d representation with a 2d acquisition.
+
+They made impossible matching possible ! What the fuck guys ! Insane
+
+Traditional CV (COLMAP): **Establishing correspondances amoung multive views of the same scene : Structure from motion**
+
+![](images/structure%20from%20motion.png)
+Require mulstple image for correspondance !! 
+
+![Impossible mathching](images/impossible_mathcing.png)
+
+Need for a fundational model of 3D reconstruction, what we want this model to do ? 
+
+- establish correspondance between images
+- infer 3D geometry
+- infer relative camera poes
+- decompose motion and lighting
+
+We need a pretext task to make sure the model will become able to solve those tasks !
+
+![Croco : Cross view completion](images/croco.png)
+
+Now need to fine tune this  ! Because fondation models are useles, they only have BIG BRAIN
+
+![](images/bigbrain.jpg){width="20%"}
+
+
+![mamacita la team CVPR BIG BRAIN](images/Duster.png)
+
+
+etc etc....
+
+:::{.callout-note}
+
+Euh ???? Why MAE when you know its shit ? MDR Jeipa 🤣
+
+:::
+
+## Talk 2 : World Models (Yann LeCun)
+
+
+**Autoregressive models SUCKS and are DOOMED**.
+
+The errors increase whith the number of steps ahead you are trying to predict. that is why we have to work on the prediction on the full sequence instead of the next token.
+
+
+
+![MAE generate all the data and details including irrelvant ones. The SSL models need to thinks like HUMANS in an abstract space](images/mae_jeipa.png)
+
+
+AGI is a bad namingand should be replaced by AMI (Advanced Machine Inteligence)
+
+I didn't understand that well but the second part is about about energy based models : 
+
+![](images/energy_based_models.png)
+
+The last part is about world models, basically i understood the folowing, autoregressive methods have the problem of increasing error with the number of predicted steps. While the world models predict the full sequence until the end of the experiment.
+
+![](images/sequential_world_models.png)
+
+::: {.callout-note}
+For SSl pre-training its preferable to use IJEPA models.
+:::
+
+## Talk 3 : Video Understanding Out of the Frame - an Egocentric Perspective (Dima Damen)
+
+https://dimadamen.github.io/pdfs/PAISS2025-90min-Tutorial-DimaDamen.pdf
+
+Egocentric dataset and study for the use case of 2050 technologies (glasses cameras, augmented reality)
+
+How to label egocentric videos/objects ? 
+What is an egg ? full egg ? cracked egg ? 
+
+![](images/whatisanegg.png)
+
+Multi modal learning, 
+
+Cooking-recipe linked to egocentric videos of people doing the recipe while explaining what they do.
+
+
+## Poster session
+
+Model assisted Labeling for small objects with pretrained transformers. 
+
+
+Solving the  traveling salesman problem (TSP) with DL. 
+Worse and less efficient.
+
+
+GreenIT compare model performance with energy efficiency to limit carbon footprint.
+![Quantification of resource usage of multiple model by [Matthieu](https://www.linkedin.com/in/matthieu-verlynde/)](images/poster_greenit.jpg)
+
+
+::: {.callout-note}
+
+Manage specular reflection with by comparing a gaussian splatted 3d version of an healthy referecnce
+
+:::
+
+![Clean specular reflexion in machine vision using gaussian splatting.](images/machine_vision_gaussian_splating.jpg)
+
+# Vendredi 05 Sep
+
+## Causal Effect Estimation with Context and Confounders (ArthurGretton)
+
+Doing DAG helps ! 
+
+
+
+## Weakly Supervised Multi-Label Plant Species Prediction with Multimodal Data (Lukáš Picek)
+
+PlantNet, kaggle challenge not bad but hard to get on foot with it. 
+Nice to hear the plantnet project by the way, lets contribute ! 
+
+
+
+## Experiences from training Magistral (reasoning) and Voxtral (audio) models at Mistral (Timothée Lacroix)
+
+LLM = shit (df YLC)
+
+
+# Discussions
 
 It was the first time since the start of my Phd that i could talk with someone about active learning and how hard it is to fight with random selection.
 I particularly want to thank Maxime who told me that MC Dropout sampling worked [@galDeepBayesianActive2017]. I could not believe that he said that AL works haha. But besides being computationaly very expensive it looks like it might work as well for me. So thank you very much !

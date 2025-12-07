@@ -18,14 +18,14 @@
     "href": "posts/research_ECAS2025/index.html",
     "title": "ECAS 2025",
     "section": "",
-    "text": "Winter school where i learned about Conformal prediction (CP) and Transfert Learning."
+    "text": "Winter school where i learned about Conformal prediction (CP) and Transfert Learning. ECAS : European course in advanced statistics."
   },
   {
     "objectID": "posts/research_ECAS2025/index.html#conformal-prediction",
     "href": "posts/research_ECAS2025/index.html#conformal-prediction",
     "title": "ECAS 2025",
     "section": "Conformal Prediction",
-    "text": "Conformal Prediction\nThis is the field i want to become good at. Indeed, my PA fell in love with this field and im afraid i did too during this week. I met so nice people working on it and making the best use of this theoretical tool in the industry i want to make our computer vision more reliable as well.\nAll the course and the slides are in this github repo. The slides are clear and all the proofs are written as well.\nComplete book with theoretical proofs and explanations : (A. N. Angelopoulos, Barber, and Bates 2025)."
+    "text": "Conformal Prediction\nThis is the field i want to become good at. Indeed, my PA fell in love with this field and im afraid i did too during this week. I met so nice people working on it and making the best use of this theoretical tool in the industry i want to make our computer vision more reliable as well.\nAll the course and the slides are in this github repo. The slides are clear and all the proofs are written as well.\nComplete book with theoretical proofs and explanations : (A. N. Angelopoulos, Barber, and Bates 2025).\nShort Summary:\nLinear regression with gaussian hypothesis allow a good uncertainty quantification (UQ) using gaussian hypotheses for parameters and target variable. Some situation where models are bigger and does not follow any assumptions over parameter values makes UQ impossible using any assumption on model or errors. That is the problem CP is solving, given one only hypotheses (exchangeability of non conformity scores) it allows a good UQ which is distribution free (no assumpotion over the data distribution) and model agnostic (independent on the estimator). This is very good because in deep learning we litteraly have no tool to quantify uncertainty with statistical guarantees.\nGiven a labeled dataset of size n \\((X_i,Y_i)^n_{i=1}\\), we want to be able to predict a new point \\(X_{n+1}\\) with confidence.\nMeaning that for any user defined risk \\(\\alpha &lt;_in [0,1]\\), \\(\\mathcal{P}\\{Y_{n+1} \\in \\mathcal{C}_{\\alpha}(X_{n+1})\\} \\geq 1 - \\alpha\\). \\(\\mathcal{C}_{\\alpha}\\) should be as small as possible to be informative. Indeed the case where \\(\\mathcal{C}_{\\alpha} = \\mathcal{Y}\\) verifies the \\(1-\\alpha\\) coverage but provides no information about the predictive uncertainty.\n\n\n\n\n\n\nNoteExchangeability\n\n\n\n\\((Z_i)^n_{i=1}\\) a random vector taking values in \\(\\mathcal{Z}^n\\) is exchangeable if, for any permutation \\(\\sigma\\) of \\([0,1]\\) :\n\\[(Z_1, ..., Z_n) \\stackrel{d}{=} (Z_{\\sigma(1)}, ..., Z_{\\sigma(n)})\\]\n\n\nhow does it work ? (Split conformal Prediction setting)\nIn machine vision, our models are so big we can’t afford doing LOO Cross validation or cross validation with Full Conformal Paradigm. We will focus on the Split Case.\n\nSplit your date into Train, Calibration and Test splits\nTrain A to get \\(\\hat{\\mu}\\) on Train\nCompute \\(\\hat{\\mu}\\) on Cal\nObtain a set of non conformity scores\n\n\\[S = \\{S_i = |\\hat{\\mu}(X_i) - Y_i|, i \\in Cal \\} \\cup \\{+\\infty \\}\\]\n\nCompute the \\(1 - \\alpha\\) quantile of these scores, noted \\(q_{1-\\alpha}(S)\\)\nFor a new point \\(X_{n+1}\\), return :\n\n\\[\\hat{C}_{\\alpha}(X_{n+1}) = [\\hat{\\mu}(X_{n+1})- q_{1-\\alpha}(S), \\hat{\\mu}(X_{n+1})+ q_{1-\\alpha}(S)]\\]\nThe guarantee of those predictor are the following :\n\\(\\mathbb{P}\\{ Y_{n+1} \\in \\mathcal{C}_{\\alpha}(X_{n+1}) \\} = 1 - \\alpha\\) This is the marginal guarantee, meaning that for all our predictions, at least \\((1-\\alpha)\\%\\) of the test points will be covered. But there might be some sub categories that are not covered at all.\n\n\n\n\n\n\nNote\n\n\n\nIn active learning we want to estimate the uncertainty of the model for one specific data point. What we would like to have is conditional converage, being :\n\\(\\mathbb{P}\\{ Y_{n+1} \\in \\mathcal{C}_{\\alpha}(X_{n+1})| X_{n+1} \\} = 1 - \\alpha\\).\nThis is adaptative methods. Some paper made adaptative method for classification with very strong guarantees. (see section discussion with litterature recommendations recarding this matter).\n\n\n\n\n\nIllustration of different coverages. (Again taken from the notes of Margaux)"
   },
   {
     "objectID": "posts/research_ECAS2025/index.html#transfer-learning",
@@ -77,18 +77,137 @@
     "text": "Summer school about Machine Learning Where i presented a poster about the effect of data imbalance on active using on two industrial open source semantic segmentation datasets."
   },
   {
-    "objectID": "posts/research_PAISS2025/index.html#posters",
-    "href": "posts/research_PAISS2025/index.html#posters",
+    "objectID": "posts/research_PAISS2025/index.html#talk-1-progress-and-prospects-in-learning-optimization-control-and-simulation-for-robotics-justin-carpentier",
+    "href": "posts/research_PAISS2025/index.html#talk-1-progress-and-prospects-in-learning-optimization-control-and-simulation-for-robotics-justin-carpentier",
     "title": "PAISS 2025",
-    "section": "Posters",
-    "text": "Posters\n\n\n\nQuantification of resource usage of multiple model by Matthieu\n\n\n\n\n\nClean specular rflexion in machine vision using gaussian splatting."
+    "section": "Talk 1 : Progress and Prospects in Learning, Optimization, Control and Simulation for Robotics (Justin Carpentier)",
+    "text": "Talk 1 : Progress and Prospects in Learning, Optimization, Control and Simulation for Robotics (Justin Carpentier)\nhttps://mybox.inria.fr/f/7f7567f241434eb9a0c2/?dl=1\nThree way of designing software to solve robotics problems :\n\nOptimal control : Require clear definition fo the problem we want to solve, give the best solutions\nPolicy Learning : Reinforcement Learning (Not Deep)\nVision language action flow model for general robot control\n\nControl policies require simulation to train policies. A good reprensentation the world the robot will live in is essential. Trainng Deep RL is cotly and involve huge carbon footprint.\nSolution proposed : Less data + exploiting gradients\nGJK algorithm (compute distance between 2 object of any arbitrary shape efficiently) (GJK++)"
   },
   {
-    "objectID": "posts/research_PAISS2025/index.html#discussions",
-    "href": "posts/research_PAISS2025/index.html#discussions",
+    "objectID": "posts/research_PAISS2025/index.html#talk-2-retrieving-generating-and-refining-for-web-scale-ahmet-iscen",
+    "href": "posts/research_PAISS2025/index.html#talk-2-retrieving-generating-and-refining-for-web-scale-ahmet-iscen",
     "title": "PAISS 2025",
-    "section": "Discussions",
-    "text": "Discussions\nIt was the first time since the start of my Phd that i could talk with someone about active learning and how hard it is to fight with random selection. I particularly want to thank Maxime who told me that MC Dropout sampling worked (Gal, Islam, and Ghahramani 2017). I could not believe that he said that AL works haha. But besides being computationaly very expensive it looks like it might work as well for me. So thank you very much !"
+    "section": "Talk 2 : Retrieving, Generating, and Refining for Web-Scale (Ahmet Iscen)",
+    "text": "Talk 2 : Retrieving, Generating, and Refining for Web-Scale (Ahmet Iscen)\nhttps://paiss.inria.fr/files/2025/09/PAISS-2025-Summer-School.pdf\nFine grained classification is classification with a precise description of what there is in an image (not bird but what specy of bird.)\n\nMultimodle situations (Text/image) (Iscen et al. 2024)\nGERALD (Caron, Iscen, et al. 2024)\nLLM data curation (Caron, Fathi, et al. 2024)"
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#talk-3-llm-training-and-inference-efficiency-jeremy-reizenstein",
+    "href": "posts/research_PAISS2025/index.html#talk-3-llm-training-and-inference-efficiency-jeremy-reizenstein",
+    "title": "PAISS 2025",
+    "section": "Talk 3 : LLM training and inference efficiency (Jeremy Reizenstein)",
+    "text": "Talk 3 : LLM training and inference efficiency (Jeremy Reizenstein)\n\n[x]\n\n\nDon’t do LLMs (Yann LeCun)"
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#poster-session",
+    "href": "posts/research_PAISS2025/index.html#poster-session",
+    "title": "PAISS 2025",
+    "section": "Poster session",
+    "text": "Poster session\nI was presenting so i could not see the other ones. Advice from the people who camed to see me :\n\ntry to get the embeddings from images using Dinov3 without SSL pretraining\nchange the backbone of the mask rcnn to be able to plug in a pre trained backbone.\nadding other SOTA method (BALD) and benchmark on SOTA datasets instead of potatoes\nAdding SSL methods to see how the imbalance affects ssl pre-training (MAE, I-JEIPA)"
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#talk-1-diffusion-flows-and-optimal-transport-in-machine-learning-gabriel-peyré",
+    "href": "posts/research_PAISS2025/index.html#talk-1-diffusion-flows-and-optimal-transport-in-machine-learning-gabriel-peyré",
+    "title": "PAISS 2025",
+    "section": "Talk 1 : Diffusion Flows and Optimal Transport in Machine Learning (Gabriel Peyré)",
+    "text": "Talk 1 : Diffusion Flows and Optimal Transport in Machine Learning (Gabriel Peyré)\n\nSemiSlides : https://speakerdeck.com/gpeyre/computational-ot-number-4-gradient-flow-and-diffusion-models?slide=22 Code : https://github.com/gpeyre/ot4ml/blob/main/README.md\nDistribution of what ?\n\npoints (flow matching)\nneurons\ntokens …\n\nTways of representing distributions :\nDistribution of points (eulerian \\(\\alpha_t\\)) VS Distribution of vector fields \\(v_t\\) (Lagrangian : points + behaviour).\nGo from lagrangian to eulerian is easy, not the opposite. \\[div(\\alpha_t v_t) + \\frac{\\partial \\alpha_t}{dt} = 0\\]\nHow to go from \\(\\alpha_t\\) to \\(v_t\\) ?\n\nOtto Calculus (having \\(\\alpha_t\\))\nStochastic interpolant (i don’t have \\(\\alpha_t\\))\nWasserstein distance\nDiffusion\nWasserstein Gradient Flow"
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#talk-2-learning-to-control-an-introduction-to-reinforcement-learning-claire-vernade",
+    "href": "posts/research_PAISS2025/index.html#talk-2-learning-to-control-an-introduction-to-reinforcement-learning-claire-vernade",
+    "title": "PAISS 2025",
+    "section": "Talk 2 : Learning to Control: An Introduction to Reinforcement Learning (Claire Vernade)",
+    "text": "Talk 2 : Learning to Control: An Introduction to Reinforcement Learning (Claire Vernade)\nRL is not always Deep !\nControl theory\nRL approximate bellmann operations"
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#talk-3-a-collectivist-economic-perspective-on-ai-michael-jordan",
+    "href": "posts/research_PAISS2025/index.html#talk-3-a-collectivist-economic-perspective-on-ai-michael-jordan",
+    "title": "PAISS 2025",
+    "section": "Talk 3 : A Collectivist, Economic Perspective on AI (Michael Jordan)",
+    "text": "Talk 3 : A Collectivist, Economic Perspective on AI (Michael Jordan)\nWhat is intelligence ? The most basic form of intelligence are free markets."
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#poster-session-1",
+    "href": "posts/research_PAISS2025/index.html#poster-session-1",
+    "title": "PAISS 2025",
+    "section": "Poster session",
+    "text": "Poster session\n\nlink knowledge graph with image embedding to give meaning to images\nCreating a method to compare the power efficency for a given model to select the one that has required performance with the least amount of energy consumed. use of evchenko measure"
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#talk-1-ai-security-lê-nguyên-hoang",
+    "href": "posts/research_PAISS2025/index.html#talk-1-ai-security-lê-nguyên-hoang",
+    "title": "PAISS 2025",
+    "section": "Talk 1 : AI Security (Lê Nguyên Hoang)",
+    "text": "Talk 1 : AI Security (Lê Nguyên Hoang)\nIt’s possible to recover training data from any trained DL model. Three weekness of DL models :\n\nData Exfiltration\nEvasion\nPoisoning\n\nAgentic AI dramaticaly increases those risks.\n5 things to do to protect DL systems to break\n\nContinuous monitoring\nSandboxing with least privilege\nRedundancy (Byzantine aggregation rule)\nReducing the attack surface (Data Taggant)\nHR upskilling"
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#talk-2-governance-of-ai-carina-prunkl",
+    "href": "posts/research_PAISS2025/index.html#talk-2-governance-of-ai-carina-prunkl",
+    "title": "PAISS 2025",
+    "section": "Talk 2 : governance of AI (Carina Prunkl)",
+    "text": "Talk 2 : governance of AI (Carina Prunkl)\n4 risks of using AI systems :\n\nmisusage\nunexpected behaviour\nsystemic risks\nFairness\n\nWho is accountable if an AI system breaks ?\nRuling : EU AI Act\nRisk scale : minimal &lt; &lt; high &lt; unacceptable\nNIST AI : risk management framework\nRegulation is not always the answer for AI risks :\n\nhigh risk uncertainty\ncultural norms\ncomplex or context dependant issues\nenforcement impossible\n\nCorporate governance is not recommandable unless :\n\nCommittment free of …\nthird party monitoring\nthird party enforcement\nPublic scrutiny\n\nMidstream Governance :\nNeurips add a section where researchers have to suggest what uses (good or bad) could be done by their research."
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#talk-3-intro-to-stat-fairness-solenne-gaucher",
+    "href": "posts/research_PAISS2025/index.html#talk-3-intro-to-stat-fairness-solenne-gaucher",
+    "title": "PAISS 2025",
+    "section": "Talk 3 : Intro to stat fairness (Solenne Gaucher)",
+    "text": "Talk 3 : Intro to stat fairness (Solenne Gaucher)\nFairness with awareness or unawareness. Awareness require the discriminant data to be collect to check of a discrimination is in place regarding thos criterion.\nIndividual fairness != Group level fairness;\nFairness properties in classification : \\[(X, S, Y) \\in \\mathbb{R}^d \\times [K] \\times \\{0, 1 \\}\\]\nX : Resume, S : group, Y : is the person qualified\n\nDemographic parity (DP):\n\n\\[P(g(Z)=1|S=s) = P(g(Z)=1) \\forall s \\in K\\]\n\nEquality of opportunity (EO)\n\n\\[P(g(Z)=1|S=s, Y=1) =  P(g(Z)=1|Y=1)\\]\nFairness properties in Regression :\n\nDP, Separation, Sufficiency"
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#talk-4-ai-ethics-in-practice-mariia-vladimirova",
+    "href": "posts/research_PAISS2025/index.html#talk-4-ai-ethics-in-practice-mariia-vladimirova",
+    "title": "PAISS 2025",
+    "section": "talk 4 : AI ethics in practice (Mariia Vladimirova)",
+    "text": "talk 4 : AI ethics in practice (Mariia Vladimirova)\nhttps://paiss.inria.fr/files/2025/09/vladimirova_paiss25_tutorial.pdf\nhttps://github.com/fairlearn/fairlearn"
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#talk-1-data-driven-3d-vision-jerome-revaud",
+    "href": "posts/research_PAISS2025/index.html#talk-1-data-driven-3d-vision-jerome-revaud",
+    "title": "PAISS 2025",
+    "section": "Talk 1 : Data-Driven 3D Vision (Jerome revaud)",
+    "text": "Talk 1 : Data-Driven 3D Vision (Jerome revaud)\nhttps://paiss.inria.fr/files/2025/09/3dpres.pdf\nSSl methods that works for 3d representation with a 2d acquisition.\nThey made impossible matching possible ! What the fuck guys ! Insane\nTraditional CV (COLMAP): Establishing correspondances amoung multive views of the same scene : Structure from motion\n Require mulstple image for correspondance !!\n\n\n\nImpossible mathching\n\n\nNeed for a fundational model of 3D reconstruction, what we want this model to do ?\n\nestablish correspondance between images\ninfer 3D geometry\ninfer relative camera poes\ndecompose motion and lighting\n\nWe need a pretext task to make sure the model will become able to solve those tasks !\n\n\n\nCroco : Cross view completion\n\n\nNow need to fine tune this ! Because fondation models are useles, they only have BIG BRAIN\n\n\n\n\nmamacita la team CVPR BIG BRAIN\n\n\netc etc….\n\n\n\n\n\n\nNote\n\n\n\nEuh ???? Why MAE when you know its shit ? MDR Jeipa 🤣"
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#talk-2-world-models-yann-lecun",
+    "href": "posts/research_PAISS2025/index.html#talk-2-world-models-yann-lecun",
+    "title": "PAISS 2025",
+    "section": "Talk 2 : World Models (Yann LeCun)",
+    "text": "Talk 2 : World Models (Yann LeCun)\nAutoregressive models SUCKS and are DOOMED.\nThe errors increase whith the number of steps ahead you are trying to predict. that is why we have to work on the prediction on the full sequence instead of the next token.\n\n\n\nMAE generate all the data and details including irrelvant ones. The SSL models need to thinks like HUMANS in an abstract space\n\n\nAGI is a bad namingand should be replaced by AMI (Advanced Machine Inteligence)\nI didn’t understand that well but the second part is about about energy based models :\n\nThe last part is about world models, basically i understood the folowing, autoregressive methods have the problem of increasing error with the number of predicted steps. While the world models predict the full sequence until the end of the experiment.\n\n\n\n\n\n\n\nNote\n\n\n\nFor SSl pre-training its preferable to use IJEPA models."
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#talk-3-video-understanding-out-of-the-frame---an-egocentric-perspective-dima-damen",
+    "href": "posts/research_PAISS2025/index.html#talk-3-video-understanding-out-of-the-frame---an-egocentric-perspective-dima-damen",
+    "title": "PAISS 2025",
+    "section": "Talk 3 : Video Understanding Out of the Frame - an Egocentric Perspective (Dima Damen)",
+    "text": "Talk 3 : Video Understanding Out of the Frame - an Egocentric Perspective (Dima Damen)\nhttps://dimadamen.github.io/pdfs/PAISS2025-90min-Tutorial-DimaDamen.pdf\nEgocentric dataset and study for the use case of 2050 technologies (glasses cameras, augmented reality)\nHow to label egocentric videos/objects ? What is an egg ? full egg ? cracked egg ?\n\nMulti modal learning,\nCooking-recipe linked to egocentric videos of people doing the recipe while explaining what they do."
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#poster-session-2",
+    "href": "posts/research_PAISS2025/index.html#poster-session-2",
+    "title": "PAISS 2025",
+    "section": "Poster session",
+    "text": "Poster session\nModel assisted Labeling for small objects with pretrained transformers.\nSolving the traveling salesman problem (TSP) with DL. Worse and less efficient.\nGreenIT compare model performance with energy efficiency to limit carbon footprint. \n\n\n\n\n\n\nNote\n\n\n\nManage specular reflection with by comparing a gaussian splatted 3d version of an healthy referecnce\n\n\n\n\n\nClean specular reflexion in machine vision using gaussian splatting."
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#causal-effect-estimation-with-context-and-confounders-arthurgretton",
+    "href": "posts/research_PAISS2025/index.html#causal-effect-estimation-with-context-and-confounders-arthurgretton",
+    "title": "PAISS 2025",
+    "section": "Causal Effect Estimation with Context and Confounders (ArthurGretton)",
+    "text": "Causal Effect Estimation with Context and Confounders (ArthurGretton)\nDoing DAG helps !"
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#weakly-supervised-multi-label-plant-species-prediction-with-multimodal-data-lukáš-picek",
+    "href": "posts/research_PAISS2025/index.html#weakly-supervised-multi-label-plant-species-prediction-with-multimodal-data-lukáš-picek",
+    "title": "PAISS 2025",
+    "section": "Weakly Supervised Multi-Label Plant Species Prediction with Multimodal Data (Lukáš Picek)",
+    "text": "Weakly Supervised Multi-Label Plant Species Prediction with Multimodal Data (Lukáš Picek)\nPlantNet, kaggle challenge not bad but hard to get on foot with it. Nice to hear the plantnet project by the way, lets contribute !"
+  },
+  {
+    "objectID": "posts/research_PAISS2025/index.html#experiences-from-training-magistral-reasoning-and-voxtral-audio-models-at-mistral-timothée-lacroix",
+    "href": "posts/research_PAISS2025/index.html#experiences-from-training-magistral-reasoning-and-voxtral-audio-models-at-mistral-timothée-lacroix",
+    "title": "PAISS 2025",
+    "section": "Experiences from training Magistral (reasoning) and Voxtral (audio) models at Mistral (Timothée Lacroix)",
+    "text": "Experiences from training Magistral (reasoning) and Voxtral (audio) models at Mistral (Timothée Lacroix)\nLLM = shit (df YLC)"
   },
   {
     "objectID": "posts/research_ijcnn/index.html",
@@ -102,7 +221,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "This blog will serve as a self-reminder and a repository for useful software code that I can easily share with others.\nI am currently in the second year of a PhD in Applied Mathematics. My research focuses on active learning and uncertainty quantification applied to computer vision.\nI am doing my PhD at Michelin, where there is a high demand for machine vision and not enough experts to label the data.\nI love learning and am very curious but software development is far from being a strength.\nMy passions :)\n\n\n\n\n\n\nboard games\n\n\n\n\n\n\n\nWine\n\n\n\n\n\n\n\n\n\nEuphorbes"
+    "text": "This blog will serve as a self-reminder and a repository for useful software code that I can easily share with others.\nI am currently in the second year of a PhD in Applied Mathematics. My research focuses on active learning and uncertainty quantification applied to computer vision.\nI am doing my PhD at Michelin, where there is a high demand for machine vision and not enough experts to label the data.\nI love learning and am very curious but software development is far from being a strength.\nMy passions :)\n\n\n\n\n\n\nboard games : Top3 (Brass Brirmingham, Magic the gathering, Ascencion)\n\n\n\n\n\n\n\nWine : top3 cepages(syrah, marsanne, riesling)\n\n\n\n\n\n\n\n\n\nEuphorbia characias"
   },
   {
     "objectID": "index.html",

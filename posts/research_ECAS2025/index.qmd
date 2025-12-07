@@ -8,6 +8,7 @@ image: "eglise.jpg"
 ---
 
 Winter school where i learned about Conformal prediction (CP) and Transfert Learning.
+ECAS : European course in advanced statistics.
 
 # Motivation
 
@@ -37,7 +38,51 @@ All the course and the slides are in this  [github repo](https://github.com/mzaf
 
 Complete book with theoretical proofs and explanations : [@angelopoulosTheoreticalFoundationsConformal2025].
 
+Short Summary:
 
+Linear regression with gaussian hypothesis allow a good uncertainty quantification (UQ) using gaussian hypotheses for parameters and target variable. Some situation where models are bigger and does not follow any assumptions over parameter values makes UQ impossible using any assumption on model or errors. That is the problem CP is solving, given one only hypotheses (exchangeability of non conformity scores) it allows a good UQ which is distribution free (no assumpotion over the data distribution) and model agnostic (independent on the estimator). This is very good because in deep learning we litteraly have no tool to quantify uncertainty with statistical guarantees. 
+
+Given a labeled dataset of size n $(X_i,Y_i)^n_{i=1}$, we want to be able to predict a new point $X_{n+1}$ with confidence.
+
+Meaning that for any user defined risk $\alpha <_in [0,1]$,  $\mathcal{P}\{Y_{n+1} \in \mathcal{C}_{\alpha}(X_{n+1})\} \geq 1 - \alpha$. $\mathcal{C}_{\alpha}$ should be as small as possible to be informative. Indeed the case where $\mathcal{C}_{\alpha} = \mathcal{Y}$ verifies the $1-\alpha$ coverage but provides no information about the predictive uncertainty.
+
+:::{.callout-note title="Exchangeability"}
+
+$(Z_i)^n_{i=1}$ a random vector taking values in $\mathcal{Z}^n$ is exchangeable if, for any permutation $\sigma$ of $[0,1]$ : 
+
+$$(Z_1, ..., Z_n) \stackrel{d}{=} (Z_{\sigma(1)}, ..., Z_{\sigma(n)})$$
+:::
+
+how does it work ? (Split conformal Prediction setting)
+
+In machine vision, our models are so big we can't afford doing LOO Cross validation or cross validation with Full Conformal Paradigm. We will focus on the Split Case.
+
+1. Split your date into Train, Calibration and Test splits
+2. Train A to get $\hat{\mu}$ on Train
+3. Compute $\hat{\mu}$ on Cal
+4. Obtain a set of non conformity scores 
+
+$$S = \{S_i = |\hat{\mu}(X_i) - Y_i|, i \in Cal \} \cup \{+\infty \}$$
+
+5. Compute the $1 - \alpha$ quantile of these scores, noted $q_{1-\alpha}(S)$
+6. For a new point $X_{n+1}$, return : 
+
+$$\hat{C}_{\alpha}(X_{n+1}) = [\hat{\mu}(X_{n+1})- q_{1-\alpha}(S), \hat{\mu}(X_{n+1})+ q_{1-\alpha}(S)]$$
+
+The guarantee of those predictor are the following : 
+
+$\mathbb{P}\{ Y_{n+1} \in \mathcal{C}_{\alpha}(X_{n+1}) \} = 1 - \alpha$ This is the marginal guarantee, meaning that for all our predictions, at least $(1-\alpha)\%$ of the test points will be covered. But there might be some sub categories that are not covered at all.
+
+::: {.callout-note}
+In active learning we want to estimate the uncertainty of the model for one specific data point. What we would like to have is conditional converage, being : 
+
+$\mathbb{P}\{ Y_{n+1} \in \mathcal{C}_{\alpha}(X_{n+1})| X_{n+1} \} = 1 - \alpha$.
+
+This is adaptative methods.
+Some paper made adaptative method for classification with very strong guarantees. (see section discussion with litterature recommendations recarding this matter).
+:::
+
+![Illustration of different coverages. (Again taken from the notes of Margaux)](coverage.png)
 
 ## Transfer Learning
 

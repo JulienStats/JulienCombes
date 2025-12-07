@@ -84,6 +84,41 @@
   file = {/home/arthings/Zotero/storage/4DYAGA2T/Brunekreef et al. - 2023 - Kandinsky Conformal Prediction Efficient Calibration of Image Segmentation Algorithms.pdf;/home/arthings/Zotero/storage/EEMEQ953/2311.html}
 }
 
+@misc{caronGenerativeApproachWikipediaScale2024,
+  title = {A {{Generative Approach}} for {{Wikipedia-Scale Visual Entity Recognition}}},
+  author = {Caron, Mathilde and Iscen, Ahmet and Fathi, Alireza and Schmid, Cordelia},
+  year = 2024,
+  month = mar,
+  number = {arXiv:2403.02041},
+  eprint = {2403.02041},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2403.02041},
+  urldate = {2025-12-07},
+  abstract = {In this paper, we address web-scale visual entity recognition, specifically the task of mapping a given query image to one of the 6 million existing entities in Wikipedia. One way of approaching a problem of such scale is using dual-encoder models (eg CLIP), where all the entity names and query images are embedded into a unified space, paving the way for an approximate k-NN search. Alternatively, it is also possible to re-purpose a captioning model to directly generate the entity names for a given image. In contrast, we introduce a novel Generative Entity Recognition (GER) framework, which given an input image learns to auto-regressively decode a semantic and discriminative ``code'' identifying the target entity. Our experiments demonstrate the efficacy of this GER paradigm, showcasing state-of-the-art performance on the challenging OVEN benchmark. GER surpasses strong captioning, dual-encoder, visual matching and hierarchical classification baselines, affirming its advantage in tackling the complexities of web-scale recognition.},
+  archiveprefix = {arXiv},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/arthings/Zotero/storage/5X5T9WXP/Caron et al. - 2024 - A Generative Approach for Wikipedia-Scale Visual Entity Recognition.pdf;/home/arthings/Zotero/storage/S7L2DZ2U/2403.html}
+}
+
+@misc{caronWebScaleVisualEntity2024,
+  title = {Web-{{Scale Visual Entity Recognition}}: {{An LLM-Driven Data Approach}}},
+  shorttitle = {Web-{{Scale Visual Entity Recognition}}},
+  author = {Caron, Mathilde and Fathi, Alireza and Schmid, Cordelia and Iscen, Ahmet},
+  year = 2024,
+  month = oct,
+  number = {arXiv:2410.23676},
+  eprint = {2410.23676},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2410.23676},
+  urldate = {2025-12-07},
+  abstract = {Web-scale visual entity recognition, the task of associating images with their corresponding entities within vast knowledge bases like Wikipedia, presents significant challenges due to the lack of clean, large-scale training data. In this paper, we propose a novel methodology to curate such a dataset, leveraging a multimodal large language model (LLM) for label verification, metadata generation, and rationale explanation. Instead of relying on the multimodal LLM to directly annotate data, which we found to be suboptimal, we prompt it to reason about potential candidate entity labels by accessing additional contextually relevant information (such as Wikipedia), resulting in more accurate annotations. We further use the multimodal LLM to enrich the dataset by generating question-answer pairs and a grounded finegrained textual description (referred to as "rationale") that explains the connection between images and their assigned entities. Experiments demonstrate that models trained on this automatically curated data achieve state-of-the-art performance on web-scale visual entity recognition tasks (e.g. +6.9\% improvement in OVEN entity task), underscoring the importance of high-quality training data in this domain.},
+  archiveprefix = {arXiv},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/arthings/Zotero/storage/VGQTEMEG/Caron et al. - 2024 - Web-Scale Visual Entity Recognition An LLM-Driven Data Approach.pdf;/home/arthings/Zotero/storage/5UYIUWTV/2410.html}
+}
+
 @misc{dingClassConditionalConformalPrediction2023,
   title = {Class-{{Conditional Conformal Prediction}} with {{Many Classes}}},
   author = {Ding, Tiffany and Angelopoulos, Anastasios N. and Bates, Stephen and Jordan, Michael I. and Tibshirani, Ryan J.},
@@ -212,6 +247,23 @@
   archiveprefix = {arXiv},
   keywords = {Computer Science - Machine Learning},
   file = {/home/arthings/Zotero/storage/UDLBDT6U/Hacohen et al. - 2022 - Active Learning on a Budget Opposite Strategies Suit High and Low Budgets.pdf;/home/arthings/Zotero/storage/JI6QEYL6/2202.html}
+}
+
+@misc{iscenRetrievalEnhancedContrastiveVisionText2024,
+  title = {Retrieval-{{Enhanced Contrastive Vision-Text Models}}},
+  author = {Iscen, Ahmet and Caron, Mathilde and Fathi, Alireza and Schmid, Cordelia},
+  year = 2024,
+  month = feb,
+  number = {arXiv:2306.07196},
+  eprint = {2306.07196},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2306.07196},
+  urldate = {2025-12-07},
+  abstract = {Contrastive image-text models such as CLIP form the building blocks of many state-of-the-art systems. While they excel at recognizing common generic concepts, they still struggle on fine-grained entities which are rare, or even absent from the pre-training dataset. Hence, a key ingredient to their success has been the use of large-scale curated pre-training data aiming at expanding the set of concepts that they can memorize during the pre-training stage. In this work, we explore an alternative to encoding fine-grained knowledge directly into the model's parameters: we instead train the model to retrieve this knowledge from an external memory. Specifically, we propose to equip existing vision-text models with the ability to refine their embedding with cross-modal retrieved information from a memory at inference time, which greatly improves their zero-shot predictions. Remarkably, we show that this can be done with a light-weight, single-layer, fusion transformer on top of a frozen CLIP. Our experiments validate that our retrieval-enhanced contrastive (RECO) training improves CLIP performance substantially on several challenging fine-grained tasks: for example +10.9 on Stanford Cars, +10.2 on CUB-2011 and +7.3 on the recent OVEN benchmark, where we even outperform the fine-tuned models on unseen classes.},
+  archiveprefix = {arXiv},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/arthings/Zotero/storage/NRFBZLU5/Iscen et al. - 2024 - Retrieval-Enhanced Contrastive Vision-Text Models.pdf;/home/arthings/Zotero/storage/Z86MD5GF/2306.html}
 }
 
 @misc{kambaleAutoscalingServerlessPlatforms2025,

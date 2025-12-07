@@ -22,9 +22,9 @@ My passions :)
 
 :::{layout="[[1, 1], [1]]"}
 
-![board games](brass.jpg)
+![board games : Top3 (Brass Brirmingham, Magic the gathering, Ascencion)](brass.jpg)
 
-![Wine](tain.JPG)
+![Wine : top3 cepages(syrah, marsanne, riesling)](tain.JPG)
 
-![Euphorbes](euphorbes.jpg)
+![Euphorbia characias](euphorbes.jpg)
 :::
