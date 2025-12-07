@@ -116,13 +116,13 @@ He liked the idea of the potato project and was surprised that the AL could work
 
 # Thanks
 
-:::{layout="[[1, 1, 1]]"}
+:::{layout="[[1, 1], [1]]"}
 
 ![Ruins of an old chapel in Saint-Raphael](ruine.jpg)
 
-![Ice cream on a rainy day](glace.jpg)
-
 ![Some roommate with my level in math](sangliers.jpg)
+
+![Ice cream on a rainy day](glace.jpg)
 
 :::
 
