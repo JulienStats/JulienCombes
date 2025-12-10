@@ -11,6 +11,8 @@ website:
       - icon: github
         href: https://github.com/JulienStats
     left:
+      - text: Posts
+        href: posts/
       - text: Research
         href: research.qmd
       - text: Publications

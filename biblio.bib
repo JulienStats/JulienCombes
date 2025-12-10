@@ -11,7 +11,7 @@
   urldate = {2025-12-06},
   abstract = {Image-to-image regression is an important learning task, used frequently in biological imaging. Current algorithms, however, do not generally offer statistical guarantees that protect against a model's mistakes and hallucinations. To address this, we develop uncertainty quantification techniques with rigorous statistical guarantees for image-to-image regression problems. In particular, we show how to derive uncertainty intervals around each pixel that are guaranteed to contain the true value with a user-specified confidence probability. Our methods work in conjunction with any base machine learning model, such as a neural network, and endow it with formal mathematical guarantees -- regardless of the true unknown data distribution or choice of model. Furthermore, they are simple to implement and computationally inexpensive. We evaluate our procedure on three image-to-image regression tasks: quantitative phase microscopy, accelerated magnetic resonance imaging, and super-resolution transmission electron microscopy of a Drosophila melanogaster brain.},
   archiveprefix = {arXiv},
-  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,Electrical Engineering and Systems Science - Image and Video Processing,Quantitative Biology - Quantitative Methods,Statistics - Machine Learning},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,conformal prediction,Electrical Engineering and Systems Science - Image and Video Processing,image regression,Quantitative Biology - Quantitative Methods,Statistics - Machine Learning},
   file = {/home/arthings/Zotero/storage/78XTATSU/Angelopoulos et al. - 2022 - Image-to-Image Regression with Distribution-Free Uncertainty Quantification and Applications in Imag.pdf;/home/arthings/Zotero/storage/32JQX3NR/2202.html}
 }
 
@@ -28,7 +28,7 @@
   urldate = {2025-12-06},
   abstract = {This book is about conformal prediction and related inferential techniques that build on permutation tests and exchangeability. These techniques are useful in a diverse array of tasks, including hypothesis testing and providing uncertainty quantification guarantees for machine learning systems. Much of the current interest in conformal prediction is due to its ability to integrate into complex machine learning workflows, solving the problem of forming prediction sets without any assumptions on the form of the data generating distribution. Since contemporary machine learning algorithms have generally proven difficult to analyze directly, conformal prediction's main appeal is its ability to provide formal, finite-sample guarantees when paired with such methods. The goal of this book is to teach the reader about the fundamental technical arguments that arise when researching conformal prediction and related questions in distribution-free inference. Many of these proof strategies, especially the more recent ones, are scattered among research papers, making it difficult for researchers to understand where to look, which results are important, and how exactly the proofs work. We hope to bridge this gap by curating what we believe to be some of the most important results in the literature and presenting their proofs in a unified language, with illustrations, and with an eye towards pedagogy.},
   archiveprefix = {arXiv},
-  keywords = {Mathematics - Statistics Theory,Statistics - Machine Learning,Statistics - Methodology},
+  keywords = {book,conformal prediction,Mathematics - Statistics Theory,Statistics - Machine Learning,Statistics - Methodology},
   file = {/home/arthings/Zotero/storage/L49VDTHB/Angelopoulos et al. - 2025 - Theoretical Foundations of Conformal Prediction.pdf;/home/arthings/Zotero/storage/67V9SMNP/2411.html}
 }
 
@@ -45,7 +45,7 @@
   urldate = {2025-12-06},
   abstract = {Convolutional image classifiers can achieve high predictive accuracy, but quantifying their uncertainty remains an unresolved challenge, hindering their deployment in consequential settings. Existing uncertainty quantification techniques, such as Platt scaling, attempt to calibrate the network's probability estimates, but they do not have formal guarantees. We present an algorithm that modifies any classifier to output a predictive set containing the true label with a user-specified probability, such as 90\%. The algorithm is simple and fast like Platt scaling, but provides a formal finite-sample coverage guarantee for every model and dataset. Our method modifies an existing conformal prediction algorithm to give more stable predictive sets by regularizing the small scores of unlikely classes after Platt scaling. In experiments on both Imagenet and Imagenet-V2 with ResNet-152 and other classifiers, our scheme outperforms existing approaches, achieving coverage with sets that are often factors of 5 to 10 smaller than a stand-alone Platt scaling baseline.},
   archiveprefix = {arXiv},
-  keywords = {Computer Science - Computer Vision and Pattern Recognition,Mathematics - Statistics Theory,Statistics - Machine Learning},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,conformal prediction,image classification,Mathematics - Statistics Theory,Statistics - Machine Learning},
   file = {/home/arthings/Zotero/storage/VAEX53HS/Angelopoulos et al. - 2022 - Uncertainty Sets for Image Classifiers using Conformal Prediction.pdf;/home/arthings/Zotero/storage/KQV74Z2S/2009.html}
 }
 
@@ -62,8 +62,43 @@
   urldate = {2025-12-06},
   abstract = {We design a new algorithm for batch active learning with deep neural network models. Our algorithm, Batch Active learning by Diverse Gradient Embeddings (BADGE), samples groups of points that are disparate and high-magnitude when represented in a hallucinated gradient space, a strategy designed to incorporate both predictive uncertainty and sample diversity into every selected batch. Crucially, BADGE trades off between diversity and uncertainty without requiring any hand-tuned hyperparameters. We show that while other approaches sometimes succeed for particular batch sizes or architectures, BADGE consistently performs as well or better, making it a versatile option for practical active learning problems.},
   archiveprefix = {arXiv},
-  keywords = {Computer Science - Machine Learning,Statistics - Machine Learning},
+  keywords = {active learning,Computer Science - Machine Learning,image classification,Statistics - Machine Learning},
   file = {/home/arthings/Zotero/storage/N66D72QS/Ash et al. - 2020 - Deep Batch Active Learning by Diverse, Uncertain Gradient Lower Bounds.pdf;/home/arthings/Zotero/storage/8VMDEXE7/1906.html}
+}
+
+@misc{balestrieroLeJEPAProvableScalable2025,
+  title = {{{LeJEPA}}: {{Provable}} and {{Scalable Self-Supervised Learning Without}} the {{Heuristics}}},
+  shorttitle = {{{LeJEPA}}},
+  author = {Balestriero, Randall and LeCun, Yann},
+  year = 2025,
+  month = nov,
+  number = {arXiv:2511.08544},
+  eprint = {2511.08544},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2511.08544},
+  urldate = {2025-12-10},
+  abstract = {Learning manipulable representations of the world and its dynamics is central to AI. Joint-Embedding Predictive Architectures (JEPAs) offer a promising blueprint, but lack of practical guidance and theory has led to ad-hoc R\&D. We present a comprehensive theory of JEPAs and instantiate it in \textbraceleft\textbackslash bf LeJEPA\textbraceright, a lean, scalable, and theoretically grounded training objective. First, we identify the isotropic Gaussian as the optimal distribution that JEPAs' embeddings should follow to minimize downstream prediction risk. Second, we introduce a novel objective--\textbraceleft\textbackslash bf Sketched Isotropic Gaussian Regularization\textbraceright{} (SIGReg)--to constrain embeddings to reach that ideal distribution. Combining the JEPA predictive loss with SIGReg yields LeJEPA with numerous theoretical and practical benefits: (i) single trade-off hyperparameter, (ii) linear time and memory complexity, (iii) stability across hyper-parameters, architectures (ResNets, ViTs, ConvNets) and domains, (iv) heuristics-free, e.g., no stop-gradient, no teacher-student, no hyper-parameter schedulers, and (v) distributed training-friendly implementation requiring only \$\textbackslash approx\$50 lines of code. Our empirical validation covers 10+ datasets, 60+ architectures, all with varying scales and domains. As an example, using imagenet-1k for pretraining and linear evaluation with frozen backbone, LeJEPA reaches 79\textbackslash\% with a ViT-H/14. We hope that the simplicity and theory-friendly ecosystem offered by LeJEPA will reestablish self-supervised pre-training as a core pillar of AI research (\textbackslash href\textbraceleft https://github.com/rbalestr-lab/lejepa\textbraceright\textbraceleft GitHub repo\textbraceright ).},
+  archiveprefix = {arXiv},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,Statistics - Machine Learning},
+  file = {/home/arthings/Zotero/storage/XUX6TF5F/Balestriero et LeCun - 2025 - LeJEPA Provable and Scalable Self-Supervised Learning Without the Heuristics.pdf;/home/arthings/Zotero/storage/VZQWWMH4/2511.html}
+}
+
+@misc{biyikBatchActiveLearning2019,
+  title = {Batch {{Active Learning Using Determinantal Point Processes}}},
+  author = {B{\i}y{\i}k, Erdem and Wang, Kenneth and Anari, Nima and Sadigh, Dorsa},
+  year = 2019,
+  month = jun,
+  number = {arXiv:1906.07975},
+  eprint = {1906.07975},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.1906.07975},
+  urldate = {2025-12-10},
+  abstract = {Data collection and labeling is one of the main challenges in employing machine learning algorithms in a variety of real-world applications with limited data. While active learning methods attempt to tackle this issue by labeling only the data samples that give high information, they generally suffer from large computational costs and are impractical in settings where data can be collected in parallel. Batch active learning methods attempt to overcome this computational burden by querying batches of samples at a time. To avoid redundancy between samples, previous works rely on some ad hoc combination of sample quality and diversity. In this paper, we present a new principled batch active learning method using Determinantal Point Processes, a repulsive point process that enables generating diverse batches of samples. We develop tractable algorithms to approximate the mode of a DPP distribution, and provide theoretical guarantees on the degree of approximation. We further demonstrate that an iterative greedy method for DPP maximization, which has lower computational costs but worse theoretical guarantees, still gives competitive results for batch active learning. Our experiments show the value of our methods on several datasets against state-of-the-art baselines.},
+  archiveprefix = {arXiv},
+  keywords = {active learning,Computer Science - Machine Learning,dpp,Statistics - Machine Learning},
+  file = {/home/arthings/Zotero/storage/MYLFTC33/Bıyık et al. - 2019 - Batch Active Learning Using Determinantal Point Processes.pdf;/home/arthings/Zotero/storage/X5AU2PF6/1906.html}
 }
 
 @misc{brunekreefKandinskyConformalPrediction2023,
@@ -80,7 +115,7 @@
   urldate = {2025-12-06},
   abstract = {Image segmentation algorithms can be understood as a collection of pixel classifiers, for which the outcomes of nearby pixels are correlated. Classifier models can be calibrated using Inductive Conformal Prediction, but this requires holding back a sufficiently large calibration dataset for computing the distribution of non-conformity scores of the model's predictions. If one only requires only marginal calibration on the image level, this calibration set consists of all individual pixels in the images available for calibration. However, if the goal is to attain proper calibration for each individual pixel classifier, the calibration set consists of individual images. In a scenario where data are scarce (such as the medical domain), it may not always be possible to set aside sufficiently many images for this pixel-level calibration. The method we propose, dubbed ``Kandinsky calibration'', makes use of the spatial structure present in the distribution of natural images to simultaneously calibrate the classifiers of ``similar'' pixels. This can be seen as an intermediate approach between marginal (imagewise) and conditional (pixelwise) calibration, where non-conformity scores are aggregated over similar image regions, thereby making more efficient use of the images available for calibration. We run experiments on segmentation algorithms trained and calibrated on subsets of the public MS-COCO and Medical Decathlon datasets, demonstrating that Kandinsky calibration method can significantly improve the coverage. When compared to both pixelwise and imagewise calibration on little data, the Kandinsky method achieves much lower coverage errors, indicating the data efficiency of the Kandinsky calibration.},
   archiveprefix = {arXiv},
-  keywords = {Computer Science - Artificial Intelligence,Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,conformal prediction,semantic segmentation},
   file = {/home/arthings/Zotero/storage/4DYAGA2T/Brunekreef et al. - 2023 - Kandinsky Conformal Prediction Efficient Calibration of Image Segmentation Algorithms.pdf;/home/arthings/Zotero/storage/EEMEQ953/2311.html}
 }
 
@@ -119,6 +154,37 @@
   file = {/home/arthings/Zotero/storage/VGQTEMEG/Caron et al. - 2024 - Web-Scale Visual Entity Recognition An LLM-Driven Data Approach.pdf;/home/arthings/Zotero/storage/5UYIUWTV/2410.html}
 }
 
+@misc{chenSimpleFrameworkContrastive2020,
+  title = {A {{Simple Framework}} for {{Contrastive Learning}} of {{Visual Representations}}},
+  author = {Chen, Ting and Kornblith, Simon and Norouzi, Mohammad and Hinton, Geoffrey},
+  year = 2020,
+  month = jul,
+  number = {arXiv:2002.05709},
+  eprint = {2002.05709},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2002.05709},
+  urldate = {2025-12-10},
+  abstract = {This paper presents SimCLR: a simple framework for contrastive learning of visual representations. We simplify recently proposed contrastive self-supervised learning algorithms without requiring specialized architectures or a memory bank. In order to understand what enables the contrastive prediction tasks to learn useful representations, we systematically study the major components of our framework. We show that (1) composition of data augmentations plays a critical role in defining effective predictive tasks, (2) introducing a learnable nonlinear transformation between the representation and the contrastive loss substantially improves the quality of the learned representations, and (3) contrastive learning benefits from larger batch sizes and more training steps compared to supervised learning. By combining these findings, we are able to considerably outperform previous methods for self-supervised and semi-supervised learning on ImageNet. A linear classifier trained on self-supervised representations learned by SimCLR achieves 76.5\% top-1 accuracy, which is a 7\% relative improvement over previous state-of-the-art, matching the performance of a supervised ResNet-50. When fine-tuned on only 1\% of the labels, we achieve 85.8\% top-5 accuracy, outperforming AlexNet with 100X fewer labels.},
+  archiveprefix = {arXiv},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,Statistics - Machine Learning},
+  file = {/home/arthings/Zotero/storage/T7C55DP2/Chen et al. - 2020 - A Simple Framework for Contrastive Learning of Visual Representations.pdf;/home/arthings/Zotero/storage/VCSDRGRR/2002.html}
+}
+
+@misc{demathelinDiscrepancyBasedActiveLearning2021,
+  title = {Discrepancy-{{Based Active Learning}} for {{Domain Adaptation}}},
+  author = {{de Mathelin}, Antoine and Deheeger, Francois and Mougeot, Mathilde and Vayatis, Nicolas},
+  year = 2021,
+  month = mar,
+  journal = {arXiv.org},
+  urldate = {2025-12-10},
+  abstract = {The goal of the paper is to design active learning strategies which lead to domain adaptation under an assumption of Lipschitz functions. Building on previous work by Mansour et al. (2009) we adapt the concept of discrepancy distance between source and target distributions to restrict the maximization over the hypothesis class to a localized class of functions which are performing accurate labeling on the source domain. We derive generalization error bounds for such active learning strategies in terms of Rademacher average and localized discrepancy for general loss functions which satisfy a regularity condition. A practical K-medoids algorithm that can address the case of large data set is inferred from the theoretical bounds. Our numerical experiments show that the proposed algorithm is competitive against other state-of-the-art active learning techniques in the context of domain adaptation, in particular on large data sets of around one hundred thousand images.},
+  howpublished = {https://arxiv.org/abs/2103.03757v3},
+  langid = {english},
+  keywords = {active learning},
+  file = {/home/arthings/Zotero/storage/FY6J55IN/de Mathelin et al. - 2021 - Discrepancy-Based Active Learning for Domain Adaptation.pdf}
+}
+
 @misc{dingClassConditionalConformalPrediction2023,
   title = {Class-{{Conditional Conformal Prediction}} with {{Many Classes}}},
   author = {Ding, Tiffany and Angelopoulos, Anastasios N. and Bates, Stephen and Jordan, Michael I. and Tibshirani, Ryan J.},
@@ -132,7 +198,7 @@
   urldate = {2025-12-06},
   abstract = {Standard conformal prediction methods provide a marginal coverage guarantee, which means that for a random test point, the conformal prediction set contains the true label with a user-specified probability. In many classification problems, we would like to obtain a stronger guarantee--that for test points of a specific class, the prediction set contains the true label with the same user-chosen probability. For the latter goal, existing conformal prediction methods do not work well when there is a limited amount of labeled data per class, as is often the case in real applications where the number of classes is large. We propose a method called clustered conformal prediction that clusters together classes having "similar" conformal scores and performs conformal prediction at the cluster level. Based on empirical evaluation across four image data sets with many (up to 1000) classes, we find that clustered conformal typically outperforms existing methods in terms of class-conditional coverage and set size metrics.},
   archiveprefix = {arXiv},
-  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,Statistics - Machine Learning,Statistics - Methodology},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,conditional coverage,conformal prediction,Statistics - Machine Learning,Statistics - Methodology},
   file = {/home/arthings/Zotero/storage/TE5FN92V/Ding et al. - 2023 - Class-Conditional Conformal Prediction with Many Classes.pdf;/home/arthings/Zotero/storage/BH2RKYBM/2306.html}
 }
 
@@ -149,7 +215,7 @@
   urldate = {2025-12-06},
   abstract = {Many real-world classification problems, such as plant identification, have extremely long-tailed class distributions. In order for prediction sets to be useful in such settings, they should (i) provide good class-conditional coverage, ensuring that rare classes are not systematically omitted from the prediction sets, and (ii) be a reasonable size, allowing users to easily verify candidate labels. Unfortunately, existing conformal prediction methods, when applied to the long-tailed setting, force practitioners to make a binary choice between small sets with poor class-conditional coverage or sets with very good class-conditional coverage but that are extremely large. We propose methods with guaranteed marginal coverage that smoothly trade off between set size and class-conditional coverage. First, we introduce a new conformal score function called prevalence-adjusted softmax that targets macro-coverage, a relaxed notion of class-conditional coverage. Second, we propose a new procedure that interpolates between marginal and class-conditional conformal prediction by linearly interpolating their conformal score thresholds. We demonstrate our methods on Pl@ntNet-300K and iNaturalist-2018, two long-tailed image datasets with 1,081 and 8,142 classes, respectively.},
   archiveprefix = {arXiv},
-  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,Statistics - Machine Learning,Statistics - Methodology},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,conditional coverage,conformal prediction,Statistics - Machine Learning,Statistics - Methodology},
   file = {/home/arthings/Zotero/storage/2INWLC8J/Ding et al. - 2025 - Conformal Prediction for Long-Tailed Classification.pdf;/home/arthings/Zotero/storage/HBETEFA8/2507.html}
 }
 
@@ -199,6 +265,7 @@
   address = {Sydney, NSW, Australia},
   urldate = {2025-12-06},
   abstract = {Even though active learning forms an important pillar of machine learning, deep learning tools are not prevalent within it. Deep learning poses several difficulties when used in an active learning setting. First, active learning (AL) methods generally rely on being able to learn and update models from small amounts of data. Recent advances in deep learning, on the other hand, are notorious for their dependence on large amounts of data. Second, many AL acquisition functions rely on model uncertainty, yet deep learning methods rarely represent such model uncertainty. In this paper we combine recent advances in Bayesian deep learning into the active learning framework in a practical way. We develop an active learning framework for high dimensional data, a task which has been extremely challenging so far, with very sparse existing literature. Taking advantage of specialised models such as Bayesian convolutional neural networks, we demonstrate our active learning techniques with image data, obtaining a significant improvement on existing active learning approaches. We demonstrate this on both the MNIST dataset, as well as for skin cancer diagnosis from lesion images (ISIC2016 task).},
+  keywords = {active learning,image classification},
   file = {/home/arthings/Zotero/storage/4SE2P9H6/Gal et al. - 2017 - Deep Bayesian active learning with image data.pdf}
 }
 
@@ -231,6 +298,23 @@
   file = {/home/arthings/Zotero/storage/6DQEHTJU/Guidez et al. - 2025 - ERDE Entropy-Regularized Distillation for Early-exit.pdf}
 }
 
+@misc{gwonEnhancingCostEfficiency2025,
+  title = {Enhancing {{Cost Efficiency}} in {{Active Learning}} with {{Candidate Set Query}}},
+  author = {Gwon, Yeho and Hwang, Sehyun and Kim, Hoyoung and Ok, Jungseul and Kwak, Suha},
+  year = 2025,
+  month = aug,
+  number = {arXiv:2502.06209},
+  eprint = {2502.06209},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2502.06209},
+  urldate = {2025-12-10},
+  abstract = {This paper introduces a cost-efficient active learning (AL) framework for classification, featuring a novel query design called candidate set query. Unlike traditional AL queries requiring the oracle to examine all possible classes, our method narrows down the set of candidate classes likely to include the ground-truth class, significantly reducing the search space and labeling cost. Moreover, we leverage conformal prediction to dynamically generate small yet reliable candidate sets, adapting to model enhancement over successive AL rounds. To this end, we introduce an acquisition function designed to prioritize data points that offer high information gain at lower cost. Empirical evaluations on CIFAR-10, CIFAR-100, and ImageNet64x64 demonstrate the effectiveness and scalability of our framework. Notably, it reduces labeling cost by 48\% on ImageNet64x64. The project page can be found at https://yehogwon.github.io/csq-al.},
+  archiveprefix = {arXiv},
+  keywords = {active learning,Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,conformal prediction,image classification},
+  file = {/home/arthings/Zotero/storage/ZMJH652H/Gwon et al. - 2025 - Enhancing Cost Efficiency in Active Learning with Candidate Set Query.pdf;/home/arthings/Zotero/storage/MDBEJVKP/2502.html}
+}
+
 @misc{hacohenActiveLearningBudget2022,
   title = {Active {{Learning}} on a {{Budget}}: {{Opposite Strategies Suit High}} and {{Low Budgets}}},
   shorttitle = {Active {{Learning}} on a {{Budget}}},
@@ -245,7 +329,7 @@
   urldate = {2025-12-06},
   abstract = {Investigating active learning, we focus on the relation between the number of labeled examples (budget size), and suitable querying strategies. Our theoretical analysis shows a behavior reminiscent of phase transition: typical examples are best queried when the budget is low, while unrepresentative examples are best queried when the budget is large. Combined evidence shows that a similar phenomenon occurs in common classification models. Accordingly, we propose TypiClust -- a deep active learning strategy suited for low budgets. In a comparative empirical investigation of supervised learning, using a variety of architectures and image datasets, TypiClust outperforms all other active learning strategies in the low-budget regime. Using TypiClust in the semi-supervised framework, performance gets an even more significant boost. In particular, state-of-the-art semi-supervised methods trained on CIFAR-10 with 10 labeled examples selected by TypiClust, reach 93.2\% accuracy -- an improvement of 39.4\% over random selection. Code is available at https://github.com/avihu111/TypiClust.},
   archiveprefix = {arXiv},
-  keywords = {Computer Science - Machine Learning},
+  keywords = {active learning,Computer Science - Machine Learning,image classification},
   file = {/home/arthings/Zotero/storage/UDLBDT6U/Hacohen et al. - 2022 - Active Learning on a Budget Opposite Strategies Suit High and Low Budgets.pdf;/home/arthings/Zotero/storage/JI6QEYL6/2202.html}
 }
 
@@ -274,6 +358,58 @@
   abstract = {{$<$}div{$><$}p{$>$}As the adoption of serverless computing platforms continue to grow, designing autoscaling policies that strike the right balance between energy efficiency and user-perceived performance has become a central challenge. In this work, we propose an online learning algorithm with theoretical convergence guarantees that dynamically tunes control parameters in a serverless autoscaling environment. The proposed algorithm, grounded in stochastic gradient descent, learns online-during the actual operation of the platform-the optimal values of three key control parameters: (i) the target stock size of prewarmed (idle) functions, (ii) the threshold triggering provisioning actions, and (iii) the expiration rate of idle resources. We prove that, under Markovian dynamics, the algorithm converges to the parameter set that minimizes a cost function capturing the tradeoff between energy consumption and response latency. In addition, we demonstrate that its structure naturally supports parallelization, significantly accelerating convergence.{$<$}/p{$><$}p{$>$}Extensive numerical experiments show that our method outperforms existing baselines, including recent deep learning-based approaches, even under non-Markovian settings-highlighting both its robustness and practical viability for next-generation serverless infrastructures.{$<$}/p{$><$}/div{$>$}},
   langid = {english},
   file = {/home/arthings/Zotero/storage/R9TRV5IJ/Kambale et al. - 2025 - Autoscaling in Serverless Platforms via Online Learning with Convergence Guarantees.pdf}
+}
+
+@inproceedings{kharazianCoPALConformalPrediction2024,
+  title = {{{CoPAL}}: {{Conformal Prediction}} in {{Active Learning An Algorithm}} for {{Enhancing Remaining Useful Life Estimation}} in {{Predictive Maintenance}}},
+  shorttitle = {{{CoPAL}}},
+  booktitle = {Proceedings of the {{Thirteenth Symposium}} on {{Conformal}} and {{Probabilistic Prediction}} with {{Applications}}},
+  author = {Kharazian, Zahra and Lindgren, Tony and Magnusson, Sindri and Bostr{\"o}m, Henrik},
+  year = 2024,
+  month = sep,
+  pages = {195--217},
+  publisher = {PMLR},
+  issn = {2640-3498},
+  urldate = {2025-12-10},
+  abstract = {Active learning has received considerable attention as an approach to obtain high predictive performance while minimizing the labeling effort. A central component of the active learning framework concerns the selection of objects for labeling, which are used for iteratively updating the underlying model. In this work, an algorithm called CoPAL (Conformal Prediction for Active Learning) is proposed, which makes the selection of objects within active learning based on the uncertainty as quantified by conformal prediction. The efficacy of CoPAL is investigated by considering the task of estimating the remaining useful life (RUL) of assets in the domain of predictive maintenance (PdM). Experimental results are presented, encompassing diverse setups, including different models, sample selection criteria, conformal predictors, and datasets, using root mean squared error (RMSE) as the primary evaluation metric while also reporting prediction interval sizes over the iterations. The comprehensive analysis confirms the positive effect of using CoPAL for improving predictive performance.},
+  langid = {english},
+  keywords = {active learning,time series},
+  file = {/home/arthings/Zotero/storage/78HZ4RFW/Kharazian et al. - 2024 - CoPAL Conformal Prediction in Active Learning An Algorithm for Enhancing Remaining Useful Life Esti.pdf}
+}
+
+@misc{kimDiffusionDrivenTwoStageActive2025,
+  title = {Diffusion-{{Driven Two-Stage Active Learning}} for {{Low-Budget Semantic Segmentation}}},
+  author = {Kim, Jeongin and Bae, Wonho and Han, YouLee and Oh, Giyeong and Yu, Youngjae and Sutherland, Danica J. and Noh, Junhyug},
+  year = 2025,
+  month = oct,
+  number = {arXiv:2510.22229},
+  eprint = {2510.22229},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2510.22229},
+  urldate = {2025-12-10},
+  abstract = {Semantic segmentation demands dense pixel-level annotations, which can be prohibitively expensive - especially under extremely constrained labeling budgets. In this paper, we address the problem of low-budget active learning for semantic segmentation by proposing a novel two-stage selection pipeline. Our approach leverages a pre-trained diffusion model to extract rich multi-scale features that capture both global structure and fine details. In the first stage, we perform a hierarchical, representation-based candidate selection by first choosing a small subset of representative pixels per image using MaxHerding, and then refining these into a diverse global pool. In the second stage, we compute an entropy-augmented disagreement score (eDALD) over noisy multi-scale diffusion features to capture both epistemic uncertainty and prediction confidence, selecting the most informative pixels for annotation. This decoupling of diversity and uncertainty lets us achieve high segmentation accuracy with only a tiny fraction of labeled pixels. Extensive experiments on four benchmarks (CamVid, ADE-Bed, Cityscapes, and Pascal-Context) demonstrate that our method significantly outperforms existing baselines under extreme pixel-budget regimes. Our code is available at https://github.com/jn-kim/two-stage-edald.},
+  archiveprefix = {arXiv},
+  keywords = {active learning,Computer Science - Computer Vision and Pattern Recognition,semantic segmentation},
+  file = {/home/arthings/Zotero/storage/DFTJKPEC/Kim et al. - 2025 - Diffusion-Driven Two-Stage Active Learning for Low-Budget Semantic Segmentation.pdf;/home/arthings/Zotero/storage/MHLETMWJ/2510.html}
+}
+
+@misc{liSurveyDeepActive2024,
+  title = {A {{Survey}} on {{Deep Active Learning}}: {{Recent Advances}} and {{New Frontiers}}},
+  shorttitle = {A {{Survey}} on {{Deep Active Learning}}},
+  author = {Li, Dongyuan and Wang, Zhen and Chen, Yankai and Jiang, Renhe and Ding, Weiping and Okumura, Manabu},
+  year = 2024,
+  month = jul,
+  number = {arXiv:2405.00334},
+  eprint = {2405.00334},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2405.00334},
+  urldate = {2025-12-10},
+  abstract = {Active learning seeks to achieve strong performance with fewer training samples. It does this by iteratively asking an oracle to label new selected samples in a human-in-the-loop manner. This technique has gained increasing popularity due to its broad applicability, yet its survey papers, especially for deep learning-based active learning (DAL), remain scarce. Therefore, we conduct an advanced and comprehensive survey on DAL. We first introduce reviewed paper collection and filtering. Second, we formally define the DAL task and summarize the most influential baselines and widely used datasets. Third, we systematically provide a taxonomy of DAL methods from five perspectives, including annotation types, query strategies, deep model architectures, learning paradigms, and training processes, and objectively analyze their strengths and weaknesses. Then, we comprehensively summarize main applications of DAL in Natural Language Processing (NLP), Computer Vision (CV), and Data Mining (DM), etc. Finally, we discuss challenges and perspectives after a detailed analysis of current studies. This work aims to serve as a useful and quick guide for researchers in overcoming difficulties in DAL. We hope that this survey will spur further progress in this burgeoning field.},
+  archiveprefix = {arXiv},
+  keywords = {active learning,Computer Science - Machine Learning,survey},
+  file = {/home/arthings/Zotero/storage/RZWWQ8N2/Li et al. - 2024 - A Survey on Deep Active Learning Recent Advances and New Frontiers.pdf;/home/arthings/Zotero/storage/K6LTH2ZB/2405.html}
 }
 
 @article{mimouniDomainSpecificKnowledge2020,
@@ -306,6 +442,23 @@
   file = {/home/arthings/Zotero/storage/VV3DRWEG/Munjal et al. - 2022 - Towards Robust and Reproducible Active Learning Using Neural Networks.pdf;/home/arthings/Zotero/storage/CV9LTHIZ/2002.html}
 }
 
+@inproceedings{onoExploringPossibilityTypiClust2025,
+  title = {Exploring the {{Possibility}} of {{TypiClust}} for {{Low-Budget Federated Active Learning}}},
+  booktitle = {2025 {{IEEE}} 49th {{Annual Computers}}, {{Software}}, and {{Applications Conference}} ({{COMPSAC}})},
+  author = {Ono, Yuta and Nakamura, Hiroshi and Takase, Hideki},
+  year = 2025,
+  month = jul,
+  eprint = {2505.19404},
+  primaryclass = {cs},
+  pages = {648--653},
+  doi = {10.1109/COMPSAC65507.2025.00087},
+  urldate = {2025-12-10},
+  abstract = {Federated Active Learning (FAL) seeks to reduce the burden of annotation under the realistic constraints of federated learning by leveraging Active Learning (AL). As FAL settings make it more expensive to obtain ground truth labels, FAL strategies that work well in low-budget regimes, where the amount of annotation is very limited, are needed. In this work, we investigate the effectiveness of TypiClust, a successful low-budget AL strategy, in low-budget FAL settings. Our empirical results show that TypiClust works well even in low-budget FAL settings contrasted with relatively low performances of other methods, although these settings present additional challenges, such as data heterogeneity, compared to AL. In addition, we show that FAL settings cause distribution shifts in terms of typicality, but TypiClust is not very vulnerable to the shifts. We also analyze the sensitivity of TypiClust to feature extraction methods, and it suggests a way to perform FAL even in limited data situations.},
+  archiveprefix = {arXiv},
+  keywords = {Computer Science - Artificial Intelligence,Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning},
+  file = {/home/arthings/Zotero/storage/AFLC6IFJ/Ono et al. - 2025 - Exploring the Possibility of TypiClust for Low-Budget Federated Active Learning.pdf;/home/arthings/Zotero/storage/RFM2BWZH/2505.html}
+}
+
 @article{panUnifyingLargeLanguage2024,
   title = {Unifying {{Large Language Models}} and {{Knowledge Graphs}}: {{A Roadmap}}},
   shorttitle = {Unifying {{Large Language Models}} and {{Knowledge Graphs}}},
@@ -327,6 +480,24 @@
   file = {/home/arthings/Zotero/storage/FK3Z3E9B/Pan et al. - 2024 - Unifying Large Language Models and Knowledge Graphs A Roadmap.pdf;/home/arthings/Zotero/storage/WBEVIEJE/2306.html}
 }
 
+@misc{qiaoCPRALCollaborativePanopticRegional2022,
+  title = {{{CPRAL}}: {{Collaborative Panoptic-Regional Active Learning}} for {{Semantic Segmentation}}},
+  shorttitle = {{{CPRAL}}},
+  author = {Qiao, Yu and Zhu, Jincheng and Long, Chengjiang and Zhang, Zeyao and Wang, Yuxin and Du, Zhenjun and Yang, Xin},
+  year = 2022,
+  month = jan,
+  number = {arXiv:2112.05975},
+  eprint = {2112.05975},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2112.05975},
+  urldate = {2025-12-10},
+  abstract = {Acquiring the most representative examples via active learning (AL) can benefit many data-dependent computer vision tasks by minimizing efforts of image-level or pixel-wise annotations. In this paper, we propose a novel Collaborative Panoptic-Regional Active Learning framework (CPRAL) to address the semantic segmentation task. For a small batch of images initially sampled with pixel-wise annotations, we employ panoptic information to initially select unlabeled samples. Considering the class imbalance in the segmentation dataset, we import a Regional Gaussian Attention module (RGA) to achieve semantics-biased selection. The subset is highlighted by vote entropy and then attended by Gaussian kernels to maximize the biased regions. We also propose a Contextual Labels Extension (CLE) to boost regional annotations with contextual attention guidance. With the collaboration of semantics-agnostic panoptic matching and regionbiased selection and extension, our CPRAL can strike a balance between labeling efforts and performance and compromise the semantics distribution. We perform extensive experiments on Cityscapes and BDD10K datasets and show that CPRAL outperforms the cutting-edge methods with impressive results and less labeling proportion.},
+  archiveprefix = {arXiv},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition},
+  file = {/home/arthings/Zotero/storage/NW83F4U9/2112.html}
+}
+
 @misc{romanoClassificationValidAdaptive2020,
   title = {Classification with {{Valid}} and {{Adaptive Coverage}}},
   author = {Romano, Yaniv and Sesia, Matteo and Cand{\`e}s, Emmanuel J.},
@@ -340,7 +511,7 @@
   urldate = {2025-12-06},
   abstract = {Conformal inference, cross-validation+, and the jackknife+ are hold-out methods that can be combined with virtually any machine learning algorithm to construct prediction sets with guaranteed marginal coverage. In this paper, we develop specialized versions of these techniques for categorical and unordered response labels that, in addition to providing marginal coverage, are also fully adaptive to complex data distributions, in the sense that they perform favorably in terms of approximate conditional coverage compared to alternative methods. The heart of our contribution is a novel conformity score, which we explicitly demonstrate to be powerful and intuitive for classification problems, but whose underlying principle is potentially far more general. Experiments on synthetic and real data demonstrate the practical value of our theoretical guarantees, as well as the statistical advantages of the proposed methods over the existing alternatives.},
   archiveprefix = {arXiv},
-  keywords = {Statistics - Machine Learning,Statistics - Methodology},
+  keywords = {classification,conformal prediction,Statistics - Machine Learning,Statistics - Methodology},
   file = {/home/arthings/Zotero/storage/QLKNFGV6/Romano et al. - 2020 - Classification with Valid and Adaptive Coverage.pdf;/home/arthings/Zotero/storage/FKFS3BMN/2006.html}
 }
 
@@ -358,8 +529,77 @@
   urldate = {2025-12-06},
   abstract = {Convolutional neural networks (CNNs) have been successfully applied to many recognition and learning tasks using a universal recipe; training a deep model on a very large dataset of supervised examples. However, this approach is rather restrictive in practice since collecting a large set of labeled images is very expensive. One way to ease this problem is coming up with smart ways for choosing images to be labelled from a very large collection (ie. active learning). Our empirical study suggests that many of the active learning heuristics in the literature are not effective when applied to CNNs in batch setting. Inspired by these limitations, we define the problem of active learning as core-set selection, ie. choosing set of points such that a model learned over the selected subset is competitive for the remaining data points. We further present a theoretical result characterizing the performance of any selected subset using the geometry of the datapoints. As an active learning algorithm, we choose the subset which is expected to yield best result according to our characterization. Our experiments show that the proposed method significantly outperforms existing approaches in image classification experiments by a large margin.},
   archiveprefix = {arXiv},
-  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,Statistics - Machine Learning},
+  keywords = {active learning,Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,image classification,Statistics - Machine Learning},
   file = {/home/arthings/Zotero/storage/8NFDGARK/Sener et Savarese - 2018 - Active Learning for Convolutional Neural Networks A Core-Set Approach.pdf;/home/arthings/Zotero/storage/G7UAX5WS/1708.html}
+}
+
+@misc{xieFewerAnnotationsActive2022,
+  title = {Towards {{Fewer Annotations}}: {{Active Learning}} via {{Region Impurity}} and {{Prediction Uncertainty}} for {{Domain Adaptive Semantic Segmentation}}},
+  shorttitle = {Towards {{Fewer Annotations}}},
+  author = {Xie, Binhui and Yuan, Longhui and Li, Shuang and Liu, Chi Harold and Cheng, Xinjing},
+  year = 2022,
+  month = mar,
+  number = {arXiv:2111.12940},
+  eprint = {2111.12940},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2111.12940},
+  urldate = {2025-12-10},
+  abstract = {Self-training has greatly facilitated domain adaptive semantic segmentation, which iteratively generates pseudo labels on unlabeled target data and retrains the network. However, realistic segmentation datasets are highly imbalanced, pseudo labels are typically biased to the majority classes and basically noisy, leading to an error-prone and suboptimal model. In this paper, we propose a simple region-based active learning approach for semantic segmentation under a domain shift, aiming to automatically query a small partition of image regions to be labeled while maximizing segmentation performance. Our algorithm, Region Impurity and Prediction Uncertainty (RIPU), introduces a new acquisition strategy characterizing the spatial adjacency of image regions along with the prediction confidence. We show that the proposed region-based selection strategy makes more efficient use of a limited budget than image-based or point-based counterparts. Further, we enforce local prediction consistency between a pixel and its nearest neighbors on a source image. Alongside, we develop a negative learning loss to make the features more discriminative. Extensive experiments demonstrate that our method only requires very few annotations to almost reach the supervised performance and substantially outperforms state-of-the-art methods. The code is available at https://github.com/BIT-DA/RIPU.},
+  archiveprefix = {arXiv},
+  keywords = {Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning},
+  file = {/home/arthings/Zotero/storage/XVQ4XF6Y/Xie et al. - 2022 - Towards Fewer Annotations Active Learning via Region Impurity and Prediction Uncertainty for Domain.pdf;/home/arthings/Zotero/storage/MYNZNGUF/2111.html}
+}
+
+@misc{yangPlugPlayActive2024,
+  title = {Plug and {{Play Active Learning}} for {{Object Detection}}},
+  author = {Yang, Chenhongyi and Huang, Lichao and Crowley, Elliot J.},
+  year = 2024,
+  month = mar,
+  number = {arXiv:2211.11612},
+  eprint = {2211.11612},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2211.11612},
+  urldate = {2025-12-10},
+  abstract = {Annotating datasets for object detection is an expensive and time-consuming endeavor. To minimize this burden, active learning (AL) techniques are employed to select the most informative samples for annotation within a constrained "annotation budget". Traditional AL strategies typically rely on model uncertainty or sample diversity for query sampling, while more advanced methods have focused on developing AL-specific object detector architectures to enhance performance. However, these specialized approaches are not readily adaptable to different object detectors due to the significant engineering effort required for integration. To overcome this challenge, we introduce Plug and Play Active Learning (PPAL), a simple and effective AL strategy for object detection. PPAL is a two-stage method comprising uncertainty-based and diversity-based sampling phases. In the first stage, our Difficulty Calibrated Uncertainty Sampling leverage a category-wise difficulty coefficient that combines both classification and localisation difficulties to re-weight instance uncertainties, from which we sample a candidate pool for the subsequent diversity-based sampling. In the second stage, we propose Category Conditioned Matching Similarity to better compute the similarities of multi-instance images as ensembles of their instance similarities, which is used by the k-Means++ algorithm to sample the final AL queries. PPAL makes no change to model architectures or detector training pipelines; hence it can be easily generalized to different object detectors. We benchmark PPAL on the MS-COCO and Pascal VOC datasets using different detector architectures and show that our method outperforms prior work by a large margin. Code is available at https://github.com/ChenhongyiYang/PPAL},
+  archiveprefix = {arXiv},
+  keywords = {active learning,Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,object detection},
+  file = {/home/arthings/Zotero/storage/34XAQ6HG/Yang et al. - 2024 - Plug and Play Active Learning for Object Detection.pdf;/home/arthings/Zotero/storage/W5R9MX44/2211.html}
+}
+
+@misc{yooLearningLossActive2019,
+  title = {Learning {{Loss}} for {{Active Learning}}},
+  author = {Yoo, Donggeun and Kweon, In So},
+  year = 2019,
+  month = may,
+  number = {arXiv:1905.03677},
+  eprint = {1905.03677},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.1905.03677},
+  urldate = {2025-12-10},
+  abstract = {The performance of deep neural networks improves with more annotated data. The problem is that the budget for annotation is limited. One solution to this is active learning, where a model asks human to annotate data that it perceived as uncertain. A variety of recent methods have been proposed to apply active learning to deep networks but most of them are either designed specific for their target tasks or computationally inefficient for large networks. In this paper, we propose a novel active learning method that is simple but task-agnostic, and works efficiently with the deep networks. We attach a small parametric module, named "loss prediction module," to a target network, and learn it to predict target losses of unlabeled inputs. Then, this module can suggest data that the target model is likely to produce a wrong prediction. This method is task-agnostic as networks are learned from a single loss regardless of target tasks. We rigorously validate our method through image classification, object detection, and human pose estimation, with the recent network architectures. The results demonstrate that our method consistently outperforms the previous methods over the tasks.},
+  archiveprefix = {arXiv},
+  keywords = {active learning,Computer Science - Computer Vision and Pattern Recognition,Computer Science - Machine Learning,image classification,object detection},
+  file = {/home/arthings/Zotero/storage/ULVVNR2K/Yoo et Kweon - 2019 - Learning Loss for Active Learning.pdf;/home/arthings/Zotero/storage/HPEW9ULD/1905.html}
+}
+
+@misc{zhaoActiveLearningLabel2021,
+  title = {Active {{Learning}} under {{Label Shift}}},
+  author = {Zhao, Eric and Liu, Anqi and Anandkumar, Animashree and Yue, Yisong},
+  year = 2021,
+  month = feb,
+  number = {arXiv:2007.08479},
+  eprint = {2007.08479},
+  primaryclass = {cs},
+  publisher = {arXiv},
+  doi = {10.48550/arXiv.2007.08479},
+  urldate = {2025-12-10},
+  abstract = {We address the problem of active learning under label shift: when the class proportions of source and target domains differ. We introduce a "medial distribution" to incorporate a tradeoff between importance weighting and class-balanced sampling and propose their combined usage in active learning. Our method is known as Mediated Active Learning under Label Shift (MALLS). It balances the bias from class-balanced sampling and the variance from importance weighting. We prove sample complexity and generalization guarantees for MALLS which show active learning reduces asymptotic sample complexity even under arbitrary label shift. We empirically demonstrate MALLS scales to high-dimensional datasets and can reduce the sample complexity of active learning by 60\% in deep active learning tasks.},
+  archiveprefix = {arXiv},
+  keywords = {Computer Science - Machine Learning,Statistics - Machine Learning},
+  file = {/home/arthings/Zotero/storage/2MKJLU9R/Zhao et al. - 2021 - Active Learning under Label Shift.pdf;/home/arthings/Zotero/storage/XL74U8L9/2007.html}
 }
 
 @inproceedings{zhaoFeedbackControlOnline2019,
