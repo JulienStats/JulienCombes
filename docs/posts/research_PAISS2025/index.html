@@ -163,7 +163,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -354,7 +354,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../posts/"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
@@ -368,6 +368,10 @@ window.Quarto = {
   <li class="nav-item">
     <a class="nav-link" href="../../my_phd.html"> 
 <span class="menu-text">My Phd</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../linux.html"> 
+<span class="menu-text">Linux (FR)</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -432,7 +436,51 @@ window.Quarto = {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#semi-detailed-report" id="toc-semi-detailed-report" class="nav-link active" data-scroll-target="#semi-detailed-report">Semi detailed Report</a></li>
+  <li><a href="#lundi-01-sep" id="toc-lundi-01-sep" class="nav-link" data-scroll-target="#lundi-01-sep">Lundi 01 Sep</a>
+  <ul class="collapse">
+  <li><a href="#talk-1-progress-and-prospects-in-learning-optimization-control-and-simulation-for-robotics-justin-carpentier" id="toc-talk-1-progress-and-prospects-in-learning-optimization-control-and-simulation-for-robotics-justin-carpentier" class="nav-link" data-scroll-target="#talk-1-progress-and-prospects-in-learning-optimization-control-and-simulation-for-robotics-justin-carpentier">Talk 1 : Progress and Prospects in Learning, Optimization, Control and Simulation for Robotics (Justin Carpentier)</a></li>
+  <li><a href="#talk-2-retrieving-generating-and-refining-for-web-scale-ahmet-iscen" id="toc-talk-2-retrieving-generating-and-refining-for-web-scale-ahmet-iscen" class="nav-link" data-scroll-target="#talk-2-retrieving-generating-and-refining-for-web-scale-ahmet-iscen">Talk 2 : Retrieving, Generating, and Refining for Web-Scale (Ahmet Iscen)</a></li>
+  <li><a href="#talk-3-llm-training-and-inference-efficiency-jeremy-reizenstein" id="toc-talk-3-llm-training-and-inference-efficiency-jeremy-reizenstein" class="nav-link" data-scroll-target="#talk-3-llm-training-and-inference-efficiency-jeremy-reizenstein">Talk 3 : LLM training and inference efficiency (Jeremy Reizenstein)</a></li>
+  <li><a href="#poster-session" id="toc-poster-session" class="nav-link" data-scroll-target="#poster-session">Poster session</a></li>
+  </ul></li>
+  <li><a href="#mardi-02-sep" id="toc-mardi-02-sep" class="nav-link" data-scroll-target="#mardi-02-sep">Mardi 02 Sep</a>
+  <ul class="collapse">
+  <li><a href="#talk-1-diffusion-flows-and-optimal-transport-in-machine-learning-gabriel-peyré" id="toc-talk-1-diffusion-flows-and-optimal-transport-in-machine-learning-gabriel-peyré" class="nav-link" data-scroll-target="#talk-1-diffusion-flows-and-optimal-transport-in-machine-learning-gabriel-peyré">Talk 1 : Diffusion Flows and Optimal Transport in Machine Learning (Gabriel Peyré)</a></li>
+  <li><a href="#talk-2-learning-to-control-an-introduction-to-reinforcement-learning-claire-vernade" id="toc-talk-2-learning-to-control-an-introduction-to-reinforcement-learning-claire-vernade" class="nav-link" data-scroll-target="#talk-2-learning-to-control-an-introduction-to-reinforcement-learning-claire-vernade">Talk 2 : Learning to Control: An Introduction to Reinforcement Learning (Claire Vernade)</a></li>
+  <li><a href="#talk-3-a-collectivist-economic-perspective-on-ai-michael-jordan" id="toc-talk-3-a-collectivist-economic-perspective-on-ai-michael-jordan" class="nav-link" data-scroll-target="#talk-3-a-collectivist-economic-perspective-on-ai-michael-jordan">Talk 3 : A Collectivist, Economic Perspective on AI (Michael Jordan)</a></li>
+  <li><a href="#poster-session-1" id="toc-poster-session-1" class="nav-link" data-scroll-target="#poster-session-1">Poster session</a></li>
+  </ul></li>
+  <li><a href="#mercredi-03-sep" id="toc-mercredi-03-sep" class="nav-link" data-scroll-target="#mercredi-03-sep">Mercredi 03 Sep</a>
+  <ul class="collapse">
+  <li><a href="#talk-1-ai-security-lê-nguyên-hoang" id="toc-talk-1-ai-security-lê-nguyên-hoang" class="nav-link" data-scroll-target="#talk-1-ai-security-lê-nguyên-hoang">Talk 1 : AI Security (Lê Nguyên Hoang)</a></li>
+  <li><a href="#talk-2-governance-of-ai-carina-prunkl" id="toc-talk-2-governance-of-ai-carina-prunkl" class="nav-link" data-scroll-target="#talk-2-governance-of-ai-carina-prunkl">Talk 2 : governance of AI (Carina Prunkl)</a></li>
+  <li><a href="#talk-3-intro-to-stat-fairness-solenne-gaucher" id="toc-talk-3-intro-to-stat-fairness-solenne-gaucher" class="nav-link" data-scroll-target="#talk-3-intro-to-stat-fairness-solenne-gaucher">Talk 3 : Intro to stat fairness (Solenne Gaucher)</a></li>
+  <li><a href="#talk-4-ai-ethics-in-practice-mariia-vladimirova" id="toc-talk-4-ai-ethics-in-practice-mariia-vladimirova" class="nav-link" data-scroll-target="#talk-4-ai-ethics-in-practice-mariia-vladimirova">talk 4 : AI ethics in practice (Mariia Vladimirova)</a></li>
+  </ul></li>
+  <li><a href="#jeudi-04-sep" id="toc-jeudi-04-sep" class="nav-link" data-scroll-target="#jeudi-04-sep">Jeudi 04 Sep</a>
+  <ul class="collapse">
+  <li><a href="#talk-1-data-driven-3d-vision-jerome-revaud" id="toc-talk-1-data-driven-3d-vision-jerome-revaud" class="nav-link" data-scroll-target="#talk-1-data-driven-3d-vision-jerome-revaud">Talk 1 : Data-Driven 3D Vision (Jerome revaud)</a></li>
+  <li><a href="#talk-2-world-models-yann-lecun" id="toc-talk-2-world-models-yann-lecun" class="nav-link" data-scroll-target="#talk-2-world-models-yann-lecun">Talk 2 : World Models (Yann LeCun)</a></li>
+  <li><a href="#talk-3-video-understanding-out-of-the-frame---an-egocentric-perspective-dima-damen" id="toc-talk-3-video-understanding-out-of-the-frame---an-egocentric-perspective-dima-damen" class="nav-link" data-scroll-target="#talk-3-video-understanding-out-of-the-frame---an-egocentric-perspective-dima-damen">Talk 3 : Video Understanding Out of the Frame - an Egocentric Perspective (Dima Damen)</a></li>
+  <li><a href="#poster-session-2" id="toc-poster-session-2" class="nav-link" data-scroll-target="#poster-session-2">Poster session</a></li>
+  </ul></li>
+  <li><a href="#vendredi-05-sep" id="toc-vendredi-05-sep" class="nav-link" data-scroll-target="#vendredi-05-sep">Vendredi 05 Sep</a>
+  <ul class="collapse">
+  <li><a href="#causal-effect-estimation-with-context-and-confounders-arthurgretton" id="toc-causal-effect-estimation-with-context-and-confounders-arthurgretton" class="nav-link" data-scroll-target="#causal-effect-estimation-with-context-and-confounders-arthurgretton">Causal Effect Estimation with Context and Confounders (ArthurGretton)</a></li>
+  <li><a href="#weakly-supervised-multi-label-plant-species-prediction-with-multimodal-data-lukáš-picek" id="toc-weakly-supervised-multi-label-plant-species-prediction-with-multimodal-data-lukáš-picek" class="nav-link" data-scroll-target="#weakly-supervised-multi-label-plant-species-prediction-with-multimodal-data-lukáš-picek">Weakly Supervised Multi-Label Plant Species Prediction with Multimodal Data (Lukáš Picek)</a></li>
+  <li><a href="#experiences-from-training-magistral-reasoning-and-voxtral-audio-models-at-mistral-timothée-lacroix" id="toc-experiences-from-training-magistral-reasoning-and-voxtral-audio-models-at-mistral-timothée-lacroix" class="nav-link" data-scroll-target="#experiences-from-training-magistral-reasoning-and-voxtral-audio-models-at-mistral-timothée-lacroix">Experiences from training Magistral (reasoning) and Voxtral (audio) models at Mistral (Timothée Lacroix)</a></li>
+  </ul></li>
+  <li><a href="#discussions" id="toc-discussions" class="nav-link" data-scroll-target="#discussions">Discussions</a></li>
+  <li><a href="#thanks" id="toc-thanks" class="nav-link" data-scroll-target="#thanks">Thanks</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 

@@ -12,13 +12,15 @@ website:
         href: https://github.com/JulienStats
     left:
       - text: Posts
-        href: posts/
+        href: index.qmd
       - text: Research
         href: research.qmd
       - text: Publications
         href: publications.qmd
       - text: My Phd
         href: my_phd.qmd
+      - text: Linux (FR)
+        href: linux.qmd
         
 format:
   html:
@@ -28,6 +30,8 @@ format:
       light: flatly
       dark: darkly
     css: styles.css
+    toc: true
+
 
 bibliography: biblio.bib
 execute:
