@@ -103,7 +103,7 @@ This is still an area at the research stage but some solution exists to tackle o
 
 ---
 
-Antoine was so nice to give his insight about his past with active learning and domain transfert i really want to thank him again. He agree that active learning doesn't beat random in most cases, but he believes more in AL than in domain adaptation.... Let's do our best !
+[Antoine](https://antoinedemathelin.github.io/homepage/) was so nice to give his insight about his past with active learning and domain transfert i really want to thank him again. He agree that active learning doesn't beat random in most cases, but he believes more in AL than in domain adaptation.... Let's do our best !
 
 It is normal for Al to bias the distribution, because if we didn't want to bias it we would have stayed with random sampling.
 

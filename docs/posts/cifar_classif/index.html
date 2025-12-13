@@ -393,6 +393,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#the-data" id="toc-the-data" class="nav-link active" data-scroll-target="#the-data">The data</a></li>
   <li><a href="#the-model" id="toc-the-model" class="nav-link" data-scroll-target="#the-model">The model</a></li>
+  <li><a href="#use-everything-for-training" id="toc-use-everything-for-training" class="nav-link" data-scroll-target="#use-everything-for-training">Use everything for training !</a></li>
   <li><a href="#and-it-is-done" id="toc-and-it-is-done" class="nav-link" data-scroll-target="#and-it-is-done">And it is Done !</a></li>
   </ul>
 </nav>
@@ -411,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The metrics have the gathering across gpus/devices already implemented so you just have to decide of which ones you want to add to your project. If some computations are not already present in the library, you can <a href="https://lightning.ai/docs/torchmetrics/stable/pages/implement.html">add your own metric</a> very easily.</p>
 <section id="the-data" class="level2">
 <h2 class="anchored" data-anchor-id="the-data">The data</h2>
-<div id="b6d37d3d" class="cell" data-execution_count="1">
+<div id="68c02567" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -471,181 +472,179 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">64</span><span class="op">*</span><span class="dv">2</span>,</span>
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    num_workers<span class="op">=</span><span class="dv">5</span>,</span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>  0%|          | 0.00/170M [00:00&lt;?, ?B/s]  0%|          | 32.8k/170M [00:00&lt;43:18, 65.6kB/s]  0%|          | 65.5k/170M [00:00&lt;28:15, 101kB/s]   0%|          | 98.3k/170M [00:00&lt;23:30, 121kB/s]  0%|          | 131k/170M [00:01&lt;21:12, 134kB/s]   0%|          | 197k/170M [00:01&lt;14:40, 193kB/s]  0%|          | 295k/170M [00:01&lt;10:00, 283kB/s]  0%|          | 459k/170M [00:01&lt;08:22, 339kB/s]  0%|          | 721k/170M [00:02&lt;04:55, 574kB/s]  1%|          | 885k/170M [00:02&lt;05:02, 561kB/s]  1%|          | 1.15M/170M [00:02&lt;04:45, 593kB/s]  1%|          | 1.31M/170M [00:03&lt;04:24, 639kB/s]  1%|          | 1.57M/170M [00:03&lt;03:32, 794kB/s]  1%|          | 1.77M/170M [00:03&lt;04:13, 665kB/s]  1%|          | 1.97M/170M [00:03&lt;03:50, 732kB/s]  1%|          | 2.10M/170M [00:04&lt;03:57, 710kB/s]  1%|▏         | 2.26M/170M [00:04&lt;03:50, 730kB/s]  1%|▏         | 2.42M/170M [00:04&lt;04:13, 662kB/s]  2%|▏         | 2.59M/170M [00:04&lt;04:00, 698kB/s]  2%|▏         | 2.75M/170M [00:05&lt;03:51, 725kB/s]  2%|▏         | 2.92M/170M [00:05&lt;03:17, 850kB/s]  2%|▏         | 3.11M/170M [00:05&lt;02:43, 1.03MB/s]  2%|▏         | 3.28M/170M [00:05&lt;02:28, 1.12MB/s]  2%|▏         | 3.47M/170M [00:05&lt;02:11, 1.27MB/s]  2%|▏         | 3.64M/170M [00:05&lt;02:05, 1.33MB/s]  2%|▏         | 3.83M/170M [00:05&lt;02:16, 1.22MB/s]  2%|▏         | 4.19M/170M [00:05&lt;01:45, 1.58MB/s]  3%|▎         | 4.39M/170M [00:06&lt;01:42, 1.62MB/s]  3%|▎         | 4.59M/170M [00:06&lt;01:51, 1.49MB/s]  3%|▎         | 4.78M/170M [00:06&lt;01:47, 1.55MB/s]  3%|▎         | 4.98M/170M [00:06&lt;01:43, 1.60MB/s]  3%|▎         | 5.18M/170M [00:06&lt;01:40, 1.64MB/s]  3%|▎         | 5.37M/170M [00:06&lt;01:38, 1.67MB/s]  3%|▎         | 5.57M/170M [00:06&lt;01:37, 1.70MB/s]  3%|▎         | 5.77M/170M [00:06&lt;01:36, 1.71MB/s]  3%|▎         | 5.96M/170M [00:06&lt;01:35, 1.72MB/s]  4%|▎         | 6.16M/170M [00:07&lt;01:34, 1.73MB/s]  4%|▎         | 6.36M/170M [00:07&lt;01:35, 1.72MB/s]  4%|▍         | 6.55M/170M [00:07&lt;01:35, 1.72MB/s]  4%|▍         | 6.75M/170M [00:07&lt;01:34, 1.74MB/s]  4%|▍         | 6.95M/170M [00:07&lt;01:34, 1.73MB/s]  4%|▍         | 7.14M/170M [00:07&lt;01:34, 1.74MB/s]  4%|▍         | 7.34M/170M [00:07&lt;01:33, 1.75MB/s]  4%|▍         | 7.54M/170M [00:07&lt;01:44, 1.56MB/s]  5%|▍         | 7.73M/170M [00:08&lt;01:43, 1.57MB/s]  5%|▍         | 7.93M/170M [00:08&lt;01:41, 1.61MB/s]  5%|▍         | 8.13M/170M [00:08&lt;01:38, 1.65MB/s]  5%|▍         | 8.32M/170M [00:08&lt;01:43, 1.57MB/s]  5%|▍         | 8.52M/170M [00:08&lt;01:39, 1.63MB/s]  5%|▌         | 8.72M/170M [00:08&lt;01:38, 1.64MB/s]  5%|▌         | 8.91M/170M [00:08&lt;01:43, 1.56MB/s]  5%|▌         | 9.11M/170M [00:08&lt;01:39, 1.62MB/s]  5%|▌         | 9.31M/170M [00:08&lt;01:37, 1.65MB/s]  6%|▌         | 9.50M/170M [00:09&lt;01:35, 1.68MB/s]  6%|▌         | 9.70M/170M [00:09&lt;01:34, 1.70MB/s]  6%|▌         | 9.90M/170M [00:09&lt;01:34, 1.71MB/s]  6%|▌         | 10.1M/170M [00:09&lt;01:33, 1.72MB/s]  6%|▌         | 10.3M/170M [00:09&lt;01:32, 1.72MB/s]  6%|▌         | 10.5M/170M [00:09&lt;01:32, 1.73MB/s]  6%|▋         | 10.7M/170M [00:09&lt;01:31, 1.74MB/s]  6%|▋         | 10.9M/170M [00:09&lt;01:31, 1.74MB/s]  6%|▋         | 11.1M/170M [00:10&lt;01:37, 1.64MB/s]  7%|▋         | 11.3M/170M [00:10&lt;01:37, 1.63MB/s]  7%|▋         | 11.5M/170M [00:10&lt;01:35, 1.67MB/s]  7%|▋         | 11.7M/170M [00:10&lt;01:34, 1.68MB/s]  7%|▋         | 11.9M/170M [00:10&lt;01:32, 1.71MB/s]  7%|▋         | 12.1M/170M [00:10&lt;01:32, 1.72MB/s]  7%|▋         | 12.3M/170M [00:10&lt;01:30, 1.75MB/s]  7%|▋         | 12.5M/170M [00:10&lt;01:30, 1.75MB/s]  7%|▋         | 12.6M/170M [00:10&lt;01:29, 1.75MB/s]  8%|▊         | 12.8M/170M [00:11&lt;01:29, 1.76MB/s]  8%|▊         | 13.0M/170M [00:11&lt;01:28, 1.77MB/s]  8%|▊         | 13.2M/170M [00:11&lt;01:27, 1.80MB/s]  8%|▊         | 13.4M/170M [00:11&lt;01:25, 1.83MB/s]  8%|▊         | 13.6M/170M [00:11&lt;01:25, 1.84MB/s]  8%|▊         | 13.9M/170M [00:11&lt;01:23, 1.88MB/s]  8%|▊         | 14.1M/170M [00:11&lt;01:23, 1.88MB/s]  8%|▊         | 14.3M/170M [00:11&lt;01:21, 1.92MB/s]  9%|▊         | 14.5M/170M [00:11&lt;01:19, 1.96MB/s]  9%|▊         | 14.7M/170M [00:12&lt;01:18, 1.99MB/s]  9%|▉         | 15.0M/170M [00:12&lt;01:17, 2.01MB/s]  9%|▉         | 15.2M/170M [00:12&lt;01:17, 2.01MB/s]  9%|▉         | 15.5M/170M [00:12&lt;01:13, 2.10MB/s]  9%|▉         | 15.7M/170M [00:12&lt;01:13, 2.10MB/s]  9%|▉         | 16.0M/170M [00:12&lt;01:11, 2.15MB/s]  9%|▉         | 16.2M/170M [00:12&lt;01:13, 2.11MB/s] 10%|▉         | 16.4M/170M [00:12&lt;01:11, 2.16MB/s] 10%|▉         | 16.7M/170M [00:12&lt;01:08, 2.23MB/s] 10%|▉         | 17.0M/170M [00:13&lt;01:07, 2.26MB/s] 10%|█         | 17.3M/170M [00:13&lt;01:05, 2.34MB/s] 10%|█         | 17.5M/170M [00:13&lt;01:05, 2.34MB/s] 10%|█         | 17.8M/170M [00:13&lt;01:04, 2.38MB/s] 11%|█         | 18.1M/170M [00:13&lt;01:01, 2.46MB/s] 11%|█         | 18.4M/170M [00:13&lt;01:00, 2.52MB/s] 11%|█         | 18.7M/170M [00:13&lt;00:58, 2.59MB/s] 11%|█         | 19.0M/170M [00:13&lt;00:57, 2.64MB/s] 11%|█▏        | 19.3M/170M [00:13&lt;00:55, 2.70MB/s] 12%|█▏        | 19.6M/170M [00:14&lt;00:55, 2.72MB/s] 12%|█▏        | 20.0M/170M [00:14&lt;00:53, 2.80MB/s] 12%|█▏        | 20.3M/170M [00:14&lt;00:52, 2.85MB/s] 12%|█▏        | 20.6M/170M [00:14&lt;00:51, 2.92MB/s] 12%|█▏        | 21.0M/170M [00:14&lt;00:49, 3.00MB/s] 13%|█▎        | 21.4M/170M [00:14&lt;00:48, 3.08MB/s] 13%|█▎        | 21.8M/170M [00:14&lt;00:47, 3.15MB/s] 13%|█▎        | 22.1M/170M [00:14&lt;00:45, 3.24MB/s] 13%|█▎        | 22.5M/170M [00:14&lt;00:44, 3.33MB/s] 13%|█▎        | 22.9M/170M [00:15&lt;00:43, 3.39MB/s] 14%|█▎        | 23.3M/170M [00:15&lt;00:41, 3.51MB/s] 14%|█▍        | 23.8M/170M [00:15&lt;00:41, 3.56MB/s] 14%|█▍        | 24.2M/170M [00:15&lt;00:39, 3.71MB/s] 14%|█▍        | 24.6M/170M [00:15&lt;00:38, 3.75MB/s] 15%|█▍        | 25.1M/170M [00:15&lt;00:37, 3.86MB/s] 15%|█▍        | 25.6M/170M [00:15&lt;00:36, 3.95MB/s] 15%|█▌        | 26.0M/170M [00:15&lt;00:35, 4.09MB/s] 16%|█▌        | 26.5M/170M [00:15&lt;00:34, 4.19MB/s] 16%|█▌        | 27.0M/170M [00:16&lt;00:33, 4.23MB/s] 16%|█▌        | 27.5M/170M [00:16&lt;00:32, 4.41MB/s] 16%|█▋        | 28.0M/170M [00:16&lt;00:31, 4.52MB/s] 17%|█▋        | 28.5M/170M [00:16&lt;00:30, 4.61MB/s] 17%|█▋        | 29.1M/170M [00:16&lt;00:29, 4.76MB/s] 17%|█▋        | 29.6M/170M [00:16&lt;00:28, 4.87MB/s] 18%|█▊        | 30.2M/170M [00:16&lt;00:28, 4.94MB/s] 18%|█▊        | 30.8M/170M [00:16&lt;00:27, 5.03MB/s] 18%|█▊        | 31.4M/170M [00:16&lt;00:26, 5.18MB/s] 19%|█▉        | 32.0M/170M [00:17&lt;00:25, 5.36MB/s] 19%|█▉        | 32.6M/170M [00:17&lt;00:25, 5.42MB/s] 19%|█▉        | 33.2M/170M [00:17&lt;00:25, 5.37MB/s] 20%|█▉        | 33.7M/170M [00:17&lt;00:26, 5.22MB/s] 20%|██        | 34.3M/170M [00:17&lt;00:25, 5.27MB/s] 21%|██        | 35.0M/170M [00:17&lt;00:24, 5.63MB/s] 21%|██        | 35.7M/170M [00:17&lt;00:22, 5.89MB/s] 21%|██▏       | 36.5M/170M [00:17&lt;00:21, 6.16MB/s] 22%|██▏       | 37.3M/170M [00:17&lt;00:20, 6.40MB/s] 22%|██▏       | 38.0M/170M [00:18&lt;00:20, 6.58MB/s] 23%|██▎       | 38.8M/170M [00:18&lt;00:19, 6.78MB/s] 23%|██▎       | 39.7M/170M [00:18&lt;00:18, 6.98MB/s] 24%|██▍       | 40.5M/170M [00:18&lt;00:18, 7.18MB/s] 24%|██▍       | 41.4M/170M [00:18&lt;00:17, 7.39MB/s] 25%|██▍       | 42.3M/170M [00:18&lt;00:16, 7.59MB/s] 25%|██▌       | 43.2M/170M [00:18&lt;00:16, 7.80MB/s] 26%|██▌       | 44.1M/170M [00:18&lt;00:15, 7.98MB/s] 26%|██▋       | 45.1M/170M [00:18&lt;00:15, 8.13MB/s] 27%|██▋       | 46.1M/170M [00:19&lt;00:14, 8.32MB/s] 28%|██▊       | 47.1M/170M [00:19&lt;00:14, 8.53MB/s] 28%|██▊       | 48.2M/170M [00:19&lt;00:13, 8.75MB/s] 29%|██▉       | 49.2M/170M [00:19&lt;00:13, 9.15MB/s] 30%|██▉       | 50.3M/170M [00:19&lt;00:12, 9.33MB/s] 30%|███       | 51.4M/170M [00:19&lt;00:12, 9.35MB/s] 31%|███       | 52.6M/170M [00:19&lt;00:12, 9.57MB/s] 32%|███▏      | 53.7M/170M [00:19&lt;00:11, 9.78MB/s] 32%|███▏      | 55.0M/170M [00:19&lt;00:11, 10.0MB/s] 33%|███▎      | 56.2M/170M [00:20&lt;00:11, 10.4MB/s] 34%|███▎      | 57.4M/170M [00:20&lt;00:10, 10.8MB/s] 34%|███▍      | 58.5M/170M [00:20&lt;00:10, 10.7MB/s] 35%|███▍      | 59.5M/170M [00:20&lt;00:10, 10.7MB/s] 36%|███▌      | 60.7M/170M [00:20&lt;00:10, 11.0MB/s] 36%|███▋      | 62.0M/170M [00:20&lt;00:09, 11.4MB/s] 37%|███▋      | 63.3M/170M [00:20&lt;00:09, 11.6MB/s] 38%|███▊      | 64.5M/170M [00:20&lt;00:08, 11.9MB/s] 39%|███▊      | 65.8M/170M [00:20&lt;00:08, 12.0MB/s] 39%|███▉      | 67.0M/170M [00:20&lt;00:08, 12.0MB/s] 40%|████      | 68.4M/170M [00:21&lt;00:08, 12.5MB/s] 41%|████      | 69.8M/170M [00:21&lt;00:07, 13.0MB/s] 42%|████▏     | 71.2M/170M [00:21&lt;00:07, 13.2MB/s] 43%|████▎     | 72.5M/170M [00:21&lt;00:07, 12.4MB/s] 43%|████▎     | 73.8M/170M [00:21&lt;00:08, 11.4MB/s] 44%|████▍     | 75.3M/170M [00:21&lt;00:07, 12.2MB/s] 45%|████▌     | 76.8M/170M [00:21&lt;00:07, 13.0MB/s] 46%|████▌     | 78.5M/170M [00:21&lt;00:06, 13.9MB/s] 47%|████▋     | 80.3M/170M [00:21&lt;00:06, 14.9MB/s] 48%|████▊     | 81.8M/170M [00:22&lt;00:06, 14.5MB/s] 49%|████▉     | 83.5M/170M [00:22&lt;00:05, 15.1MB/s] 50%|████▉     | 85.2M/170M [00:22&lt;00:05, 15.7MB/s] 51%|█████     | 86.8M/170M [00:22&lt;00:05, 15.7MB/s] 52%|█████▏    | 88.6M/170M [00:22&lt;00:05, 16.0MB/s] 53%|█████▎    | 90.4M/170M [00:22&lt;00:04, 16.5MB/s] 54%|█████▍    | 92.1M/170M [00:22&lt;00:04, 16.7MB/s] 55%|█████▌    | 93.8M/170M [00:22&lt;00:04, 16.4MB/s] 56%|█████▌    | 95.5M/170M [00:22&lt;00:04, 16.5MB/s] 57%|█████▋    | 97.2M/170M [00:22&lt;00:04, 16.2MB/s] 58%|█████▊    | 99.0M/170M [00:23&lt;00:04, 16.5MB/s] 59%|█████▉    | 101M/170M [00:23&lt;00:04, 17.0MB/s]  60%|██████    | 103M/170M [00:23&lt;00:03, 17.1MB/s] 61%|██████    | 104M/170M [00:23&lt;00:03, 16.6MB/s] 62%|██████▏   | 106M/170M [00:23&lt;00:03, 16.7MB/s] 63%|██████▎   | 108M/170M [00:23&lt;00:03, 16.5MB/s] 64%|██████▍   | 110M/170M [00:23&lt;00:03, 16.6MB/s] 65%|██████▌   | 112M/170M [00:23&lt;00:03, 17.2MB/s] 66%|██████▋   | 113M/170M [00:23&lt;00:03, 17.1MB/s] 68%|██████▊   | 115M/170M [00:24&lt;00:03, 17.1MB/s] 69%|██████▊   | 117M/170M [00:24&lt;00:03, 17.1MB/s] 70%|██████▉   | 119M/170M [00:24&lt;00:03, 16.9MB/s] 71%|███████   | 120M/170M [00:24&lt;00:02, 16.8MB/s] 72%|███████▏  | 122M/170M [00:24&lt;00:02, 16.5MB/s] 73%|███████▎  | 124M/170M [00:24&lt;00:02, 16.5MB/s] 74%|███████▎  | 126M/170M [00:24&lt;00:02, 16.8MB/s] 75%|███████▍  | 127M/170M [00:24&lt;00:02, 17.3MB/s] 76%|███████▌  | 129M/170M [00:24&lt;00:02, 17.8MB/s] 77%|███████▋  | 131M/170M [00:24&lt;00:02, 17.6MB/s] 78%|███████▊  | 133M/170M [00:25&lt;00:02, 17.0MB/s] 79%|███████▉  | 135M/170M [00:25&lt;00:02, 16.8MB/s] 80%|███████▉  | 136M/170M [00:25&lt;00:02, 16.3MB/s] 81%|████████  | 138M/170M [00:25&lt;00:01, 16.3MB/s] 82%|████████▏ | 140M/170M [00:25&lt;00:01, 16.6MB/s] 83%|████████▎ | 142M/170M [00:25&lt;00:01, 16.6MB/s] 84%|████████▍ | 144M/170M [00:25&lt;00:01, 17.2MB/s] 85%|████████▌ | 146M/170M [00:25&lt;00:01, 17.4MB/s] 86%|████████▋ | 147M/170M [00:25&lt;00:01, 17.4MB/s] 88%|████████▊ | 149M/170M [00:26&lt;00:01, 17.3MB/s] 89%|████████▊ | 151M/170M [00:26&lt;00:01, 17.2MB/s] 90%|████████▉ | 153M/170M [00:26&lt;00:01, 16.9MB/s] 91%|█████████ | 154M/170M [00:26&lt;00:00, 17.0MB/s] 92%|█████████▏| 156M/170M [00:26&lt;00:00, 16.7MB/s] 93%|█████████▎| 158M/170M [00:26&lt;00:00, 17.0MB/s] 94%|█████████▎| 160M/170M [00:26&lt;00:00, 16.9MB/s] 95%|█████████▍| 162M/170M [00:26&lt;00:00, 17.6MB/s] 96%|█████████▌| 163M/170M [00:26&lt;00:00, 16.8MB/s] 97%|█████████▋| 165M/170M [00:26&lt;00:00, 16.5MB/s] 98%|█████████▊| 167M/170M [00:27&lt;00:00, 16.9MB/s] 99%|█████████▉| 169M/170M [00:27&lt;00:00, 17.1MB/s]100%|██████████| 170M/170M [00:27&lt;00:00, 6.25MB/s]</code></pre>
-</div>
 </div>
 </section>
 <section id="the-model" class="level2">
 <h2 class="anchored" data-anchor-id="the-model">The model</h2>
-<div id="78e5426a" class="cell" data-execution_count="2">
+<div id="c2f08f01" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> lightning <span class="im">as</span> L</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Optional, List</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchmetrics</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> omegaconf <span class="im">import</span> DictConfig, OmegaConf</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ClassificationModule(L.LightningModule):</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>, </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        categories :List[<span class="bu">str</span>],</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        config:DictConfig,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        model: Optional[torch.nn.Module] <span class="op">=</span> <span class="va">None</span>, </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        ):</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.categories <span class="op">=</span> categories</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        num_classes <span class="op">=</span> <span class="bu">len</span>(categories)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.config <span class="op">=</span> config</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.model <span class="op">=</span> model</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> model <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.model <span class="op">=</span> torchvision.models.resnet18(num_classes<span class="op">=</span>num_classes)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.criterion <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        metrics <span class="op">=</span> torchmetrics.MetricCollection([</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>            torchmetrics.classification.Accuracy(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>            torchmetrics.F1Score(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Precision(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Recall(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>            torchmetrics.CalibrationError(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>        ])</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_metric <span class="op">=</span> metrics.clone(prefix<span class="op">=</span><span class="st">"Train/"</span>)</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val_metrics <span class="op">=</span> metrics.clone(prefix<span class="op">=</span><span class="st">"Validation/"</span>)</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.test_metrics <span class="op">=</span> metrics.clone(prefix<span class="op">=</span><span class="st">"Test/"</span>)</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># conditional performances of our estimator</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics <span class="op">=</span> torchmetrics.MetricCollection([</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>            torchmetrics.classification.Accuracy(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>            torchmetrics.F1Score(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Precision(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Recall(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>        ])</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, X):</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.model(X)</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> configure_optimizers(<span class="va">self</span>):</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>        optimizer <span class="op">=</span> torch.optim.Adam(<span class="va">self</span>.parameters(), lr <span class="op">=</span> <span class="va">self</span>.config.lr, weight_decay<span class="op">=</span><span class="fl">1e-5</span>)</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>        <span class="co">#&nbsp;you can add a scheduler here as well and return it as </span></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>        <span class="co"># return [optimizer], [scheduler]</span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> optimizer</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> training_step(<span class="va">self</span>, batch, batch_idx):</span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>        images, targets <span class="op">=</span> batch</span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>        outputs <span class="op">=</span> <span class="va">self</span>(images)</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> <span class="va">self</span>.criterion(outputs, targets)</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_metric(outputs, targets)</span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log(<span class="st">"Train/Loss"</span>,loss, on_epoch<span class="op">=</span><span class="va">True</span>, on_step<span class="op">=</span><span class="va">True</span>, prog_bar<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> loss</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_train_epoch_end(<span class="va">self</span>):</span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>        train_metrics<span class="op">=</span>  <span class="va">self</span>.train_metric.compute()</span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log_dict(train_metrics)</span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_metric.reset()</span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> validation_step(<span class="va">self</span>, batch, batch_idx):</span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>        images, targets <span class="op">=</span> batch</span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>        outputs <span class="op">=</span> <span class="va">self</span>(images)</span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> <span class="va">self</span>.criterion(outputs, targets)</span>
-<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log(<span class="st">"Validation/Loss"</span>, loss, on_epoch<span class="op">=</span><span class="va">True</span>, on_step<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val_metrics(outputs, targets)</span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics(outputs, targets)</span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_validation_epoch_end(<span class="va">self</span>):</span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>        val_metrics <span class="op">=</span>  <span class="va">self</span>.val_metrics.compute()</span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log_dict(val_metrics)</span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> <span class="va">self</span>.per_category_metrics.compute()</span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> mname, mresults <span class="kw">in</span> m.items():</span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i, catname <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="va">self</span>.categories):</span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.log(<span class="ss">f"Validation/</span><span class="sc">{</span>mname<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>catname<span class="sc">}</span><span class="ss">"</span>, mresults[i])</span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val_metrics.reset()</span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics.reset()</span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_step(<span class="va">self</span>, batch, batch_idx):</span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>        images, targets <span class="op">=</span> batch</span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>        outputs <span class="op">=</span> <span class="va">self</span>(images)</span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> <span class="va">self</span>.criterion(outputs, targets)</span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log(<span class="st">"Test/Loss"</span>, loss, on_epoch<span class="op">=</span><span class="va">True</span>, on_step<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.test_metrics(outputs, targets)</span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics(outputs, targets)</span>
-<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_test_epoch_end(<span class="va">self</span>):</span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a>        test_metrics <span class="op">=</span>  <span class="va">self</span>.test_metrics.compute()</span>
-<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log_dict(test_metrics)</span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> <span class="va">self</span>.per_category_metrics.compute()</span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> mname, mresults <span class="kw">in</span> m.items():</span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i, catname <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="va">self</span>.categories):</span>
-<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.log(<span class="ss">f"Validation/</span><span class="sc">{</span>mname<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>catname<span class="sc">}</span><span class="ss">"</span>, mresults[i])</span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.test_metrics.reset()</span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics.reset()</span>
-<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> OmegaConf.create({</span>
-<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lr"</span>: <span class="fl">1e-5</span></span>
-<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> ClassificationModule(</span>
-<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a>    categories<span class="op">=</span>train_set.classes,</span>
-<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a>    config<span class="op">=</span>config</span>
-<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> lightning <span class="im">as</span> L</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Optional, List</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchmetrics</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> omegaconf <span class="im">import</span> DictConfig, OmegaConf</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ClassificationModule(L.LightningModule):</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>, </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        categories :List[<span class="bu">str</span>],</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        config:DictConfig,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        model: Optional[torch.nn.Module] <span class="op">=</span> <span class="va">None</span>, </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        ):</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.categories <span class="op">=</span> categories</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        num_classes <span class="op">=</span> <span class="bu">len</span>(categories)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.config <span class="op">=</span> config</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.model <span class="op">=</span> model</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> model <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.model <span class="op">=</span> torchvision.models.resnet18(num_classes<span class="op">=</span>num_classes)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.criterion <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        metrics <span class="op">=</span> torchmetrics.MetricCollection([</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>            torchmetrics.classification.Accuracy(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>            torchmetrics.F1Score(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Precision(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Recall(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>            torchmetrics.CalibrationError(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        ])</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_metric <span class="op">=</span> metrics.clone(prefix<span class="op">=</span><span class="st">"Train/"</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val_metrics <span class="op">=</span> metrics.clone(prefix<span class="op">=</span><span class="st">"Validation/"</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.test_metrics <span class="op">=</span> metrics.clone(prefix<span class="op">=</span><span class="st">"Test/"</span>)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># conditional performances of our estimator</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics <span class="op">=</span> torchmetrics.MetricCollection([</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>            torchmetrics.classification.Accuracy(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>            torchmetrics.F1Score(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Precision(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Recall(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        ])</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, X):</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.model(X)</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> configure_optimizers(<span class="va">self</span>):</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>        optimizer <span class="op">=</span> torch.optim.Adam(<span class="va">self</span>.parameters(), lr <span class="op">=</span> <span class="va">self</span>.config.lr, weight_decay<span class="op">=</span><span class="fl">1e-5</span>)</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        <span class="co">#&nbsp;you can add a scheduler here as well and return it as </span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>        <span class="co"># return [optimizer], [scheduler]</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> optimizer</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> training_step(<span class="va">self</span>, batch, batch_idx):</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>        images, targets <span class="op">=</span> batch</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>        outputs <span class="op">=</span> <span class="va">self</span>(images)</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> <span class="va">self</span>.criterion(outputs, targets)</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_metric(outputs, targets)</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log(<span class="st">"Train/Loss"</span>,loss, on_epoch<span class="op">=</span><span class="va">True</span>, on_step<span class="op">=</span><span class="va">True</span>, prog_bar<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> loss</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_train_epoch_end(<span class="va">self</span>):</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>        train_metrics<span class="op">=</span>  <span class="va">self</span>.train_metric.compute()</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log_dict(train_metrics)</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_metric.reset()</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> validation_step(<span class="va">self</span>, batch, batch_idx):</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>        images, targets <span class="op">=</span> batch</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>        outputs <span class="op">=</span> <span class="va">self</span>(images)</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> <span class="va">self</span>.criterion(outputs, targets)</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log(<span class="st">"Validation/Loss"</span>, loss, on_epoch<span class="op">=</span><span class="va">True</span>, on_step<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val_metrics(outputs, targets)</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics(outputs, targets)</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_validation_epoch_end(<span class="va">self</span>):</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>        val_metrics <span class="op">=</span>  <span class="va">self</span>.val_metrics.compute()</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log_dict(val_metrics)</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> <span class="va">self</span>.per_category_metrics.compute()</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> mname, mresults <span class="kw">in</span> m.items():</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i, catname <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="va">self</span>.categories):</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.log(<span class="ss">f"Validation/</span><span class="sc">{</span>mname<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>catname<span class="sc">}</span><span class="ss">"</span>, mresults[i])</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val_metrics.reset()</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics.reset()</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_step(<span class="va">self</span>, batch, batch_idx):</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>        images, targets <span class="op">=</span> batch</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>        outputs <span class="op">=</span> <span class="va">self</span>(images)</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> <span class="va">self</span>.criterion(outputs, targets)</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log(<span class="st">"Test/Loss"</span>, loss, on_epoch<span class="op">=</span><span class="va">True</span>, on_step<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.test_metrics(outputs, targets)</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics(outputs, targets)</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_test_epoch_end(<span class="va">self</span>):</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>        test_metrics <span class="op">=</span>  <span class="va">self</span>.test_metrics.compute()</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log_dict(test_metrics)</span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> <span class="va">self</span>.per_category_metrics.compute()</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> mname, mresults <span class="kw">in</span> m.items():</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i, catname <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="va">self</span>.categories):</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.log(<span class="ss">f"Validation/</span><span class="sc">{</span>mname<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>catname<span class="sc">}</span><span class="ss">"</span>, mresults[i])</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.test_metrics.reset()</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics.reset()</span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> OmegaConf.create({</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lr"</span>: <span class="fl">1e-5</span></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> ClassificationModule(</span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>    categories<span class="op">=</span>train_set.classes,</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>    config<span class="op">=</span>config</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<p>##&nbsp;Use everything for train</p>
-<div id="20122f52" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>trainer<span class="op">=</span>  L.Trainer(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    max_epochs<span class="op">=</span><span class="dv">3</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    precision <span class="op">=</span> <span class="st">"16-mixed"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    enable_checkpointing<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    num_sanity_val_steps<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    log_every_n_steps<span class="op">=</span><span class="dv">50</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    check_val_every_n_epoch<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># trainer.fit(</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#     model,</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#     train_loader,</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#     val_loader</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="use-everything-for-training" class="level2">
+<h2 class="anchored" data-anchor-id="use-everything-for-training">Use everything for training !</h2>
+<div id="c3096b1e" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>trainer<span class="op">=</span>  L.Trainer(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    max_epochs<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    precision <span class="op">=</span> <span class="st">"16-mixed"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    enable_checkpointing<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    num_sanity_val_steps<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    log_every_n_steps<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    check_val_every_n_epoch<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># trainer.fit(</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#     model,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#     train_loader,</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#     val_loader</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Using 16bit Automatic Mixed Precision (AMP)
 💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
 GPU available: True (cuda), used: True
-TPU available: False, using: 0 TPU cores
-/mnt/big_partition/projet/JulienCombes/.venv/lib/python3.13/site-packages/lightning/pytorch/trainer/connectors/logger_connector/logger_connector.py:76: Starting from v1.9.0, `tensorboardX` has been removed as a dependency of the `lightning.pytorch` package, due to potential conflicts with other packages in the ML ecosystem. For this reason, `logger=True` will use `CSVLogger` as the default logger, unless the `tensorboard` or `tensorboardX` packages are found. Please `pip install lightning[extra]` or one of them to enable TensorBoard support by default</code></pre>
+TPU available: False, using: 0 TPU cores</code></pre>
 </div>
 </div>
 </section>
@@ -1123,270 +1122,271 @@ TPU available: False, using: 0 TPU cores
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Classify CIFAR"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Julien Combes"</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2025-04-13"</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [DeepLearning, code, ImageClassification, ComputerVision, ENG]</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "image.jpg"</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>CIFAR is a trivial problem in image classification.</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>We will be using Pytorch and lightning in order to do the training.</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>The advantage of this approach, is that the workflow can be done locally</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>on the cpu of your computer or on ten H100 of any cloud you could get access to. </span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Lightning</span><span class="co">](https://lightning.ai/docs/pytorch/stable/)</span> handles the location of data and optimization related objects (model, optimizer, scheduler etc...), and last be not least, the metrics computation done with <span class="co">[</span><span class="ot">torchmetrics</span><span class="co">](https://lightning.ai/docs/torchmetrics/stable/)</span>.</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>The metrics have the gathering across gpus/devices already implemented so you just have to decide of which ones you want to add to your project. If some computations are not already present in the library, you can <span class="co">[</span><span class="ot">add your own metric</span><span class="co">](https://lightning.ai/docs/torchmetrics/stable/pages/implement.html)</span> very easily.</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## The data</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> albumentations <span class="im">as</span> A</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> albumentations.pytorch <span class="im">import</span> ToTensorV2</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&nbsp;to make the transform usable by torchvision dataset it needs to be a function that takes an image as input and return an image as well</span></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>datarootdir <span class="op">=</span> os.environ.get(<span class="st">"DATA_ROOTPATH"</span>)</span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_trans(image)<span class="op">-&gt;</span>torch.tensor:</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    transform <span class="op">=</span> A.Compose([</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>        A.HorizontalFlip(),</span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>        A.Normalize(),</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>        ToTensorV2()</span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>    ]) </span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    transformed <span class="op">=</span> transform(image <span class="op">=</span> np.array(image))</span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> transformed[<span class="st">"image"</span>]</span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_trans(image)<span class="op">-&gt;</span>torch.tensor:</span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    transform <span class="op">=</span> A.Compose([</span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>        A.Normalize(),</span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>        ToTensorV2()</span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>    ]) </span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>    transformed <span class="op">=</span> transform(image <span class="op">=</span> np.array(image))</span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> transformed[<span class="st">"image"</span>]</span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>train_set <span class="op">=</span> torchvision.datasets.CIFAR10(</span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>    root<span class="op">=</span>os.path.join(datarootdir, <span class="st">"cifar10"</span>), </span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>    download<span class="op">=</span><span class="va">True</span>, </span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>    train<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>    transform<span class="op">=</span>train_trans)</span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>val_set <span class="op">=</span> torchvision.datasets.CIFAR10(</span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>    root<span class="op">=</span>os.path.join(datarootdir, <span class="st">"cifar10"</span>), </span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>    download<span class="op">=</span><span class="va">True</span>, </span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>    train<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>    transform<span class="op">=</span>test_trans)</span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>train_loader<span class="op">=</span> torch.utils.data.DataLoader(</span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>    train_set,</span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>    <span class="co"># shuffle=True,</span></span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>    sampler <span class="op">=</span> torch.utils.data.SubsetRandomSampler(np.random.choice(<span class="bu">len</span>(train_set), <span class="dv">10000</span>)),</span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">64</span>,</span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>    num_workers<span class="op">=</span><span class="dv">5</span>,</span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>val_loader<span class="op">=</span> torch.utils.data.DataLoader(</span>
-<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>    val_set,</span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>    shuffle<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">64</span><span class="op">*</span><span class="dv">2</span>,</span>
-<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>    num_workers<span class="op">=</span><span class="dv">5</span>,</span>
-<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## The model</span></span>
-<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> lightning <span class="im">as</span> L</span>
-<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Optional, List</span>
-<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchmetrics</span>
-<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> omegaconf <span class="im">import</span> DictConfig, OmegaConf</span>
-<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ClassificationModule(L.LightningModule):</span>
-<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(</span>
-<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>, </span>
-<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a>        categories :List[<span class="bu">str</span>],</span>
-<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>        config:DictConfig,</span>
-<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>        model: Optional[torch.nn.Module] <span class="op">=</span> <span class="va">None</span>, </span>
-<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>        ):</span>
-<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
-<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.categories <span class="op">=</span> categories</span>
-<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>        num_classes <span class="op">=</span> <span class="bu">len</span>(categories)</span>
-<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.config <span class="op">=</span> config</span>
-<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.model <span class="op">=</span> model</span>
-<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> model <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.model <span class="op">=</span> torchvision.models.resnet18(num_classes<span class="op">=</span>num_classes)</span>
-<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.criterion <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
-<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a>        metrics <span class="op">=</span> torchmetrics.MetricCollection([</span>
-<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a>            torchmetrics.classification.Accuracy(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
-<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a>            torchmetrics.F1Score(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
-<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Precision(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
-<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Recall(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
-<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a>            torchmetrics.CalibrationError(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
-<span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a>        ])</span>
-<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_metric <span class="op">=</span> metrics.clone(prefix<span class="op">=</span><span class="st">"Train/"</span>)</span>
-<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val_metrics <span class="op">=</span> metrics.clone(prefix<span class="op">=</span><span class="st">"Validation/"</span>)</span>
-<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.test_metrics <span class="op">=</span> metrics.clone(prefix<span class="op">=</span><span class="st">"Test/"</span>)</span>
-<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a>        <span class="co"># conditional performances of our estimator</span></span>
-<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics <span class="op">=</span> torchmetrics.MetricCollection([</span>
-<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a>            torchmetrics.classification.Accuracy(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
-<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a>            torchmetrics.F1Score(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
-<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Precision(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
-<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Recall(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
-<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a>        ])</span>
-<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, X):</span>
-<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.model(X)</span>
-<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> configure_optimizers(<span class="va">self</span>):</span>
-<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a>        optimizer <span class="op">=</span> torch.optim.Adam(<span class="va">self</span>.parameters(), lr <span class="op">=</span> <span class="va">self</span>.config.lr, weight_decay<span class="op">=</span><span class="fl">1e-5</span>)</span>
-<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a>        <span class="co">#&nbsp;you can add a scheduler here as well and return it as </span></span>
-<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a>        <span class="co"># return [optimizer], [scheduler]</span></span>
-<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span></span>
-<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> optimizer</span>
-<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> training_step(<span class="va">self</span>, batch, batch_idx):</span>
-<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a>        images, targets <span class="op">=</span> batch</span>
-<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a>        outputs <span class="op">=</span> <span class="va">self</span>(images)</span>
-<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> <span class="va">self</span>.criterion(outputs, targets)</span>
-<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_metric(outputs, targets)</span>
-<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log(<span class="st">"Train/Loss"</span>,loss, on_epoch<span class="op">=</span><span class="va">True</span>, on_step<span class="op">=</span><span class="va">True</span>, prog_bar<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> loss</span>
-<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_train_epoch_end(<span class="va">self</span>):</span>
-<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a>        train_metrics<span class="op">=</span>  <span class="va">self</span>.train_metric.compute()</span>
-<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log_dict(train_metrics)</span>
-<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_metric.reset()</span>
-<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> validation_step(<span class="va">self</span>, batch, batch_idx):</span>
-<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a>        images, targets <span class="op">=</span> batch</span>
-<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a>        outputs <span class="op">=</span> <span class="va">self</span>(images)</span>
-<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> <span class="va">self</span>.criterion(outputs, targets)</span>
-<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log(<span class="st">"Validation/Loss"</span>, loss, on_epoch<span class="op">=</span><span class="va">True</span>, on_step<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val_metrics(outputs, targets)</span>
-<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics(outputs, targets)</span>
-<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_validation_epoch_end(<span class="va">self</span>):</span>
-<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a>        val_metrics <span class="op">=</span>  <span class="va">self</span>.val_metrics.compute()</span>
-<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log_dict(val_metrics)</span>
-<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> <span class="va">self</span>.per_category_metrics.compute()</span>
-<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> mname, mresults <span class="kw">in</span> m.items():</span>
-<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i, catname <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="va">self</span>.categories):</span>
-<span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.log(<span class="ss">f"Validation/</span><span class="sc">{</span>mname<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>catname<span class="sc">}</span><span class="ss">"</span>, mresults[i])</span>
-<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val_metrics.reset()</span>
-<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics.reset()</span>
-<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_step(<span class="va">self</span>, batch, batch_idx):</span>
-<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a>        images, targets <span class="op">=</span> batch</span>
-<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a>        outputs <span class="op">=</span> <span class="va">self</span>(images)</span>
-<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> <span class="va">self</span>.criterion(outputs, targets)</span>
-<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log(<span class="st">"Test/Loss"</span>, loss, on_epoch<span class="op">=</span><span class="va">True</span>, on_step<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-213"><a href="#cb6-213" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.test_metrics(outputs, targets)</span>
-<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics(outputs, targets)</span>
-<span id="cb6-215"><a href="#cb6-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-216"><a href="#cb6-216" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb6-217"><a href="#cb6-217" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-218"><a href="#cb6-218" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_test_epoch_end(<span class="va">self</span>):</span>
-<span id="cb6-219"><a href="#cb6-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-220"><a href="#cb6-220" aria-hidden="true" tabindex="-1"></a>        test_metrics <span class="op">=</span>  <span class="va">self</span>.test_metrics.compute()</span>
-<span id="cb6-221"><a href="#cb6-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-222"><a href="#cb6-222" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log_dict(test_metrics)</span>
-<span id="cb6-223"><a href="#cb6-223" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> <span class="va">self</span>.per_category_metrics.compute()</span>
-<span id="cb6-224"><a href="#cb6-224" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> mname, mresults <span class="kw">in</span> m.items():</span>
-<span id="cb6-225"><a href="#cb6-225" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i, catname <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="va">self</span>.categories):</span>
-<span id="cb6-226"><a href="#cb6-226" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.log(<span class="ss">f"Validation/</span><span class="sc">{</span>mname<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>catname<span class="sc">}</span><span class="ss">"</span>, mresults[i])</span>
-<span id="cb6-227"><a href="#cb6-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-228"><a href="#cb6-228" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.test_metrics.reset()</span>
-<span id="cb6-229"><a href="#cb6-229" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics.reset()</span>
-<span id="cb6-230"><a href="#cb6-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-231"><a href="#cb6-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-232"><a href="#cb6-232" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> OmegaConf.create({</span>
-<span id="cb6-233"><a href="#cb6-233" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lr"</span>: <span class="fl">1e-5</span></span>
-<span id="cb6-234"><a href="#cb6-234" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb6-235"><a href="#cb6-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-236"><a href="#cb6-236" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> ClassificationModule(</span>
-<span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a>    categories<span class="op">=</span>train_set.classes,</span>
-<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a>    config<span class="op">=</span>config</span>
-<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-244"><a href="#cb6-244" aria-hidden="true" tabindex="-1"></a><span class="fu">##&nbsp;Use everything for train</span></span>
-<span id="cb6-245"><a href="#cb6-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a>trainer<span class="op">=</span>  L.Trainer(</span>
-<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a>    max_epochs<span class="op">=</span><span class="dv">3</span>,</span>
-<span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a>    precision <span class="op">=</span> <span class="st">"16-mixed"</span>,</span>
-<span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a>    enable_checkpointing<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a>    num_sanity_val_steps<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a>    log_every_n_steps<span class="op">=</span><span class="dv">50</span>,</span>
-<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a>    check_val_every_n_epoch<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb6-257"><a href="#cb6-257" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-258"><a href="#cb6-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-259"><a href="#cb6-259" aria-hidden="true" tabindex="-1"></a><span class="co"># trainer.fit(</span></span>
-<span id="cb6-260"><a href="#cb6-260" aria-hidden="true" tabindex="-1"></a><span class="co">#     model,</span></span>
-<span id="cb6-261"><a href="#cb6-261" aria-hidden="true" tabindex="-1"></a><span class="co">#     train_loader,</span></span>
-<span id="cb6-262"><a href="#cb6-262" aria-hidden="true" tabindex="-1"></a><span class="co">#     val_loader</span></span>
-<span id="cb6-263"><a href="#cb6-263" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
-<span id="cb6-264"><a href="#cb6-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-265"><a href="#cb6-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-266"><a href="#cb6-266" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-267"><a href="#cb6-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-268"><a href="#cb6-268" aria-hidden="true" tabindex="-1"></a><span class="fu">## And it is Done ! </span></span>
-<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-270"><a href="#cb6-270" aria-hidden="true" tabindex="-1"></a>The weights of the model are saved with the config that produced them.</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Classify CIFAR"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Julien Combes"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2025-04-13"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [DeepLearning, code, ImageClassification, ComputerVision, ENG]</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "image.jpg"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>CIFAR is a trivial problem in image classification.</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>We will be using Pytorch and lightning in order to do the training.</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>The advantage of this approach, is that the workflow can be done locally</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>on the cpu of your computer or on ten H100 of any cloud you could get access to. </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Lightning</span><span class="co">](https://lightning.ai/docs/pytorch/stable/)</span> handles the location of data and optimization related objects (model, optimizer, scheduler etc...), and last be not least, the metrics computation done with <span class="co">[</span><span class="ot">torchmetrics</span><span class="co">](https://lightning.ai/docs/torchmetrics/stable/)</span>.</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>The metrics have the gathering across gpus/devices already implemented so you just have to decide of which ones you want to add to your project. If some computations are not already present in the library, you can <span class="co">[</span><span class="ot">add your own metric</span><span class="co">](https://lightning.ai/docs/torchmetrics/stable/pages/implement.html)</span> very easily.</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## The data</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> albumentations <span class="im">as</span> A</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> albumentations.pytorch <span class="im">import</span> ToTensorV2</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&nbsp;to make the transform usable by torchvision dataset it needs to be a function that takes an image as input and return an image as well</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>datarootdir <span class="op">=</span> os.environ.get(<span class="st">"DATA_ROOTPATH"</span>)</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_trans(image)<span class="op">-&gt;</span>torch.tensor:</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    transform <span class="op">=</span> A.Compose([</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>        A.HorizontalFlip(),</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>        A.Normalize(),</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>        ToTensorV2()</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    ]) </span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    transformed <span class="op">=</span> transform(image <span class="op">=</span> np.array(image))</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> transformed[<span class="st">"image"</span>]</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_trans(image)<span class="op">-&gt;</span>torch.tensor:</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    transform <span class="op">=</span> A.Compose([</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>        A.Normalize(),</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>        ToTensorV2()</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    ]) </span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    transformed <span class="op">=</span> transform(image <span class="op">=</span> np.array(image))</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> transformed[<span class="st">"image"</span>]</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>train_set <span class="op">=</span> torchvision.datasets.CIFAR10(</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    root<span class="op">=</span>os.path.join(datarootdir, <span class="st">"cifar10"</span>), </span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    download<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>    train<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>    transform<span class="op">=</span>train_trans)</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>val_set <span class="op">=</span> torchvision.datasets.CIFAR10(</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>    root<span class="op">=</span>os.path.join(datarootdir, <span class="st">"cifar10"</span>), </span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>    download<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>    train<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>    transform<span class="op">=</span>test_trans)</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>train_loader<span class="op">=</span> torch.utils.data.DataLoader(</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>    train_set,</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>    <span class="co"># shuffle=True,</span></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>    sampler <span class="op">=</span> torch.utils.data.SubsetRandomSampler(np.random.choice(<span class="bu">len</span>(train_set), <span class="dv">10000</span>)),</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">64</span>,</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>    num_workers<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>val_loader<span class="op">=</span> torch.utils.data.DataLoader(</span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>    val_set,</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>    shuffle<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">64</span><span class="op">*</span><span class="dv">2</span>,</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>    num_workers<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## The model</span></span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> lightning <span class="im">as</span> L</span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Optional, List</span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchmetrics</span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> omegaconf <span class="im">import</span> DictConfig, OmegaConf</span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ClassificationModule(L.LightningModule):</span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(</span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>, </span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>        categories :List[<span class="bu">str</span>],</span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>        config:DictConfig,</span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>        model: Optional[torch.nn.Module] <span class="op">=</span> <span class="va">None</span>, </span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>        ):</span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.categories <span class="op">=</span> categories</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>        num_classes <span class="op">=</span> <span class="bu">len</span>(categories)</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.config <span class="op">=</span> config</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.model <span class="op">=</span> model</span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> model <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.model <span class="op">=</span> torchvision.models.resnet18(num_classes<span class="op">=</span>num_classes)</span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.criterion <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>        metrics <span class="op">=</span> torchmetrics.MetricCollection([</span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>            torchmetrics.classification.Accuracy(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>            torchmetrics.F1Score(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Precision(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Recall(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>            torchmetrics.CalibrationError(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes),</span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>        ])</span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_metric <span class="op">=</span> metrics.clone(prefix<span class="op">=</span><span class="st">"Train/"</span>)</span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val_metrics <span class="op">=</span> metrics.clone(prefix<span class="op">=</span><span class="st">"Validation/"</span>)</span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.test_metrics <span class="op">=</span> metrics.clone(prefix<span class="op">=</span><span class="st">"Test/"</span>)</span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>        <span class="co"># conditional performances of our estimator</span></span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics <span class="op">=</span> torchmetrics.MetricCollection([</span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>            torchmetrics.classification.Accuracy(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>            torchmetrics.F1Score(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Precision(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>            torchmetrics.Recall(task <span class="op">=</span> <span class="st">"multiclass"</span>, num_classes <span class="op">=</span> num_classes, average <span class="op">=</span> <span class="va">None</span>),</span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>        ])</span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, X):</span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.model(X)</span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> configure_optimizers(<span class="va">self</span>):</span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a>        optimizer <span class="op">=</span> torch.optim.Adam(<span class="va">self</span>.parameters(), lr <span class="op">=</span> <span class="va">self</span>.config.lr, weight_decay<span class="op">=</span><span class="fl">1e-5</span>)</span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>        <span class="co">#&nbsp;you can add a scheduler here as well and return it as </span></span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a>        <span class="co"># return [optimizer], [scheduler]</span></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a>        <span class="co"># </span></span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> optimizer</span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> training_step(<span class="va">self</span>, batch, batch_idx):</span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a>        images, targets <span class="op">=</span> batch</span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>        outputs <span class="op">=</span> <span class="va">self</span>(images)</span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> <span class="va">self</span>.criterion(outputs, targets)</span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_metric(outputs, targets)</span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log(<span class="st">"Train/Loss"</span>,loss, on_epoch<span class="op">=</span><span class="va">True</span>, on_step<span class="op">=</span><span class="va">True</span>, prog_bar<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> loss</span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_train_epoch_end(<span class="va">self</span>):</span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a>        train_metrics<span class="op">=</span>  <span class="va">self</span>.train_metric.compute()</span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log_dict(train_metrics)</span>
+<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_metric.reset()</span>
+<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> validation_step(<span class="va">self</span>, batch, batch_idx):</span>
+<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a>        images, targets <span class="op">=</span> batch</span>
+<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a>        outputs <span class="op">=</span> <span class="va">self</span>(images)</span>
+<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> <span class="va">self</span>.criterion(outputs, targets)</span>
+<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log(<span class="st">"Validation/Loss"</span>, loss, on_epoch<span class="op">=</span><span class="va">True</span>, on_step<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val_metrics(outputs, targets)</span>
+<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics(outputs, targets)</span>
+<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_validation_epoch_end(<span class="va">self</span>):</span>
+<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a>        val_metrics <span class="op">=</span>  <span class="va">self</span>.val_metrics.compute()</span>
+<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log_dict(val_metrics)</span>
+<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> <span class="va">self</span>.per_category_metrics.compute()</span>
+<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> mname, mresults <span class="kw">in</span> m.items():</span>
+<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i, catname <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="va">self</span>.categories):</span>
+<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.log(<span class="ss">f"Validation/</span><span class="sc">{</span>mname<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>catname<span class="sc">}</span><span class="ss">"</span>, mresults[i])</span>
+<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.val_metrics.reset()</span>
+<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics.reset()</span>
+<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_step(<span class="va">self</span>, batch, batch_idx):</span>
+<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a>        images, targets <span class="op">=</span> batch</span>
+<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-208"><a href="#cb5-208" aria-hidden="true" tabindex="-1"></a>        outputs <span class="op">=</span> <span class="va">self</span>(images)</span>
+<span id="cb5-209"><a href="#cb5-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-210"><a href="#cb5-210" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> <span class="va">self</span>.criterion(outputs, targets)</span>
+<span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log(<span class="st">"Test/Loss"</span>, loss, on_epoch<span class="op">=</span><span class="va">True</span>, on_step<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.test_metrics(outputs, targets)</span>
+<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics(outputs, targets)</span>
+<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_test_epoch_end(<span class="va">self</span>):</span>
+<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a>        test_metrics <span class="op">=</span>  <span class="va">self</span>.test_metrics.compute()</span>
+<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.log_dict(test_metrics)</span>
+<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> <span class="va">self</span>.per_category_metrics.compute()</span>
+<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> mname, mresults <span class="kw">in</span> m.items():</span>
+<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i, catname <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="va">self</span>.categories):</span>
+<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.log(<span class="ss">f"Validation/</span><span class="sc">{</span>mname<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>catname<span class="sc">}</span><span class="ss">"</span>, mresults[i])</span>
+<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.test_metrics.reset()</span>
+<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.per_category_metrics.reset()</span>
+<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> OmegaConf.create({</span>
+<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a>    <span class="st">"lr"</span>: <span class="fl">1e-5</span></span>
+<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> ClassificationModule(</span>
+<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a>    categories<span class="op">=</span>train_set.classes,</span>
+<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a>    config<span class="op">=</span>config</span>
+<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a><span class="fu">## Use everything for training !</span></span>
+<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-250"><a href="#cb5-250" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a>trainer<span class="op">=</span>  L.Trainer(</span>
+<span id="cb5-252"><a href="#cb5-252" aria-hidden="true" tabindex="-1"></a>    max_epochs<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb5-253"><a href="#cb5-253" aria-hidden="true" tabindex="-1"></a>    precision <span class="op">=</span> <span class="st">"16-mixed"</span>,</span>
+<span id="cb5-254"><a href="#cb5-254" aria-hidden="true" tabindex="-1"></a>    enable_checkpointing<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb5-255"><a href="#cb5-255" aria-hidden="true" tabindex="-1"></a>    num_sanity_val_steps<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb5-256"><a href="#cb5-256" aria-hidden="true" tabindex="-1"></a>    log_every_n_steps<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb5-257"><a href="#cb5-257" aria-hidden="true" tabindex="-1"></a>    check_val_every_n_epoch<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb5-258"><a href="#cb5-258" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-259"><a href="#cb5-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-260"><a href="#cb5-260" aria-hidden="true" tabindex="-1"></a><span class="co"># trainer.fit(</span></span>
+<span id="cb5-261"><a href="#cb5-261" aria-hidden="true" tabindex="-1"></a><span class="co">#     model,</span></span>
+<span id="cb5-262"><a href="#cb5-262" aria-hidden="true" tabindex="-1"></a><span class="co">#     train_loader,</span></span>
+<span id="cb5-263"><a href="#cb5-263" aria-hidden="true" tabindex="-1"></a><span class="co">#     val_loader</span></span>
+<span id="cb5-264"><a href="#cb5-264" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb5-265"><a href="#cb5-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-266"><a href="#cb5-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-267"><a href="#cb5-267" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-268"><a href="#cb5-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-269"><a href="#cb5-269" aria-hidden="true" tabindex="-1"></a><span class="fu">## And it is Done ! </span></span>
+<span id="cb5-270"><a href="#cb5-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-271"><a href="#cb5-271" aria-hidden="true" tabindex="-1"></a>The weights of the model are saved with the config that produced them.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

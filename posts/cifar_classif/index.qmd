@@ -237,7 +237,8 @@ model = ClassificationModule(
 
 ```
 
-## Use everything for train
+
+## Use everything for training !
 
 
 ```{python}

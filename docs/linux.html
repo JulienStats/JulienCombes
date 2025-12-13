@@ -383,23 +383,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Bonjour à tous !</p>
-<p>Merci de vous intéresser a des alternatives à Microsoft. Je compte répertorier ici tous les problèmes qui arrivent lors des installations de systèmes linux. Je me restreind aujourd’hui à Linux Mint, c’est la distribution que je trouve la plus stable et la plus compatible avec le matériel de toutes les générations.</p>
+<p>Merci de vous intéresser a des alternatives à Microsoft. Je compte répertorier ici tous les problèmes qui arrivent lors des installations de systèmes linux. Je me restreins aujourd’hui à Linux Mint, c’est la distribution que je trouve la plus stable et la plus compatible avec le matériel de toutes les générations.</p>
 <p>La version que je conseille d’installer si vous n’avez pas de carte NVIDIA est LMDE, c’est une version qui sera très stable et modulable via l’installation des logiciel avec flatpak.</p>
 <section id="bootable-device-not-found-please-insert-a-bootable-media-press-enter-to-shutdown-the-computer" class="level1">
 <h1>Bootable device not found please insert a bootable media, press enter to shutdown the computer</h1>
-<p>J’ai eu cette erreur une fois sur un très viel appareil. Le problème est que le bios est incompatible avec les OS d’après 2010. J’ai trouvé la solution dans <a href="https://foxclone.org/downloads/20230509-LM21_legacy.pdf">cet article (en anglais)</a>.</p>
+<p>J’ai eu cette erreur une fois sur un très vieil appareil. Le problème est que le bios est incompatible avec les OS d’après 2010. J’ai trouvé la solution dans <a href="https://foxclone.org/downloads/20230509-LM21_legacy.pdf">cet article (en anglais)</a>.</p>
 <p>Les étapes succintes :</p>
 <ul>
 <li>passer le bios en legacy mode</li>
-<li>créer une table de partition de type msdos dans GPARTED (lorsque vous etes booté sur la clé)*</li>
+<li>créer une table de partition de type msdos dans GPARTED (lorsque vous etes booté sur la clé)</li>
 <li>formatez la partition classique en Ext4.</li>
 </ul>
-<p>Et la tout va rouler</p>
+<p>Et lä tout va rouler</p>
 </section>
 <section id="installer-des-logiciels-windows-non-disponibles-sur-linux-nativement" class="level1">
 <h1>Installer des logiciels windows non disponibles sur Linux nativement</h1>
-<p>Pour les enseignants, vous aurez probablement besoin du client pronote (le service Web n’as pas toutes les fonctionalités) du simulateur de Calculettre ou autre. Ces logiciels ne soint fournit que sur windows, c’est a dire que vous aure un fichier .exe à executer.</p>
-<p>Pas de problèmes, Linux dispose d’un outils appellé bouteilles, qui permet d’émuler un système windows et de lire vos exécutables. Vous pouvez la télécharger via le flathub en passant par cette ligne de commande</p>
+<p>Pour les enseignants, vous aurez probablement besoin du client pronote (le service Web n’as pas toutes les fonctionalités) d’émulateur de calculatrice graphique ou autre. Ces logiciels ne sont fournit que sur windows, c’est à dire que vous aurez un fichier .exe à executer.</p>
+<p>Pas de problèmes, Linux dispose d’un outil appellé bouteilles, qui permet d’émuler un système windows et de lire vos exécutables. Vous pouvez la télécharger via le flathub en passant par cette ligne de commande :</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">flatpak</span> install flathub com.usebottles.bottles</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -415,7 +415,6 @@ Warning
 </div>
 </div>
 <p>Pour les traitement de texte j’avais l’habitude de conseiller la suite libreoffice, mais si vous venez de windows, l’idéal est la suite onlyoffice qui est beaucoup plus accessible, elle est disponible dans la plupart des logitèques :).</p>
-<p>qua</p>
 
 
 <!-- -->
@@ -895,7 +894,7 @@ Warning
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>Merci de vous intéresser a des alternatives à Microsoft. </span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>Je compte répertorier ici tous les problèmes qui arrivent lors des installations de systèmes linux.</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Je me restreind aujourd'hui à Linux Mint, c'est la distribution que je trouve la plus stable et la plus compatible avec le matériel de toutes les générations.</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Je me restreins aujourd'hui à Linux Mint, c'est la distribution que je trouve la plus stable et la plus compatible avec le matériel de toutes les générations.</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>La version que je conseille d'installer si vous n'avez pas de carte NVIDIA est LMDE, c'est une version qui sera très stable et modulable via l'installation des logiciel avec flatpak.</span>
@@ -903,24 +902,24 @@ Warning
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu"># Bootable device not found please insert a bootable media, press enter to shutdown the computer</span></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>J'ai eu cette erreur une fois sur un très viel appareil. Le problème est que le bios est incompatible avec les OS d'après 2010.</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>J'ai eu cette erreur une fois sur un très vieil appareil. Le problème est que le bios est incompatible avec les OS d'après 2010.</span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>J'ai trouvé la solution dans <span class="co">[</span><span class="ot">cet article (en anglais)</span><span class="co">](https://foxclone.org/downloads/20230509-LM21_legacy.pdf)</span>.</span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>Les étapes succintes : </span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>passer le bios en legacy mode</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>créer une table de partition de type msdos dans GPARTED (lorsque vous etes booté sur la clé)*</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>créer une table de partition de type msdos dans GPARTED (lorsque vous etes booté sur la clé)</span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>formatez la partition classique en Ext4.</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>Et la tout va rouler</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>Et lä tout va rouler</span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu"># Installer des logiciels windows non disponibles sur Linux nativement</span></span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>Pour les enseignants, vous aurez probablement besoin du client pronote (le service Web n'as pas toutes les fonctionalités) du simulateur de Calculettre ou autre.</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>Ces logiciels ne soint fournit que sur windows, c'est a dire que vous aure un fichier .exe à executer. </span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>Pour les enseignants, vous aurez probablement besoin du client pronote (le service Web n'as pas toutes les fonctionalités) d'émulateur de calculatrice graphique ou autre.</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>Ces logiciels ne sont fournit que sur windows, c'est à dire que vous aurez un fichier .exe à executer. </span>
 <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>Pas de problèmes, Linux dispose d'un outils appellé bouteilles, qui permet d'émuler un système windows et de lire vos exécutables.</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>Vous pouvez la télécharger via le flathub en passant par cette ligne de commande</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>Pas de problèmes, Linux dispose d'un outil appellé bouteilles, qui permet d'émuler un système windows et de lire vos exécutables.</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>Vous pouvez la télécharger via le flathub en passant par cette ligne de commande :</span>
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="ex">flatpak</span> install flathub com.usebottles.bottles</span>
@@ -930,9 +929,7 @@ Warning
 <span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>Pour que le client pronote fonctionne, il ne faut pas prendre le lanceur par défaut (soda) mais choisir wine. Tout devrait fonctionner sans problèmes.</span>
 <span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>Pour les traitement de texte j'avais l'habitude de conseiller la suite libreoffice, mais si vous venez de windows, l'idéal est la suite onlyoffice qui est beaucoup plus accessible, elle est disponible dans la plupart des logitèques :).</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>qua</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>Pour les traitement de texte j'avais l'habitude de conseiller la suite libreoffice, mais si vous venez de windows, l'idéal est la suite onlyoffice qui est beaucoup plus accessible, elle est disponible dans la plupart des logitèques :).</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

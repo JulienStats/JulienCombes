@@ -6,7 +6,7 @@ Bonjour à tous !
 
 Merci de vous intéresser a des alternatives à Microsoft. 
 Je compte répertorier ici tous les problèmes qui arrivent lors des installations de systèmes linux.
-Je me restreind aujourd'hui à Linux Mint, c'est la distribution que je trouve la plus stable et la plus compatible avec le matériel de toutes les générations.
+Je me restreins aujourd'hui à Linux Mint, c'est la distribution que je trouve la plus stable et la plus compatible avec le matériel de toutes les générations.
 
 
 La version que je conseille d'installer si vous n'avez pas de carte NVIDIA est LMDE, c'est une version qui sera très stable et modulable via l'installation des logiciel avec flatpak.
@@ -14,24 +14,24 @@ La version que je conseille d'installer si vous n'avez pas de carte NVIDIA est L
 
 # Bootable device not found please insert a bootable media, press enter to shutdown the computer
 
-J'ai eu cette erreur une fois sur un très viel appareil. Le problème est que le bios est incompatible avec les OS d'après 2010.
+J'ai eu cette erreur une fois sur un très vieil appareil. Le problème est que le bios est incompatible avec les OS d'après 2010.
 J'ai trouvé la solution dans [cet article (en anglais)](https://foxclone.org/downloads/20230509-LM21_legacy.pdf).
 
 Les étapes succintes : 
 
 - passer le bios en legacy mode
-- créer une table de partition de type msdos dans GPARTED (lorsque vous etes booté sur la clé)*
+- créer une table de partition de type msdos dans GPARTED (lorsque vous etes booté sur la clé)
 - formatez la partition classique en Ext4.
 
-Et la tout va rouler
+Et lä tout va rouler
 
 # Installer des logiciels windows non disponibles sur Linux nativement
 
-Pour les enseignants, vous aurez probablement besoin du client pronote (le service Web n'as pas toutes les fonctionalités) du simulateur de Calculettre ou autre.
-Ces logiciels ne soint fournit que sur windows, c'est a dire que vous aure un fichier .exe à executer. 
+Pour les enseignants, vous aurez probablement besoin du client pronote (le service Web n'as pas toutes les fonctionalités) d'émulateur de calculatrice graphique ou autre.
+Ces logiciels ne sont fournit que sur windows, c'est à dire que vous aurez un fichier .exe à executer. 
 
-Pas de problèmes, Linux dispose d'un outils appellé bouteilles, qui permet d'émuler un système windows et de lire vos exécutables.
-Vous pouvez la télécharger via le flathub en passant par cette ligne de commande
+Pas de problèmes, Linux dispose d'un outil appellé bouteilles, qui permet d'émuler un système windows et de lire vos exécutables.
+Vous pouvez la télécharger via le flathub en passant par cette ligne de commande :
 
 ```bash
 flatpak install flathub com.usebottles.bottles
@@ -42,5 +42,3 @@ Pour que le client pronote fonctionne, il ne faut pas prendre le lanceur par dé
 :::
 
 Pour les traitement de texte j'avais l'habitude de conseiller la suite libreoffice, mais si vous venez de windows, l'idéal est la suite onlyoffice qui est beaucoup plus accessible, elle est disponible dans la plupart des logitèques :).
-
-qua
