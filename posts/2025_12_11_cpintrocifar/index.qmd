@@ -113,7 +113,7 @@ class ClassificationModule(L.LightningModule):
         
         model = torchvision.models.resnet18(
             weights="IMAGENET1K_V1")
-        model.fc= torch.nn.Linear(in_features = 512, out_features = 10)
+        model.fc= torch.nn.Linear(in_features = 512, out_features = num_classes)
         self.model = model
         self.criterion = torch.nn.CrossEntropyLoss()
 
@@ -382,8 +382,6 @@ for score_fn in ["aps", "raps", "saps"]:
 
     trainer.validate(model, val_loader, verbose = False);
     trainer.test(model, test_loader);
-
-
 ```
 
 When working with conformal prediction we want to track the characteristics of our predictor. We are interested in : 
@@ -397,6 +395,108 @@ The coverage is still important.
 60% of the test points are composed of singletons, which means that the network is sure about the predicted class with 90% reliability.
 And lastly, the average size of the prediction is 1.58 which is low considering the number of classes (10).
 All the different score functions provide the required coverage but (without any statistical backing for computational burden) it looks like the more advanced the algorithm is, the smaller the prediction sets. Which is why those scores exists, so it is a good news we witness what we are supposes to observe.
+
+
+## More classes
+
+Here we could try to run this but with more classes to see how this affect the size fo prediction sets etc...
+
+```{python}
+#| code-fold: true
+bs = 32
+train_set = torchvision.datasets.CIFAR100(
+    root=os.path.join(datarootdir, "cifar100"), 
+    download=False, 
+    train=True,
+    transform=train_trans)
+
+val_set = torchvision.datasets.CIFAR100(
+    root=os.path.join(datarootdir, "cifar100"), 
+    download=False, 
+    train=False,
+    transform=test_trans)
+
+train_loader= torch.utils.data.DataLoader(
+    train_set,
+    shuffle=True,
+    batch_size=bs,
+    num_workers=5,
+
+)
+
+val_indices = np.random.choice(10000, 5000, replace= False)
+test_indices= np.setdiff1d(np.arange(10000), val_indices)
+
+val_loader= torch.utils.data.DataLoader(
+    torch.utils.data.Subset(val_set,val_indices),
+    shuffle=False,
+    batch_size=bs*2,
+    num_workers=5,
+)
+
+test_loader= torch.utils.data.DataLoader(
+    torch.utils.data.Subset(val_set,test_indices),
+    shuffle=False,
+    batch_size=bs*2,
+    num_workers=5,
+)
+
+
+
+model = ClassificationModule(
+    categories=train_set.classes,
+    config=config
+)
+
+trainer=  L.Trainer(
+    max_epochs=3,
+    precision = "16-mixed",
+    enable_checkpointing=True,
+    num_sanity_val_steps=0,
+    log_every_n_steps=50,
+    check_val_every_n_epoch=1,
+    callbacks=[
+        EarlyStopping("Validation/Loss", patience=2,mode="min"),
+        ModelCheckpoint(monitor="Validation/Loss", filename='cifar100-{epoch:02d}')
+    ]
+)
+
+# I wont train it each time 
+# trainer.fit(
+#     model,
+#     train_loader,
+#     val_loader
+# )
+
+# trainer.test(model,val_loader)
+
+model= ClassificationModule.load_from_checkpoint(
+    "lightning_logs/version_73/checkpoints/cifar100-epoch=02.ckpt",
+    categories=train_set.classes,
+    config=config
+)
+
+for score_fn in ["aps", "raps", "saps"]:
+    trainer=  L.Trainer(
+        max_epochs=1,
+        precision = "16-mixed",
+        enable_checkpointing=False,
+        num_sanity_val_steps=0,
+        log_every_n_steps=0,
+        check_val_every_n_epoch=0,
+        callbacks=[
+            CalibratorCallback(alpha= 0.1, score_function=score_fn)
+        ]
+    )
+
+    trainer.validate(model, val_loader, verbose = False);
+    trainer.test(model, test_loader);
+
+```
+
+Here the number of possible predicted classes is 100 so as we can see the proportion of singleton predicted is 20% at max or 0 for the SAPS scoring function. We can see than while providing no singleton, the average size of prediction sets is smaller. Relatively to $\#\mathcal{Y}$ being 100 of course, it is still large sets. 
+We can see that the coverage requested of 90% is still verifies that is very good.
+  
 
 # Conclusion
 
