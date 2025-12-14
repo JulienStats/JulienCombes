@@ -97,8 +97,8 @@ train_loader= torch.utils.data.DataLoader(
 
 )
 
-val_indices = np.random.choice(10000, 5000, replace= False)
-test_indices= np.setdiff1d(np.arange(10000), val_indices)
+val_indices = np.random.choice(len(val_set), round(len(val_set)/2), replace= False)
+test_indices= np.setdiff1d(np.arange(len(val_set)), val_indices)
 
 val_loader= torch.utils.data.DataLoader(
     torch.utils.data.Subset(val_set,val_indices),
@@ -285,7 +285,7 @@ model= ClassificationModule.load_from_checkpoint(
 
 Calibration is the property of an estimator that allow it to quantify its uncertainty in a reliable manner. In classification for example, when the model tells us that he thinks the class it predicted is true with a 60% probability, it should be right 60% of the time. No model has such guarantee out of the box, that is why we need tools to quantify the models uncertainty with good statistical guarantee without relying on strong asymption about the model or the data.
 
-Here is the calibration with this network for each class of the cofar1à dataset (the net is pre trained on image net so he is actually a bit too good haha). The following plots are the reliability curves for the net for each class. The more it is close to the diagonal $y=x$ the better the calibration. The expected calibration error (ECE) is computed as well.
+Here is the calibration with this network for each class of the cifar10 dataset (the net is pre trained on image net so he is actually a bit too good haha). The following plots are the reliability curves for the net for each class. The more it is close to the diagonal $y=x$ the better the calibration. The expected calibration error (ECE) is computed as well.
 
 ```{python}
 #| layout-ncol: 5
@@ -440,8 +440,8 @@ train_loader= torch.utils.data.DataLoader(
 
 )
 
-val_indices = np.random.choice(10000, 5000, replace= False)
-test_indices= np.setdiff1d(np.arange(10000), val_indices)
+val_indices = np.random.choice(len(val_set), round(len(val_set)/2), replace= False)
+test_indices= np.setdiff1d(np.arange(len(val_set)), val_indices)
 
 val_loader= torch.utils.data.DataLoader(
     torch.utils.data.Subset(val_set,val_indices),
