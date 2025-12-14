@@ -2,13 +2,29 @@
 title: "Reliable Image classifiers"
 author: "Julien Combes"
 date: "2025-12-13"
-categories: [DeepLearning, Research, ENG, ConformalPrediction]
+categories: [DeepLearning, ENG, ConformalPrediction, code]
 image: "image.png"
 ---
 
-Let's make a resnet18 make reliable predictions on cifar10 ! 
+Let's make a resnet18 make reliable predictions on cifars datasets ! 
 
-# Setup
+
+# Motivation and method
+
+Given the amount of data generated since the 2000s, modelling processes and understanding the underlying patterns in these numbers has become increasingly difficult. The time of modeling with linear relations and homoskedastik errors has passed for most of the advanced use cases. The number of  different models we could use for any problems in big and the field of axtracting information from data have been taken over by our brothers the computer scientists. Today, the engineers and applied researchers are more result oriented than method oriented, meaning that if the model makes few mistake we just deploy it, period. Thisi new empirical methodology of modeling with any possible model in order to get the good one leads to issues in reliability. 
+
+Indeed, most advanced machine learning models, such as boosted trees, ensembles and the latest neural networks, do not provide any way to estimate the uncertainty associated with their predictions. When it comes to predicting diseases from medical images, understanding the confidence in your diagnosis is essential.
+That is why we need a statistical tool that can be used with any model and any type of data, while making as few assumptions as possible.
+
+Conformal Prediction is the tool we need to accomplish that ! (i am still a noob but willing to learn about this :) )
+First publication by Vovk, Vapnik & al [@gammermanLearningTransduction1998], a detailed history about the field is given by Angelopoulos in his gentle introduction to conformal prediction [@angelopoulosGentleIntroductionConformal2022].
+
+In short, conformal prediction is a tool that is **model independent** and **independent on the data distribution**. The only assumption on of this framework is that the data points are **exchangeable**, meaning that the vector of data points and any of its permutation has the same distribution (for any distribution). 
+It is particularly beneficial for neural network that is the type of model that we favor when dealing with unstructured data like images (in medical imaging or machine vision), these fields require extreme robustness and are expected to be reliable. That is why i believe conformal prediction could be very helpful in my work. This tool gives statistical garantees on on the prediction to be sure to predict the true label with a required probability.
+
+In the next part, i show you how to implement it in for image classification using a plug and play Lightning Callback on a pre existing resnet18. In classification, conformal predictors creates prediction sets that have a high probability containing the true label. We want the prediction set to be as small as possible, meaning that the model is confident in its prediction for this input. We evaluate the quality of the conformal predictor using the coverage to make sure the desired coverage is verified, the average set size and the proportion of singleton predicted.  
+
+# Experimental Setup
 
 Here we load data and models using torch and lightning.
 
@@ -37,7 +53,7 @@ from torchcp.classification.score import APS, RAPS, SAPS
 from torchmetrics import Metric
 
 # to make the transform usable by torchvision dataset it needs to be a function that takes an image as input and return an image as well
-os.environ["DATA_ROOTPATH"]= "~/big_partition/data"
+
 datarootdir = os.environ.get("DATA_ROOTPATH")
 
 def train_trans(image)->torch.tensor:
