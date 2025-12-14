@@ -53,7 +53,6 @@ from torchcp.classification.score import APS, RAPS, SAPS
 from torchmetrics import Metric
 
 # to make the transform usable by torchvision dataset it needs to be a function that takes an image as input and return an image as well
-
 datarootdir = os.environ.get("DATA_ROOTPATH")
 
 def train_trans(image)->torch.tensor:
@@ -247,23 +246,23 @@ config = OmegaConf.create({
     "lr": 1e-3
 })
 
-model = ClassificationModule(
-    categories=train_set.classes,
-    config=config
-)
+# model = ClassificationModule(
+#     categories=train_set.classes,
+#     config=config
+# )
 
-trainer=  L.Trainer(
-    max_epochs=100,
-    precision = "16-mixed",
-    enable_checkpointing=True,
-    num_sanity_val_steps=0,
-    log_every_n_steps=50,
-    check_val_every_n_epoch=1,
-    callbacks=[
-        EarlyStopping("Validation/Loss", patience=2,mode="min"),
-        ModelCheckpoint(monitor="Validation/Loss", filename='cifar10-{epoch:02d}')
-    ]
-)
+# trainer=  L.Trainer(
+#     max_epochs=100,
+#     precision = "16-mixed",
+#     enable_checkpointing=True,
+#     num_sanity_val_steps=0,
+#     log_every_n_steps=50,
+#     check_val_every_n_epoch=1,
+#     callbacks=[
+#         EarlyStopping("Validation/Loss", patience=2,mode="min"),
+#         ModelCheckpoint(monitor="Validation/Loss", filename='cifar10-{epoch:02d}')
+#     ]
+# )
 
 # I wont train it each time 
 # trainer.fit(
@@ -400,6 +399,31 @@ for score_fn in ["aps", "raps", "saps"]:
     trainer.test(model, test_loader);
 ```
 
+After computing the non conformity scores on our calibration test we can look at the image from the calibration sets that have the highest and the lowest conformity score :  
+
+```{python}
+#| layout-ncol: 2
+#| echo: false
+# analysis of highest and lowest calibration points
+max_score = trainer.callbacks[0].nc_scores.argmax()
+image , target = torch.utils.data.Subset(val_set,val_indices)[max_score]
+plt.imshow(
+    image.permute(1,2,0).numpy()
+)
+plt.title(f"Most non conformative calibration image : {val_set.classes[target]}")
+plt.axis("off")
+plt.figure()
+
+min_score = trainer.callbacks[0].nc_scores.argmin()
+image , target = torch.utils.data.Subset(val_set,val_indices)[min_score]
+plt.imshow(
+    image.permute(1,2,0).numpy()
+)
+plt.title(f"Most conformative calibration image : {val_set.classes[target]}")
+plt.axis("off")
+
+```
+
 When working with conformal prediction we want to track the characteristics of our predictor. We are interested in : 
 
 - the coverage rate (the number of time the true label was indeed in the prediction set), 
@@ -513,6 +537,29 @@ for score_fn in ["aps", "raps", "saps"]:
 Here the number of possible predicted classes is 100 so as we can see the proportion of singleton predicted is 20% at max or 0 for the SAPS scoring function. We can see than while providing no singleton, the average size of prediction sets is smaller. Relatively to $\#\mathcal{Y}$ being 100 of course, it is still large sets. 
 We can see that the coverage requested of 90% is still verifies that is very good.
   
+
+```{python}
+#| layout-ncol: 2
+#| echo: false
+# analysis of highest and lowest calibration points
+max_score = trainer.callbacks[0].nc_scores.argmax()
+image , target = torch.utils.data.Subset(val_set,val_indices)[max_score]
+plt.imshow(
+    image.permute(1,2,0).numpy()
+)
+plt.title(f"Most non conformative calibration image : {val_set.classes[target]}")
+plt.axis("off")
+plt.figure()
+
+min_score = trainer.callbacks[0].nc_scores.argmin()
+image , target = torch.utils.data.Subset(val_set,val_indices)[min_score]
+plt.imshow(
+    image.permute(1,2,0).numpy()
+)
+plt.title(f"Most conformative calibration image : {val_set.classes[target]}")
+plt.axis("off")
+
+```
 
 # Conclusion
 
