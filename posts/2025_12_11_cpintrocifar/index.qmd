@@ -53,6 +53,7 @@ from torchcp.classification.score import APS, RAPS, SAPS
 from torchmetrics import Metric
 
 # to make the transform usable by torchvision dataset it needs to be a function that takes an image as input and return an image as well
+
 datarootdir = os.environ.get("DATA_ROOTPATH")
 
 def train_trans(image)->torch.tensor:
@@ -405,10 +406,11 @@ After computing the non conformity scores on our calibration test we can look at
 #| layout-ncol: 2
 #| echo: false
 # analysis of highest and lowest calibration points
+val_set.transform = lambda x:x
 max_score = trainer.callbacks[0].nc_scores.argmax()
 image , target = torch.utils.data.Subset(val_set,val_indices)[max_score]
 plt.imshow(
-    image.permute(1,2,0).numpy()
+    np.array(image)
 )
 plt.title(f"Most non conformative calibration image : {val_set.classes[target]}")
 plt.axis("off")
@@ -417,7 +419,7 @@ plt.figure()
 min_score = trainer.callbacks[0].nc_scores.argmin()
 image , target = torch.utils.data.Subset(val_set,val_indices)[min_score]
 plt.imshow(
-    image.permute(1,2,0).numpy()
+    np.array(image)
 )
 plt.title(f"Most conformative calibration image : {val_set.classes[target]}")
 plt.axis("off")
@@ -542,10 +544,11 @@ We can see that the coverage requested of 90% is still verifies that is very goo
 #| layout-ncol: 2
 #| echo: false
 # analysis of highest and lowest calibration points
+val_set.transform = lambda x:x
 max_score = trainer.callbacks[0].nc_scores.argmax()
 image , target = torch.utils.data.Subset(val_set,val_indices)[max_score]
 plt.imshow(
-    image.permute(1,2,0).numpy()
+    np.array(image)
 )
 plt.title(f"Most non conformative calibration image : {val_set.classes[target]}")
 plt.axis("off")
@@ -554,7 +557,7 @@ plt.figure()
 min_score = trainer.callbacks[0].nc_scores.argmin()
 image , target = torch.utils.data.Subset(val_set,val_indices)[min_score]
 plt.imshow(
-    image.permute(1,2,0).numpy()
+    np.array(image)
 )
 plt.title(f"Most conformative calibration image : {val_set.classes[target]}")
 plt.axis("off")
