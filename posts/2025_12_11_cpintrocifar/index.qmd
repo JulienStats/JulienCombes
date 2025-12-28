@@ -330,7 +330,7 @@ class CalibratorCallback(Callback):
             case "aps":
                 self.score_fn = APS(score_type="softmax")
             case "raps":
-                self.score_fn = RAPS(score_type="softmax")
+                self.score_fn = RAPS(score_type="softmax", penalty = 0.1, kreg = 5)
             case "saps":
                 self.score_fn = SAPS(score_type="softmax")
 

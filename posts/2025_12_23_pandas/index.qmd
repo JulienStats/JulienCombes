@@ -1,0 +1,578 @@
+---
+title: "Pandas 101"
+author: "Julien Combes"
+date: "2025-12-23"
+categories: [DeepLearning, ENG, code, tuto]
+image: "memepython.png"
+---
+
+This is a file i send to people so they have some code sample they can copy paste to apply to their own problems. 
+If you need something that is not in this page, or you spot a mistake (likely to have some we never know) let me know and this page will grow as people ask me to update it :).
+
+# Getting the data
+
+In most cases you will already have a file producted by some measurement system. 
+Pandas can read any type of files (csv (separated by comas or semi-colons or any character), excel files and the new but efficient parquet files.)
+
+Everything happens with the pandas.read_* methods : 
+
+```python
+import pandas as pd
+
+pd.read_csv("files.csv",sep = ",", index_col = 0...)
+pd.read_excel("file.xslx")
+pd.read_parquet("file.parquet")
+```
+
+The sep argument tells pandas what is the characters that splits columns.
+
+## Toy data
+
+Things with cars ! it must be good hehehe
+
+This first step is only getting the data and is not important. 
+We use [openml](https://docs.openml.org/data/use/) to load data. It is a rich collection of datasets that is very useful to get toy data.
+
+
+```{python}
+import numpy as np
+import pandas as pd
+import openml
+
+datasets_list = openml.datasets.list_datasets(output_format="dataframe", status="active", tag="manufacturing")
+
+
+dataset = openml.datasets.get_dataset(248)
+X, y, is_categorical, feat_names = dataset.get_data(
+    dataset_format="dataframe", target=dataset.default_target_attribute)
+
+```
+
+# Understanding the data
+
+## The tables
+
+Pandas provides multiple ways to check our dataset.
+Here is an not-exhaustive list of atributes we could have wanted to use if we were students learning the tool to master it : 
+
+- X.shape : number of rows and columns
+- X.info() : Names, types of columns and number of misisng values 
+- X.describe() : get a statistical summary of each numerical columns like extremums, quantiles ...
+- X.head(n) : show the n first rows of your dataset
+
+
+But we are here to be efficient and get information we want in an easy way.  I will then show you the only tool you need to get to know your data
+
+```{python}
+from skrub import TableReport
+
+TableReport(X)
+```
+
+It produces an interactive view in html of your table that you can explore interactively. You have all you need with dimensions, statistical summaries, classic graphs with distribution of numerical data etc etc.. It all you could have done with only pandas but more. 
+
+
+## The graphs
+
+The available plotting tools are numerous. If you want an idea of what is possible with python here is [a gallery](https://python-graph-gallery.com/) with a lot of nice examples. I will focus with basics but most useful ploting solution.
+
+The library we will use is [seaborn](https://seaborn.pydata.org/) that is supposed to work on dataframes. It is based on matplotlib that is the basics plotting brick of python but quite hard to use. Seaborn get things done quickly and nicely.
+
+We will see plotting by asking questions : 
+
+### What is the proportion of each car maker ? 
+```{python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8,4))
+sns.histplot(
+    X, 
+    x = "make",
+    stat = "density"
+)
+plt.xticks(rotation = 90);
+```
+
+
+
+
+# Mutating the data
+
+Pandas provides a lot of very usefull methods to filter, modify delete items from a dataframe.
+
+::: {.callout-warning}
+The philosophy in data science is to NEVER modifying by hand the data you are studying.
+
+All your processing should be done in one place and clear.
+:::
+
+For example here, we will see the most popular operation you might need in your work.
+
+Let's remember what the dataframe looks like : 
+
+```{python}
+X
+```
+
+and see what the prices look like by brand :
+
+```{python}
+plt.figure(figsize=(8,4))
+sns.boxplot(
+    X, 
+    x = "make",
+    y = "price",
+)
+plt.xticks(rotation = 90);
+```
+
+
+
+## Filtering rows
+
+We have negative prices this looks like errors, lets start with filtering rows.
+
+Pandas has a very handy method : query. This method eats a string that contains conditions, in this string you can use columns name as variables and external variables from your code like this.
+
+```{python}
+price_error_threshold = 0
+X.query("price >= @price_error_threshold")
+```
+
+You see that the table only contains 999 875 elements. Some items have been removed. Query is a function that returns a mutated copy of the dataframe. So if you want the dataframe that have been modified, you need to assign it to a new variable like that.
+
+```{python}
+new_df = X.query("price >= @price_error_threshold")
+new_df
+```
+
+I don't know what is the cleanest way to apply multiple filters, but i would recommend you to apply those in a sequential manner in order to be as clean as possible like that :
+
+```{python}
+(
+    X
+    .query("price > 0")
+    .query("make == 'porsche'")
+    .query("aspiration== 'turbo'")
+    .query("horsepower > 200")
+)
+```
+
+I wonder how are the horsepowers distributed for each brands : 
+
+```{python}
+plt.figure(figsize=(8,4))
+sns.histplot(
+    new_df,
+    x = "horsepower",
+    hue = "make"
+)
+```
+
+We can see an interesting pattern in the horsepower distribution ! there are peaks but we have to much brands to see a pattern, lets only compare some of them : 
+
+```{python}
+plt.figure(figsize=(8,4))
+sns.histplot(
+    (
+        new_df
+        .query("make.isin(['peugot','porsche','bmw'])")
+        .assign(make  = lambda df_: df_.make.astype(object))
+    ),
+    x = "horsepower",
+    hue = "make",
+    stat = "density",
+)
+```
+
+Nothing interesting here. Let's see how to mutate columns. You could want to create columns according to a processing of some other columns. 
+
+::: {.callout-tip title="Anonymous function"}
+There is an important part of python that is usually quite useless but we will have to use it here : Anonymous function. It is when you want to use a function wit a unique usage. It is used when a function take another function as argument.
+
+:::
+
+## Adding columns
+
+In pandas, we use anonymous functions in various cases let's see examples with the assign method :
+
+```{python}
+(
+    X.assign(volume = X.height * X.width * X.length)
+)
+```
+
+This computation works because the we add the column to X, so X.height is the column of X. But in most cases we want to chain operation from the same dataframe like so :
+
+```{python}
+(
+    X
+    .query("make == 'volvo'")
+    .assign(volume = lambda df_: df_.height * df_.width * df_.length)
+)
+```
+
+Here, the assign method take as input an anonymous function that process a dataframe. Indeed, in the previous cell, we filter some rows of X with the query step, so when the assign will be run, the columns of the dataframe at this step will be different from the columns of X (the new dataframe has less rows). So, in assign it is required to use the anonymous function syntax like this :
+
+```python
+X.assign(new_col = (X.col1 * X.col2)/ X.col3 + 7)
+
+by : 
+
+X.assign(new_col = lambda df_: (df_.col1 * df_.col2)/ df_.col3 + 7)
+
+```
+
+## Strings
+
+Strings columns are very common and you might want to process strings in your daily life :). Pandas can help you with that  ! 
+
+Here we will process the make column with some example but its not very usefull since the dataframe is already clean. But the function you will need are the same ! 
+
+```{python}
+(
+    X.make.str.split("-", expand = True)
+)
+```
+
+Here we want to create 2 columns from a single column, we split it by a pattern (here its "-") and create new columns from the first splitted column. If you know you only want one part of the splited string its easier (keeping the first element in this example) :
+
+```{python}
+(
+    X.make.str.split("-").str[0]
+)
+```
+
+You can filter rows by the fact a a string cell contains or not a string pattern like that : 
+
+```{python}
+(
+    X.make.str.contains("benz")
+)
+```
+
+This creates a boolean masks that is usable in the query method 
+
+```{python}
+(
+    X.query("make.str.contains('benz')")
+)
+```
+
+So nice isn't it ?! 
+
+## Chain all operations
+
+The goal is to have all the processing into one single chaining operations like so : 
+
+```{python}
+X_cleaned = (
+    X
+    .query("price > 0")
+    .assign(volume = lambda df_: df_.width * df_.height * df_.length)
+    .query("volume <= volume.quantile(.25)")
+    .query("make.isin(['nissan', 'peugot'])")
+    .query("aspiration == 'turbo'")
+)
+```
+
+## Grouping
+Ypu might want to get statistical summary for sub categories of individuals or merge brands, items, people or whatever. Grouping in very easy and modular in pandas as you can see here :)
+
+This is the syntax i prefer because you can do multiple grouping from the same column.
+
+```{python}
+grouped = (
+    X
+    .query("price >0")
+    .assign(volume = lambda df_: df_.width * df_.height * df_.length)
+    .assign(price_per_cubic_whateverunit = lambda df_: df_.price/df_.volume)
+    .groupby(by = "make")
+    .agg(
+        mean_length = ("length", lambda x: x.mean()),
+        max_price = ("price", lambda s: s.max()),
+        price_std = ("price", lambda s: s.std()),
+        median_ppcw = ("price_per_cubic_whateverunit", lambda x: x.median())
+
+    )
+    .sort_values(by = "median_ppcw", ascending = False)
+)
+grouped.head()
+```
+
+If you want the best volume/price ratio you should probably get a peugot or a volvo.
+
+
+## Indexing 
+
+### Columns 
+
+This is the most useful part (last but not least as they say).
+If you have a big dataframe and you only want a subset of it how can you do ? 
+
+You can either index by indices or by names. The simplest way is to subset by names where you only want to select some columns : 
+
+```{python}
+X.loc[:,["make", "fuel-type"]]
+```
+
+If you only want one column (called a pandas series) you can just use the dot notation : 
+
+```{python}
+X.make
+```
+
+Here you selects of the rows witht he colomn, and all the columns with names included in the list provided to the loc method. If you want to **select all columns with some string pattern** you can use the filter method : 
+
+```{python}
+X.filter(like = "engine")
+```
+
+If you want to select only column with some required data types you can do :
+
+```{python}
+X.select_dtypes("number") # can ask for  object | category 
+```
+
+### Rows
+
+Well, here, you can select rows but you can't realy subset rows, you can randomly select subset of all rows with the sample method : 
+
+```{python}
+X.sample(10)
+```
+
+
+# Shape of the data
+
+Once upon a time, people were fighting about what was the best between long and wide format (differences and explanations explained [here](https://seaborn.pydata.org/tutorial/data_structure.html)). 
+
+The best format to give to stats software is the long format, i.e. one row represents one point of measure. 
+
+The two methods we will need here are the pivot_table (going from long to wide) and the melt (doing the opposite (wide -> long)).
+
+Lets see with some examples  ! 
+
+We will show it with a new dataframe with heart rate of 14 people from fitbit :  
+
+```{python}
+
+dataset = openml.datasets.get_dataset(46103)
+X, y, is_categorical, feat_names = dataset.get_data(
+    dataset_format="dataframe", target=dataset.default_target_attribute)
+
+
+TableReport(X)
+```
+
+The base format is the long format, that is the format we would want for statistical analysis, but i don't know, we could want time as index and each individuals as columns, and each heart rate has values.
+
+The pivot methods allow us to do it. The pivot and pivot_table are similar, but the pivot method doesn't allow duplicates values so you are sure every row doesn't disappear in the process. 
+
+```{python}
+wide_df = X.pivot(
+    values = "Value",
+    index = "Time",
+    columns = "Id"
+)
+TableReport(wide_df)
+```
+
+We can see that there are a lot of missing values, because each people have not recorded their measurements at the same time, so most of the datapoints doens't match.
+
+In the table report, we can see distribution of heart rates and see that some people are in better shape than others.
+
+To come back with the original long form we use the melt method: 
+
+```{python}
+
+(
+    wide_df
+    .reset_index()
+    .melt(id_vars = "Time")
+)
+```
+
+We see that we have way more rows than before, its because it kepts the NaN values, we can drop them with the dropna method : 
+
+```{python}
+(
+    wide_df
+    .reset_index()
+    .melt(id_vars = "Time")
+    .dropna(subset = ["value"])
+)
+```
+
+And now we have the same data as before.
+
+
+# Time
+
+This is not my speciality, but pandas is very good to deal with dates and temporal data. Lets see a bit of it here :) (the doc, better than this tuto is foundable [here](https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html)).
+We have the chance to get fitbit data with heart rates of 13 people during days.
+
+
+We see that pandas treats the time colomn as an object, that is not what we want, let's convert this column to date :) 
+
+```{python}
+cleaned_df = (
+    X
+    .assign(time_col = lambda df_: pd.to_datetime(df_.Time))
+    .set_index("time_col")
+)
+cleaned_df.info()
+```
+
+Now it is cool ! We got where we wanted to go. 
+
+```{python}
+sns.lineplot(
+    cleaned_df,
+    x = cleaned_df.index,
+    y = "Value",
+    hue = "Id"
+)
+plt.xticks(rotation = 45);
+```
+
+TODO : I don't know what to say about it ! 
+MB :/
+
+# Processing bonus
+
+Sometimes you get a lof of files in some directory that you want to merge into one single dataframe. This is actually very simple and doable in a single beautiful and nice for-loop héhé.
+
+Lets say you have a directory like that :
+
+
+```
+├── merge.py
+└── data
+    ├── car_1_day_1.csv
+    ├── car_2_day_1.csv
+    ├── car_1_day_2.csv
+```
+In your merge.py file you will interate through you data directory to load each csv as a pandas dataframe. all those file will be merged so they have to contain information to differentiate them.
+
+in this case i will add a column in dataframes of each csv files given the information contained in the filename.
+
+```python
+from pathlib import Path
+
+csv_files = Path("data").glob("*.csv")
+
+csv_file_list = []
+
+for file in csv_file_list:
+    car_id = file.split(".")[0].split("_")[1]
+    day_id = file.split(".")[0].split("_")[2]
+    file_dataframe = (
+        pd.read_csv(file)
+        .assign(car_id = car_id)
+        .assign(day_id = day_id)
+    )
+    csv_file_list.append(file_dataframe)
+
+
+final_dataframe = pd.concat(csv_file_list)
+final_dataframe.to_csv("final_dataframe.csv")
+```
+
+final_dataframe is a big csv with all the content of each sub dataframe. Note that all the dataframe should have the same columns as they will be merged vertically. 
+
+Joining orizontally according to a primary key is completely faisible as well but is not the purpose of this article. If you need it don't hesitate to contact me ! 
+
+# Bonus how to model off of this ? 
+
+Lets use skrub ! 
+
+Skrub is a subset of scikit-learn that is supposed to work on dataframes. It is soooooooo nice ! Lets see some example that could be transposed to any other problems.
+
+Lets go back with the car price prediction
+
+First, ML models require number as input, not strings or anything else. 
+You could work on each variable and items to understand how to encode it best, but the most parcimonious processing is provided by skrub with the tablevectorizer function.
+
+
+```{python}
+from skrub import TableVectorizer
+import skrub
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import train_test_split
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
+dataset = openml.datasets.get_dataset(248)
+X, y, is_categorical, feat_names = dataset.get_data(
+    dataset_format="dataframe", target=dataset.default_target_attribute)
+
+
+data_var = skrub.var("data", X)
+
+X = data_var.drop(columns="price").skb.mark_as_X()
+y = data_var["price"].skb.mark_as_y()
+
+```
+
+usable_df is the table we will use for our statistical modelling :). To say afew words about TableVectorizer primitives, it will OneHot encode categorical variables, and label encode categories with a high number of modalities.
+
+Lets start with the dataops utilities ! 
+We will define our X and y that will be used later to cross validate our estimators.
+
+Now the modelling part, we are in regression so, the baseline should be the linear regression, lets import some regression estimators from sklearn.
+
+```{python}
+from sklearn.linear_model import LinearRegression, Lasso, Ridge
+from sklearn.ensemble import GradientBoostingRegressor, HistGradientBoostingRegressor
+from sklearn.dummy import DummyRegressor
+from tqdm.auto import tqdm
+
+
+models = [
+    DummyRegressor(), LinearRegression(), HistGradientBoostingRegressor()
+]
+
+pre_processing_pipeline = Pipeline([
+    ("vectorize", TableVectorizer()),
+    ("standardize", StandardScaler()),
+    # ("PCA", PCA(30))
+])
+
+models = {str(i):i for i in models}
+
+preds = {
+    model_name: X.skb.apply(pre_processing_pipeline).skb.apply(model, y=y)
+    for model_name, model in tqdm(models.items())
+}
+```
+
+We have now to select which model gives the best generalization results by cross validating it. 
+
+Cross validate methods returns a pandas dataframe with the results for the specified esimator. We can make a big big big dataframe with all the results from cross validatoin of each models : 
+
+```{python}
+result_df = [
+    pred.skb.cross_validate(
+        cv = 3,
+        scoring = [
+            "r2", 
+            "neg_median_absolute_error", 
+            "neg_mean_squared_error"
+        ]
+    ).assign(model = model_name)
+    for model_name, pred in tqdm(preds.items()) 
+]
+
+result_df = pd.concat(result_df)
+TableReport(result_df)
+```
+
+```{python}
+sns.boxplot(
+    result_df, 
+    x = "model",
+    y = "test_r2"
+)
+```
