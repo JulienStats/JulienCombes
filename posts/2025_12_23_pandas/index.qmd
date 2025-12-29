@@ -499,7 +499,6 @@ You could work on each variable and items to understand how to encode it best, b
 ```{python}
 from skrub import TableVectorizer
 import skrub
-from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
@@ -523,56 +522,20 @@ We will define our X and y that will be used later to cross validate our estimat
 
 Now the modelling part, we are in regression so, the baseline should be the linear regression, lets import some regression estimators from sklearn.
 
+We can use skrubs DataOps capabilities to do the model selection, we will compare the baseline against the simple model and the default sota regressor using 3 splits of cross validation.
+
 ```{python}
 from sklearn.linear_model import LinearRegression, Lasso, Ridge
 from sklearn.ensemble import GradientBoostingRegressor, HistGradientBoostingRegressor
 from sklearn.dummy import DummyRegressor
 from tqdm.auto import tqdm
 
+model = skrub.choose_from([LinearRegression(), HistGradientBoostingRegressor(), DummyRegressor()])
 
-models = [
-    DummyRegressor(), LinearRegression(), HistGradientBoostingRegressor()
-]
+preds = X.skb.apply(TableVectorizer()).skb.apply(model, y=y)
 
-pre_processing_pipeline = Pipeline([
-    ("vectorize", TableVectorizer()),
-    ("standardize", StandardScaler()),
-    # ("PCA", PCA(30))
-])
-
-models = {str(i):i for i in models}
-
-preds = {
-    model_name: X.skb.apply(pre_processing_pipeline).skb.apply(model, y=y)
-    for model_name, model in tqdm(models.items())
-}
-```
-
-We have now to select which model gives the best generalization results by cross validating it. 
-
-Cross validate methods returns a pandas dataframe with the results for the specified esimator. We can make a big big big dataframe with all the results from cross validatoin of each models : 
-
-```{python}
-result_df = [
-    pred.skb.cross_validate(
-        cv = 3,
-        scoring = [
-            "r2", 
-            "neg_median_absolute_error", 
-            "neg_mean_squared_error"
-        ]
-    ).assign(model = model_name)
-    for model_name, pred in tqdm(preds.items()) 
-]
-
-result_df = pd.concat(result_df)
-TableReport(result_df)
-```
-
-```{python}
-sns.boxplot(
-    result_df, 
-    x = "model",
-    y = "test_r2"
+search = preds.skb.make_randomized_search(random_state=1, fitted=True, cv = 3
 )
+search.plot_results()
 ```
+
