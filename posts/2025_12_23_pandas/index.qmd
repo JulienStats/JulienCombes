@@ -465,7 +465,7 @@ csv_files = Path("data").glob("*.csv")
 
 csv_file_list = []
 
-for file in csv_file_list:
+for file in csv_files:
     car_id = file.split(".")[0].split("_")[1]
     day_id = file.split(".")[0].split("_")[2]
     file_dataframe = (
