@@ -88,7 +88,7 @@ Some paper made adaptative method for classification with very strong guarantees
 
 This field sounds specific but actually any statistician working with real world data will faced generalization problem one day or another.
 
-All the material is in this [github repo](https://github.com/mzaffran/ECAS_SFdS_ConformalPrediction)
+All the material is in this [github repo](https://github.com/antoinedemathelin/ecas2025-transfer-learning)
 
 
 ## Discussions

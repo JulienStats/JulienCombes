@@ -730,7 +730,7 @@ window.Quarto = {
 <h1>Calibration</h1>
 <p>Calibration is the property of an estimator that allow it to quantify its uncertainty in a reliable manner. In classification for example, when the model tells us that he thinks the class it predicted is true with a 60% probability, it should be right 60% of the time. No model has such guarantee out of the box, that is why we need tools to quantify the models uncertainty with good statistical guarantee without relying on strong asymption about the model or the data.</p>
 <p>Here is the calibration with this network for each class of the cifar10 dataset (the net is pre trained on image net so he is actually a bit too good haha). The following plots are the reliability curves for the net for each class. The more it is close to the diagonal <span class="math inline">\(y=x\)</span> the better the calibration. The expected calibration error (ECE) is computed as well.</p>
-<div id="eee7ba92" class="cell quarto-layout-panel" data-execution_count="2" data-layout-ncol="5">
+<div id="eee7ba92" class="cell quarto-layout-panel" data-layout-ncol="5" data-execution_count="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
 <p><img src="index_files/figure-html/cell-3-output-1.png" class="img-fluid" width="600"></p>
@@ -933,7 +933,7 @@ LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]</code></pre>
 </div>
 </div>
 <p>After computing the non conformity scores on our calibration test we can look at the image from the calibration sets that have the highest and the lowest conformity score :</p>
-<div id="2b74047c" class="cell quarto-layout-panel" data-execution_count="4" data-layout-ncol="2">
+<div id="2b74047c" class="cell quarto-layout-panel" data-layout-ncol="2" data-execution_count="4">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="index_files/figure-html/cell-5-output-1.png" class="img-fluid" width="902"></p>
@@ -1137,7 +1137,7 @@ LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]</code></pre>
 </div>
 </div>
 <p>Here the number of possible predicted classes is 100 so as we can see the proportion of singleton predicted is 20% at max or 0 for the SAPS scoring function. We can see than while providing no singleton, the average size of prediction sets is smaller. Relatively to <span class="math inline">\(\#\mathcal{Y}\)</span> being 100 of course, it is still large sets. We can see that the coverage requested of 90% is still verifies that is very good.</p>
-<div id="de7bfb05" class="cell quarto-layout-panel" data-execution_count="6" data-layout-ncol="2">
+<div id="de7bfb05" class="cell quarto-layout-panel" data-layout-ncol="2" data-execution_count="6">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="index_files/figure-html/cell-7-output-1.png" class="img-fluid" width="915"></p>
