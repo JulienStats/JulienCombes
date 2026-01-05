@@ -11,7 +11,7 @@ If you need something that is not in this page, or you spot a mistake (likely to
 
 # Getting the data
 
-In most cases you will already have a file producted by some measurement system. 
+In most cases you will already have a file produced by some measurement system. 
 Pandas can read any type of files (csv (separated by comas or semi-colons or any character), excel files and the new but efficient parquet files.)
 
 Everything happens with the pandas.read_* methods : 
