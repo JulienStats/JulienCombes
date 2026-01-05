@@ -278,7 +278,7 @@ X_cleaned = (
 ```
 
 ## Grouping
-Ypu might want to get statistical summary for sub categories of individuals or merge brands, items, people or whatever. Grouping in very easy and modular in pandas as you can see here :)
+You might want to get statistical summary for sub categories of individuals or merge brands, items, people or whatever. Grouping in very easy and modular in pandas as you can see here :)
 
 This is the syntax i prefer because you can do multiple grouping from the same column.
 
