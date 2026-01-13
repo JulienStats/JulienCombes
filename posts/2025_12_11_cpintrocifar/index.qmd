@@ -79,13 +79,13 @@ def test_trans(image)->torch.tensor:
 
 train_set = torchvision.datasets.CIFAR10(
     root=os.path.join(datarootdir, "cifar10"), 
-    download=False, 
+    download=True, 
     train=True,
     transform=train_trans)
 
 val_set = torchvision.datasets.CIFAR10(
     root=os.path.join(datarootdir, "cifar10"), 
-    download=False, 
+    download=True, 
     train=False,
     transform=test_trans)
 

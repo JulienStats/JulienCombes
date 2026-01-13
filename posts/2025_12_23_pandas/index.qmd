@@ -523,6 +523,8 @@ Now the modelling part, we are in regression so, the baseline should be the line
 
 We can use skrubs DataOps capabilities to do the model selection, we will compare the baseline against the simple model and the default sota regressor using 3 splits of cross validation.
 
+We can use skrubs DataOps capabilities to do the model selection, we will compare the baseline against the simple model and the default sota regressor using 3 splits of cross validation.
+
 ```{python}
 #| column: page
 from sklearn.linear_model import LinearRegression, Lasso, Ridge
@@ -558,3 +560,4 @@ I put it here anyway until i find a fix :
 ```{python}
 search.plot_results()
 ```
+
