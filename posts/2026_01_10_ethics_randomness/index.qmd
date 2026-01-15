@@ -1,0 +1,48 @@
+---*
+title: "Randomness and ethics"
+author: "Julien Combes"
+date: "2026-01-10"
+categories: [Probabilities, ENG]
+image: "memepython.png"
+bibliography: biblio.bib
+---
+
+I have so anecdotes about some situations where humans introduce randomness in order to mutate the level of ethics of their pairs.
+I have been thinking about some examples situation, it might of course not be exhaustive, and if it makes you think of other similar situation, i would be really happy to hear them !
+
+
+## Randomized Responses
+
+I cannot remember when i encoubtered this first idea but i think it was with in a youtube video from [Le chat sceptique](https://www.youtube.com/@ChatSceptique/videos).
+
+The situation takes place while taking a survey that contains sensitve quetions. When you know the respondants will have social, legal or other pressure which could make them answer with bad faith.
+
+Randomized Responses are a category of techniques that uses randomness to allow the respondent to answer with their true self, while having less or no pressure about answering. The paper i used to get introduced to this field is this review : [@PDFRandomizedResponse2025], but i am a strong beginner so do not take what i say for truth ! 
+
+I will focus on the most simple type of technique is the original idea from [@warnerRandomizedResponseSurvey1965] which propose a binary question to the surveyee. 
+First, 
+The surveyee should then take a random experiment only he/she can observe, and answer with to the first one with probability $p$ and the second one with probability $1-p$. The random noise will decide which question they should answer honestly.
+
+We can do a little simulation : 
+- N : number of surveyees (sample size)
+- p : parameter of the bernouilli random noise
+- $\theta$ : true proportion of people belonging to the sensitive group
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+N = 1000
+p = 1/6 #(dice roll)
+theta = 40/100
+
+
+noise = np.random.binomial(1, p, N)
+true_answers = np.random.binomial(1, theta, N)
+responses = np.where(
+    noise,
+    true_answers,  # Answer truthfully if asked sensitive question
+    np.random.binomial(1, theta, N)  # Answer "Yes" with probability q if not
+)
+
+
+```
