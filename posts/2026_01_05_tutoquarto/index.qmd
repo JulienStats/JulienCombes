@@ -1,0 +1,128 @@
+---
+title: Industrialize your slides
+author: "Julien Combes"
+date: "2026-01-07"
+categories: [Phd, productivity, ENG, tuto]
+image: "image.png"
+---
+
+When you are in Phd, you will have to presenet your work to all kind of poeple, it can be when do meetings with your advisers, when you present things to your pairs or to other people in the lab. 
+
+In any case, the slides should be as good as possible, because you will have to (if you don't want to recreate everything from scratch everytime) recycle each slide you ever make. I want to present a tool i love and i use everyday in my daily Phd life which is [quarto !!!!](https://quarto.org/).
+
+It is a tool buidt on pandoc, which means it take any input file (it will motlsy be markdown formatted files) and convert it to any type of format (pdfs, websites, blogs, slides ...). It is very convenient because with one language you cna produce any time of document to share your work. It makes each part very re-usable and the workflow efficient. 
+
+In this tutorial, i will show you how i manage my slides workflow using quarto, but everything written here is usable when generating thesis, or anything.
+
+
+# Installation
+
+The installation is done on linux, (doable on windows though wsl2).
+In order to work with pdfs output, pandoc supports latex as well as typst, so i recoomend installing latex to be sure :).
+
+In this bash script you have to fill the environement variable for the quarto version with the current release. 
+At the time i write the article, it would be 1.8.26.
+
+
+```bash
+
+sudo apt install texlive-full
+
+
+export QUARTO_VERSION="1.8.26"
+
+sudo mkdir -p /opt/quarto/${QUARTO_VERSION}
+
+sudo curl -o quarto.tar.gz -L \
+    "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.tar.gz"
+
+sudo tar -zxvf quarto.tar.gz \
+    -C "/opt/quarto/${QUARTO_VERSION}" \
+    --strip-components=1
+    
+sudo rm quarto.tar.gz
+sudo rm /usr/bin/quarto
+
+sudo ln -s /opt/quarto/"${QUARTO_VERSION}"/bin/quarto /usr/bin/
+
+quarto check
+```
+
+You now have quarto installed ! 
+The best way to interact with it is with the vscode extension, just install in in the vscode store and its gonna be fine.
+
+The doc of quarto is very well done so you can spend time reading it and see examples [here](https://quarto.org/docs/guide/).
+
+There are examples, extensions and a lot of content as well provided by the community gathred in this [guthub repo](https://github.com/mcanouil/awesome-quarto).
+
+
+## Folder organisation 
+
+This article is not about quarto because since the syntax is markdown, it is very easy to learn. I will focus on a short presentation of code organisation.
+
+I would suggest this folder organisation : 
+
+```
+├── advisor_meetings
+├── base_slides
+│   ├── _active_learning.qmd
+│   ├── _conformal_prediction.qmd
+│   ├── _latent_space_sampling.qmd
+│   └── _tyre_manufacturing.qmd
+├── lab_slides
+├── paper0
+└── paper1
+
+```
+
+The idea here is to focus your tile on writing very good slides on your each of your area of expertise in the base_slides folders. Each file you write in this part should be self sufficient and understable in itself. 
+
+## Writing a slide
+
+If yiou are asked to present your work at your lab for exemple you could create a complete diapo by including the content slides you already prepared, and, depending on the public only adding specific slides for transitions, or making relatable example etc. 
+
+The docs for the slides is on [this page](https://quarto.org/docs/presentations/).
+
+An example quarto file for this type of event could look like this :
+
+
+
+```markdown
+---
+title: Presentation Phd
+author: Jane Doe
+subtitle: Active Learning applied to machine vision
+format:
+  revealjs:
+    slide-number: true
+    embed-resources: true
+---
+
+{{{< include ../base_slides/_tyre_manufacturing.qmd >}}}
+
+## Machine Vision limits in manufacturing
+
+bla bla bla active learning, bla bla bla amount of data
+
+{{{< include ../base_slides/_active_learning.qmd >}}}
+
+## Calibration assumption
+
+bla bla bla AL uncertainty bla bla bla
+conformal prediction 
+
+{{{< include ../base_slides/_conformal_prediction.qmd >}}}
+
+
+## Thank you very much
+
+
+## references
+
+```
+
+Here you have  a script where you perfecty recycle your previous, and you added transitions or whatever you want to add besides the slides of pure content.
+
+The slides won't be gorgeous, but nothing will be bad about it
+
+It is a short tuto, but it might be helpful, if you have questions, suggestions or spot mistakes (im sure there are !) don't hesitate to tell me so i can fix it.

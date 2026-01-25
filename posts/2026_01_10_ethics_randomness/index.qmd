@@ -6,7 +6,7 @@ categories: [Probabilities, ENG]
 image: "image.png"
 ---
 
-I have so anecdotes about some situations where humans introduce randomness in order to mutate the level of ethics of their pairs.
+I have some anecdotes about some situations where humans introduce randomness in order to mutate the level of ethics of their pairs.
 I have been thinking about some examples situation, it might of course not be exhaustive, and if it makes you think of other similar situation, i would be really happy to hear them !
 
 
@@ -14,9 +14,9 @@ I have been thinking about some examples situation, it might of course not be ex
 
 I cannot remember when i encountered this first idea but i think it was with in a youtube video from [Le chat sceptique](https://www.youtube.com/@ChatSceptique/videos).
 
-The situation takes place while taking a survey that contains sensitive quetions. When you know the respondants will have social, legal or other pressure which could make them answer with bad faith.
+The situation takes place while taking a survey that contains sensitive questions. When you know the respondants will have social, legal or other pressure which could make them answer with bad faith.
 
-Randomized Responses are a category of techniques that uses randomness to allow the respondent to answer with their true self, while having less or no pressure about answering. The paper i used to get introduced to this field is this review : [@PDFRandomizedResponse2025], but i am a strong beginner so do not take what i say for truth ! 
+Randomized Responses are a category of techniques that use randomness to allow the respondent to answer with their true self, while having less or no pressure about answering. The paper i used to get introduced to this field is this review : [@PDFRandomizedResponse2025], but i am a strong beginner so do not take what i say for truth ! 
 
 I will focus on the most simple type of technique is the original idea from [@warnerRandomizedResponseSurvey1965] which propose a binary question to the surveyee. 
 

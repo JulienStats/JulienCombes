@@ -450,16 +450,16 @@ window.Quarto = {
 
 
 
-<p>I have so anecdotes about some situations where humans introduce randomness in order to mutate the level of ethics of their pairs. I have been thinking about some examples situation, it might of course not be exhaustive, and if it makes you think of other similar situation, i would be really happy to hear them !</p>
+<p>I have some anecdotes about some situations where humans introduce randomness in order to mutate the level of ethics of their pairs. I have been thinking about some examples situation, it might of course not be exhaustive, and if it makes you think of other similar situation, i would be really happy to hear them !</p>
 <section id="randomized-responses" class="level2">
 <h2 class="anchored" data-anchor-id="randomized-responses">Randomized Responses</h2>
 <p>I cannot remember when i encountered this first idea but i think it was with in a youtube video from <a href="https://www.youtube.com/@ChatSceptique/videos">Le chat sceptique</a>.</p>
-<p>The situation takes place while taking a survey that contains sensitive quetions. When you know the respondants will have social, legal or other pressure which could make them answer with bad faith.</p>
-<p>Randomized Responses are a category of techniques that uses randomness to allow the respondent to answer with their true self, while having less or no pressure about answering. The paper i used to get introduced to this field is this review : <span class="citation" data-cites="PDFRandomizedResponse2025">(<a href="#ref-PDFRandomizedResponse2025" role="doc-biblioref"><span>“(<span>PDF</span>) <span>Randomized Response Techniques</span>: <span>A Systematic Review</span> from the <span>Pioneering Work</span> of <span>Warner</span> (1965) to the <span>Present</span>”</span> 2025</a>)</span>, but i am a strong beginner so do not take what i say for truth !</p>
+<p>The situation takes place while taking a survey that contains sensitive questions. When you know the respondants will have social, legal or other pressure which could make them answer with bad faith.</p>
+<p>Randomized Responses are a category of techniques that use randomness to allow the respondent to answer with their true self, while having less or no pressure about answering. The paper i used to get introduced to this field is this review : <span class="citation" data-cites="PDFRandomizedResponse2025">(<a href="#ref-PDFRandomizedResponse2025" role="doc-biblioref"><span>“(<span>PDF</span>) <span>Randomized Response Techniques</span>: <span>A Systematic Review</span> from the <span>Pioneering Work</span> of <span>Warner</span> (1965) to the <span>Present</span>”</span> 2025</a>)</span>, but i am a strong beginner so do not take what i say for truth !</p>
 <p>I will focus on the most simple type of technique is the original idea from <span class="citation" data-cites="warnerRandomizedResponseSurvey1965">(<a href="#ref-warnerRandomizedResponseSurvey1965" role="doc-biblioref">Warner 1965</a>)</span> which propose a binary question to the surveyee.</p>
 <p>We are interested in quantifying the proportion of people belonging to groups A and B. The first step is to make the surveyees take a random experiment only they can observe, the binary random experiment will return either A or B, and the surveyee only has to answer to yes or no depending on wether the random outcome was his/her true group.</p>
 <p>We can do a little simulation : - n : number of surveyees (sample size) - p : parameter of the bernouilli random experiment - <span class="math inline">\(\pi\)</span> : true proportion of people belonging to the sensitive group</p>
-<div id="3ba6b064" class="cell" data-execution_count="1">
+<div id="331e2bd1" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
@@ -491,7 +491,7 @@ window.Quarto = {
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="ss">f"Estimated pi : </span><span class="sc">{</span>pi_hat<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>Text(0.5, 0.98, 'Estimated pi : 0.412')</code></pre>
+<pre><code>Text(0.5, 0.98, 'Estimated pi : 0.415')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -503,7 +503,7 @@ window.Quarto = {
 </div>
 <p>Oh nice ! We could see on one sample how out maximum likelyhood estimator allows us to recover the true proportion. Let’s see how does the random event probability affect the ability to recover <span class="math inline">\(\pi\)</span>.</p>
 <p>We will run multiple experiments with 100 surveyees.</p>
-<div id="e22666e1" class="cell" data-execution_count="2">
+<div id="e5b69a35" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_pi_hat(p,n<span class="op">=</span><span class="dv">100</span>,pi<span class="op">=</span> <span class="dv">40</span><span class="op">/</span><span class="dv">100</span>)<span class="op">-&gt;</span><span class="bu">float</span>:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    true_answers <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, pi, n)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    noise <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, p, n)</span>
@@ -1041,7 +1041,7 @@ Warner, Stanley L. 1965. <span>“Randomized <span>Response</span>: <span>A Surv
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> "image.png"</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>I have so anecdotes about some situations where humans introduce randomness in order to mutate the level of ethics of their pairs.</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>I have some anecdotes about some situations where humans introduce randomness in order to mutate the level of ethics of their pairs.</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>I have been thinking about some examples situation, it might of course not be exhaustive, and if it makes you think of other similar situation, i would be really happy to hear them !</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
@@ -1049,9 +1049,9 @@ Warner, Stanley L. 1965. <span>“Randomized <span>Response</span>: <span>A Surv
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>I cannot remember when i encountered this first idea but i think it was with in a youtube video from <span class="co">[</span><span class="ot">Le chat sceptique</span><span class="co">](https://www.youtube.com/@ChatSceptique/videos)</span>.</span>
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>The situation takes place while taking a survey that contains sensitive quetions. When you know the respondants will have social, legal or other pressure which could make them answer with bad faith.</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>The situation takes place while taking a survey that contains sensitive questions. When you know the respondants will have social, legal or other pressure which could make them answer with bad faith.</span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>Randomized Responses are a category of techniques that uses randomness to allow the respondent to answer with their true self, while having less or no pressure about answering. The paper i used to get introduced to this field is this review : <span class="co">[</span><span class="ot">@PDFRandomizedResponse2025</span><span class="co">]</span>, but i am a strong beginner so do not take what i say for truth ! </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>Randomized Responses are a category of techniques that use randomness to allow the respondent to answer with their true self, while having less or no pressure about answering. The paper i used to get introduced to this field is this review : <span class="co">[</span><span class="ot">@PDFRandomizedResponse2025</span><span class="co">]</span>, but i am a strong beginner so do not take what i say for truth ! </span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>I will focus on the most simple type of technique is the original idea from <span class="co">[</span><span class="ot">@warnerRandomizedResponseSurvey1965</span><span class="co">]</span> which propose a binary question to the surveyee. </span>
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
