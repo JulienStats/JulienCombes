@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -94,9 +94,9 @@ div.csl-indent {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-4cfdf6f06bd6939d44a7e68047bd8811.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -341,8 +341,6 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Julien Combes</span>
     </a>
@@ -484,7 +482,7 @@ window.Quarto = {
 <p>Short Summary:</p>
 <p>Linear regression with gaussian hypothesis allow a good uncertainty quantification (UQ) using gaussian hypotheses for parameters and target variable. Some situation where models are bigger and does not follow any assumptions over parameter values makes UQ impossible using any assumption on model or errors. That is the problem CP is solving, given one only hypotheses (exchangeability of non conformity scores) it allows a good UQ which is distribution free (no assumpotion over the data distribution) and model agnostic (independent on the estimator). This is very good because in deep learning we litteraly have no tool to quantify uncertainty with statistical guarantees.</p>
 <p>Given a labeled dataset of size n <span class="math inline">\((X_i,Y_i)^n_{i=1}\)</span>, we want to be able to predict a new point <span class="math inline">\(X_{n+1}\)</span> with confidence.</p>
-<p>Meaning that for any user defined risk <span class="math inline">\(\alpha \in [0,1]\)</span>, <span class="math inline">\(\mathcal{P}\{Y_{n+1} \in \mathcal{C}_{\alpha}(X_{n+1})\} \geq 1 - \alpha\)</span>. <span class="math inline">\(\mathcal{C}_{\alpha}\)</span> should be as small as possible to be informative. Indeed the case where <span class="math inline">\(\mathcal{C}_{\alpha} = \mathcal{Y}\)</span> verifies the <span class="math inline">\(1-\alpha\)</span> coverage but provides no information about the predictive uncertainty.</p>
+<p>Meaning that for any user defined risk <span class="math inline">\(\alpha \in [0,1]\)</span>, <span class="math inline">\(\mathbb{P}\{Y_{n+1} \in \mathcal{C}_{\alpha}(X_{n+1})\} \geq 1 - \alpha\)</span>. <span class="math inline">\(\mathcal{C}_{\alpha}\)</span> should be as small as possible to be informative. Indeed the case where <span class="math inline">\(\mathcal{C}_{\alpha} = \mathcal{Y}\)</span> verifies the <span class="math inline">\(1-\alpha\)</span> coverage but provides no information about the predictive uncertainty.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Exchangeability">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1138,7 +1136,7 @@ Romano, Yaniv, Matteo Sesia, and Emmanuel J. Candès. 2020. <span>“Classificat
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>Given a labeled dataset of size n $(X_i,Y_i)^n_{i=1}$, we want to be able to predict a new point $X_{n+1}$ with confidence.</span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>Meaning that for any user defined risk $\alpha \in <span class="co">[</span><span class="ot">0,1</span><span class="co">]</span>$,  $\mathcal{P}<span class="sc">\{</span>Y_{n+1} \in \mathcal{C}_{\alpha}(X_{n+1})\} \geq 1 - \alpha$. $\mathcal{C}_{\alpha}$ should be as small as possible to be informative. Indeed the case where $\mathcal{C}_{\alpha} = \mathcal{Y}$ verifies the $1-\alpha$ coverage but provides no information about the predictive uncertainty.</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>Meaning that for any user defined risk $\alpha \in <span class="co">[</span><span class="ot">0,1</span><span class="co">]</span>$,  $\mathbb{P}<span class="sc">\{</span>Y_{n+1} \in \mathcal{C}_{\alpha}(X_{n+1})\} \geq 1 - \alpha$. $\mathcal{C}_{\alpha}$ should be as small as possible to be informative. Indeed the case where $\mathcal{C}_{\alpha} = \mathcal{Y}$ verifies the $1-\alpha$ coverage but provides no information about the predictive uncertainty.</span>
 <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>:::{.callout-note title="Exchangeability"}</span>
 <span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>

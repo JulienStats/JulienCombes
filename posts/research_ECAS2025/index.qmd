@@ -44,7 +44,7 @@ Linear regression with gaussian hypothesis allow a good uncertainty quantificati
 
 Given a labeled dataset of size n $(X_i,Y_i)^n_{i=1}$, we want to be able to predict a new point $X_{n+1}$ with confidence.
 
-Meaning that for any user defined risk $\alpha \in [0,1]$,  $\mathcal{P}\{Y_{n+1} \in \mathcal{C}_{\alpha}(X_{n+1})\} \geq 1 - \alpha$. $\mathcal{C}_{\alpha}$ should be as small as possible to be informative. Indeed the case where $\mathcal{C}_{\alpha} = \mathcal{Y}$ verifies the $1-\alpha$ coverage but provides no information about the predictive uncertainty.
+Meaning that for any user defined risk $\alpha \in [0,1]$,  $\mathbb{P}\{Y_{n+1} \in \mathcal{C}_{\alpha}(X_{n+1})\} \geq 1 - \alpha$. $\mathcal{C}_{\alpha}$ should be as small as possible to be informative. Indeed the case where $\mathcal{C}_{\alpha} = \mathcal{Y}$ verifies the $1-\alpha$ coverage but provides no information about the predictive uncertainty.
 
 :::{.callout-note title="Exchangeability"}
 

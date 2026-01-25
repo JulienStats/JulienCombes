@@ -1,10 +1,9 @@
----*
+---
 title: "Randomness and ethics"
 author: "Julien Combes"
 date: "2026-01-10"
 categories: [Probabilities, ENG]
-image: "memepython.png"
-bibliography: biblio.bib
+image: "image.png"
 ---
 
 I have so anecdotes about some situations where humans introduce randomness in order to mutate the level of ethics of their pairs.
@@ -13,36 +12,107 @@ I have been thinking about some examples situation, it might of course not be ex
 
 ## Randomized Responses
 
-I cannot remember when i encoubtered this first idea but i think it was with in a youtube video from [Le chat sceptique](https://www.youtube.com/@ChatSceptique/videos).
+I cannot remember when i encountered this first idea but i think it was with in a youtube video from [Le chat sceptique](https://www.youtube.com/@ChatSceptique/videos).
 
-The situation takes place while taking a survey that contains sensitve quetions. When you know the respondants will have social, legal or other pressure which could make them answer with bad faith.
+The situation takes place while taking a survey that contains sensitive quetions. When you know the respondants will have social, legal or other pressure which could make them answer with bad faith.
 
 Randomized Responses are a category of techniques that uses randomness to allow the respondent to answer with their true self, while having less or no pressure about answering. The paper i used to get introduced to this field is this review : [@PDFRandomizedResponse2025], but i am a strong beginner so do not take what i say for truth ! 
 
 I will focus on the most simple type of technique is the original idea from [@warnerRandomizedResponseSurvey1965] which propose a binary question to the surveyee. 
-First, 
-The surveyee should then take a random experiment only he/she can observe, and answer with to the first one with probability $p$ and the second one with probability $1-p$. The random noise will decide which question they should answer honestly.
+
+We are interested in quantifying the proportion of people belonging to groups A and B. 
+The first step is to make the surveyees take a random experiment only they can observe, the binary random experiment will return either A or B, and the surveyee only has to answer to yes or no depending on wether the random outcome was his/her true group. 
 
 We can do a little simulation : 
-- N : number of surveyees (sample size)
-- p : parameter of the bernouilli random noise
-- $\theta$ : true proportion of people belonging to the sensitive group
+- n : number of surveyees (sample size)
+- p : parameter of the bernouilli random experiment
+- $\pi$ : true proportion of people belonging to the sensitive group
 
 ```{python}
 import numpy as np
 import matplotlib.pyplot as plt
-N = 1000
+import plotly.express as px
+import pandas as pd
+import seaborn as sns
+n = 1000
 p = 1/6 #(dice roll)
-theta = 40/100
+pi = 40/100
 
 
-noise = np.random.binomial(1, p, N)
-true_answers = np.random.binomial(1, theta, N)
-responses = np.where(
-    noise,
-    true_answers,  # Answer truthfully if asked sensitive question
-    np.random.binomial(1, theta, N)  # Answer "Yes" with probability q if not
-)
+
+true_answers = np.random.binomial(1, pi, n)
+noise = np.random.binomial(1, p, n)
+
+final_answer = (noise == true_answers).astype(int)
+n1 = final_answer.sum()
+
+pi_hat = (p-1)/(2*p - 1) + (n1)/(n*(2*p - 1))
 
 
+
+fig, axs = plt.subplots(nrows= 1, ncols=3, figsize = (9, 5))
+axs[0].hist(noise)
+axs[0].set_title(f"Noise {noise.mean()}")
+axs[1].hist(true_answers)
+axs[1].set_title(f"True answers : {true_answers.mean()}")
+axs[2].hist(final_answer)
+axs[2].set_title(f"Final answers : {final_answer.mean()}")
+
+fig.suptitle(f"Estimated pi : {pi_hat:.3f}")
 ```
+
+Oh nice ! 
+We could see on one sample how out maximum likelyhood estimator allows us to recover the true proportion. 
+Let's see how does the random event probability affect the ability to recover $\pi$.
+
+We will run multiple experiments with 100 surveyees.
+
+
+```{python}
+#| code-fold: false
+def get_pi_hat(p,n=100,pi= 40/100)->float:
+    true_answers = np.random.binomial(1, pi, n)
+    noise = np.random.binomial(1, p, n)
+
+    final_answer = (noise == true_answers).astype(int)
+    n1 = final_answer.sum()
+
+    pi_hat = (p-1)/(2*p - 1) + (n1)/(n*(2*p - 1))
+    return pi_hat
+
+num_ps = 100
+mc_iter =  100
+ps = np.zeros(num_ps * mc_iter)
+pihats = np.zeros(num_ps * mc_iter)
+pi = 40/100
+i = 0
+for p in np.linspace(0, 1, num_ps).round(2):
+    for mc in range(mc_iter):
+        pihats[i] = get_pi_hat(p, pi = pi)
+        ps[i] = p
+        i+= 1
+
+df= pd.DataFrame({
+    "ps" : ps,
+    "pihats" : pihats
+})
+
+plt.figure(figsize=(6,6))
+sns.boxplot(df, x="ps", y="pihats")
+plt.axhline(pi, c="red")
+plt.xlabel("Probabilities for the random event, from 0 to 1")
+plt.xticks([])
+plt.ylabel("$\\hat{\\pi}$")
+```
+
+
+
+We can see that the estimator is centered around the true value of $\pi$, but the closer we are to $50\%$ the bigger the variance, indeed when the random event sucess probability the surveyee uses to answer is equal to $50\%$, the answer provides no information at all. 
+
+So, the closer p is to 0 or 1, the better the estimation, but it will be more likely for the surveyee to answer with bad faith, the choice of p is a trade off between statistical efficiency and peoples's trust.
+
+
+## Conclusion 
+ 
+It was short and small, but it was very fun looking at this problem ! 
+There are more recent extensions to overcome weaknesses of this methods, the field of randomized responses is very rich and i just wanted to share that this field even exists :) See you ! 

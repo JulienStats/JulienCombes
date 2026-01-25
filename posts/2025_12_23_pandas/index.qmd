@@ -99,7 +99,7 @@ plt.xticks(rotation = 90);
 
 # Mutating the data
 
-Pandas provides a lot of very usefull methods to filter, modify delete items from a dataframe.
+Pandas provides a lot of very useful methods to filter, modify delete items from a dataframe.
 
 ::: {.callout-warning}
 The philosophy in data science is to NEVER modifying by hand the data you are studying.
@@ -189,7 +189,7 @@ sns.histplot(
 Nothing interesting here. Let's see how to mutate columns. You could want to create columns according to a processing of some other columns. 
 
 ::: {.callout-tip title="Anonymous function"}
-There is an important part of python that is usually quite useless but we will have to use it here : Anonymous function. It is when you want to use a function wit a unique usage. It is used when a function take another function as argument.
+There is an important part of python that is usually quite useless but we will have to use it here : Anonymous function. It is when you want to use a function with as input to another function but not use it as itself.
 
 :::
 
@@ -483,6 +483,7 @@ final_dataframe.to_csv("final_dataframe.csv")
 final_dataframe is a big csv with all the content of each sub dataframe. Note that all the dataframe should have the same columns as they will be merged vertically. 
 
 Joining orizontally according to a primary key is completely faisible as well but is not the purpose of this article. If you need it don't hesitate to contact me ! 
+
 # Bonus how to model off of this ? 
 
 Lets use skrub ! 
@@ -558,6 +559,6 @@ The HPO is supposed to be plot using the following syntax, but it looks like i h
 I put it here anyway until i find a fix : 
 
 ```{python}
+#| column: page
 search.plot_results()
 ```
-
