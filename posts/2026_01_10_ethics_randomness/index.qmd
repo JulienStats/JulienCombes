@@ -28,6 +28,19 @@ We can do a little simulation :
 - p : parameter of the bernouilli random experiment
 - $\pi$ : true proportion of people belonging to the sensitive group
 
+## Stats recap
+
+Using the noise change the estimation and the probability of the answers of the surveyees is as follow : 
+
+$$P(X_i = 1) = \pi p + (1 - \pi)(1 - p)$$
+$$P(X_i = 0) = (1 - \pi)p +  + \pi(1 - p)$$
+
+
+Which leads to a estimation [see the the original paper from @warnerRandomizedResponseSurvey1965 details] :
+
+$$\hat{\pi} = \frac{p-1}{2p-1} + \frac{n_1}{n(2p - 1)}$$
+
+
 ```{python}
 import numpy as np
 import matplotlib.pyplot as plt
@@ -41,7 +54,7 @@ pi = 40/100
 
 
 true_answers = np.random.binomial(1, pi, n)
-noise = np.random.binomial(1, p, n)
+noise = np.random.binomial(1, p, n) 
 
 final_answer = (noise == true_answers).astype(int)
 n1 = final_answer.sum()

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -94,9 +94,9 @@ div.csl-indent {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-4cfdf6f06bd6939d44a7e68047bd8811.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -345,8 +345,6 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Julien Combes</span>
     </a>
@@ -730,7 +728,7 @@ window.Quarto = {
 <h1>Calibration</h1>
 <p>Calibration is the property of an estimator that allow it to quantify its uncertainty in a reliable manner. In classification for example, when the model tells us that he thinks the class it predicted is true with a 60% probability, it should be right 60% of the time. No model has such guarantee out of the box, that is why we need tools to quantify the models uncertainty with good statistical guarantee without relying on strong asymption about the model or the data.</p>
 <p>Here is the calibration with this network for each class of the cifar10 dataset (the net is pre trained on image net so he is actually a bit too good haha). The following plots are the reliability curves for the net for each class. The more it is close to the diagonal <span class="math inline">\(y=x\)</span> the better the calibration. The expected calibration error (ECE) is computed as well.</p>
-<div id="8df6db8f" class="cell quarto-layout-panel" data-layout-ncol="5" data-execution_count="2">
+<div id="8df6db8f" class="cell quarto-layout-panel" data-execution_count="2" data-layout-ncol="5">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
 <p><img src="index_files/figure-html/cell-3-output-1.png" class="img-fluid" width="600"></p>
@@ -952,7 +950,7 @@ LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]</code></pre>
 </div>
 </div>
 <p>After computing the non conformity scores on our calibration test we can look at the image from the calibration sets that have the highest and the lowest conformity score :</p>
-<div id="4510c91e" class="cell quarto-layout-panel" data-layout-ncol="2" data-execution_count="4">
+<div id="4510c91e" class="cell quarto-layout-panel" data-execution_count="4" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="index_files/figure-html/cell-5-output-1.png" class="img-fluid" width="902"></p>
@@ -1177,7 +1175,7 @@ LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]</code></pre>
 </div>
 </div>
 <p>Here the number of possible predicted classes is 100 so as we can see the proportion of singleton predicted is 20% at max or 0 for the SAPS scoring function. We can see than while providing no singleton, the average size of prediction sets is smaller. Relatively to <span class="math inline">\(\#\mathcal{Y}\)</span> being 100 of course, it is still large sets. We can see that the coverage requested of 90% is still verifies that is very good.</p>
-<div id="152ce46d" class="cell quarto-layout-panel" data-layout-ncol="2" data-execution_count="6">
+<div id="152ce46d" class="cell quarto-layout-panel" data-execution_count="6" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="index_files/figure-html/cell-7-output-1.png" class="img-fluid" width="978"></p>
