@@ -24,6 +24,7 @@ We are interested in quantifying the proportion of people belonging to groups A 
 The first step is to make the surveyees take a random experiment only they can observe, the binary random experiment will return either A or B, and the surveyee only has to answer to yes or no depending on wether the random outcome was his/her true group. 
 
 We can do a little simulation : 
+
 - n : number of surveyees (sample size)
 - p : parameter of the bernouilli random experiment
 - $\pi$ : true proportion of people belonging to the sensitive group

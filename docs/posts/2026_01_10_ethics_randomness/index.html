@@ -457,7 +457,12 @@ window.Quarto = {
 <p>Randomized Responses are a category of techniques that use randomness to allow the respondent to answer with their true self, while having less or no pressure about answering. The paper i used to get introduced to this field is this review : <span class="citation" data-cites="PDFRandomizedResponse2025">(<a href="#ref-PDFRandomizedResponse2025" role="doc-biblioref"><span>“(<span>PDF</span>) <span>Randomized Response Techniques</span>: <span>A Systematic Review</span> from the <span>Pioneering Work</span> of <span>Warner</span> (1965) to the <span>Present</span>”</span> 2025</a>)</span>, but i am a strong beginner so do not take what i say for truth !</p>
 <p>I will focus on the most simple type of technique is the original idea from <span class="citation" data-cites="warnerRandomizedResponseSurvey1965">(<a href="#ref-warnerRandomizedResponseSurvey1965" role="doc-biblioref">Warner 1965</a>)</span> which propose a binary question to the surveyee.</p>
 <p>We are interested in quantifying the proportion of people belonging to groups A and B. The first step is to make the surveyees take a random experiment only they can observe, the binary random experiment will return either A or B, and the surveyee only has to answer to yes or no depending on wether the random outcome was his/her true group.</p>
-<p>We can do a little simulation : - n : number of surveyees (sample size) - p : parameter of the bernouilli random experiment - <span class="math inline">\(\pi\)</span> : true proportion of people belonging to the sensitive group</p>
+<p>We can do a little simulation :</p>
+<ul>
+<li>n : number of surveyees (sample size)</li>
+<li>p : parameter of the bernouilli random experiment</li>
+<li><span class="math inline">\(\pi\)</span> : true proportion of people belonging to the sensitive group</li>
+</ul>
 </section>
 <section id="stats-recap" class="level2">
 <h2 class="anchored" data-anchor-id="stats-recap">Stats recap</h2>
@@ -465,7 +470,7 @@ window.Quarto = {
 <p><span class="math display">\[P(X_i = 1) = \pi p + (1 - \pi)(1 - p)\]</span> <span class="math display">\[P(X_i = 0) = (1 - \pi)p +  + \pi(1 - p)\]</span></p>
 <p>Which leads to a estimation <span class="citation" data-cites="warnerRandomizedResponseSurvey1965">(see the the original paper from <a href="#ref-warnerRandomizedResponseSurvey1965" role="doc-biblioref">Warner 1965</a> details)</span> :</p>
 <p><span class="math display">\[\hat{\pi} = \frac{p-1}{2p-1} + \frac{n_1}{n(2p - 1)}\]</span></p>
-<div id="355c154d" class="cell" data-execution_count="1">
+<div id="ee974733" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
@@ -497,7 +502,7 @@ window.Quarto = {
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="ss">f"Estimated pi : </span><span class="sc">{</span>pi_hat<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>Text(0.5, 0.98, 'Estimated pi : 0.395')</code></pre>
+<pre><code>Text(0.5, 0.98, 'Estimated pi : 0.400')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -509,7 +514,7 @@ window.Quarto = {
 </div>
 <p>Oh nice ! We could see on one sample how out maximum likelyhood estimator allows us to recover the true proportion. Let’s see how does the random event probability affect the ability to recover <span class="math inline">\(\pi\)</span>.</p>
 <p>We will run multiple experiments with 100 surveyees.</p>
-<div id="559e5893" class="cell" data-execution_count="2">
+<div id="51671561" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_pi_hat(p,n<span class="op">=</span><span class="dv">100</span>,pi<span class="op">=</span> <span class="dv">40</span><span class="op">/</span><span class="dv">100</span>)<span class="op">-&gt;</span><span class="bu">float</span>:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    true_answers <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, pi, n)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    noise <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, p, n)</span>
@@ -1065,111 +1070,112 @@ Warner, Stanley L. 1965. <span>“Randomized <span>Response</span>: <span>A Surv
 <span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>The first step is to make the surveyees take a random experiment only they can observe, the binary random experiment will return either A or B, and the surveyee only has to answer to yes or no depending on wether the random outcome was his/her true group. </span>
 <span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>We can do a little simulation : </span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>n : number of surveyees (sample size)</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>p : parameter of the bernouilli random experiment</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\pi$ : true proportion of people belonging to the sensitive group</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stats recap</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>Using the noise change the estimation and the probability of the answers of the surveyees is as follow : </span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>$$P(X_i = 1) = \pi p + (1 - \pi)(1 - p)$$</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>$$P(X_i = 0) = (1 - \pi)p +  + \pi(1 - p)$$</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>n : number of surveyees (sample size)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>p : parameter of the bernouilli random experiment</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$\pi$ : true proportion of people belonging to the sensitive group</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stats recap</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>Using the noise change the estimation and the probability of the answers of the surveyees is as follow : </span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>$$P(X_i = 1) = \pi p + (1 - \pi)(1 - p)$$</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>$$P(X_i = 0) = (1 - \pi)p +  + \pi(1 - p)$$</span>
 <span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>Which leads to a estimation <span class="co">[</span><span class="ot">see the the original paper from @warnerRandomizedResponseSurvey1965 details</span><span class="co">]</span> :</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>$$\hat{\pi} = \frac{p-1}{2p-1} + \frac{n_1}{n(2p - 1)}$$</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>Which leads to a estimation <span class="co">[</span><span class="ot">see the the original paper from @warnerRandomizedResponseSurvey1965 details</span><span class="co">]</span> :</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>$$\hat{\pi} = \frac{p-1}{2p-1} + \frac{n_1}{n(2p - 1)}$$</span>
 <span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="dv">1</span><span class="op">/</span><span class="dv">6</span> <span class="co">#(dice roll)</span></span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>pi <span class="op">=</span> <span class="dv">40</span><span class="op">/</span><span class="dv">100</span></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="dv">1</span><span class="op">/</span><span class="dv">6</span> <span class="co">#(dice roll)</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>pi <span class="op">=</span> <span class="dv">40</span><span class="op">/</span><span class="dv">100</span></span>
 <span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>true_answers <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, pi, n)</span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, p, n) </span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>final_answer <span class="op">=</span> (noise <span class="op">==</span> true_answers).astype(<span class="bu">int</span>)</span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>n1 <span class="op">=</span> final_answer.<span class="bu">sum</span>()</span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>pi_hat <span class="op">=</span> (p<span class="op">-</span><span class="dv">1</span>)<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>p <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> (n1)<span class="op">/</span>(n<span class="op">*</span>(<span class="dv">2</span><span class="op">*</span>p <span class="op">-</span> <span class="dv">1</span>))</span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>true_answers <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, pi, n)</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, p, n) </span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>final_answer <span class="op">=</span> (noise <span class="op">==</span> true_answers).astype(<span class="bu">int</span>)</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>n1 <span class="op">=</span> final_answer.<span class="bu">sum</span>()</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>pi_hat <span class="op">=</span> (p<span class="op">-</span><span class="dv">1</span>)<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>p <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> (n1)<span class="op">/</span>(n<span class="op">*</span>(<span class="dv">2</span><span class="op">*</span>p <span class="op">-</span> <span class="dv">1</span>))</span>
 <span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(nrows<span class="op">=</span> <span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">3</span>, figsize <span class="op">=</span> (<span class="dv">9</span>, <span class="dv">5</span>))</span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].hist(noise)</span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="ss">f"Noise </span><span class="sc">{</span>noise<span class="sc">.</span>mean()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].hist(true_answers)</span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="ss">f"True answers : </span><span class="sc">{</span>true_answers<span class="sc">.</span>mean()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].hist(final_answer)</span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].set_title(<span class="ss">f"Final answers : </span><span class="sc">{</span>final_answer<span class="sc">.</span>mean()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="ss">f"Estimated pi : </span><span class="sc">{</span>pi_hat<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>Oh nice ! </span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>We could see on one sample how out maximum likelyhood estimator allows us to recover the true proportion. </span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>Let's see how does the random event probability affect the ability to recover $\pi$.</span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>We will run multiple experiments with 100 surveyees.</span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(nrows<span class="op">=</span> <span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">3</span>, figsize <span class="op">=</span> (<span class="dv">9</span>, <span class="dv">5</span>))</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].hist(noise)</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="ss">f"Noise </span><span class="sc">{</span>noise<span class="sc">.</span>mean()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].hist(true_answers)</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="ss">f"True answers : </span><span class="sc">{</span>true_answers<span class="sc">.</span>mean()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].hist(final_answer)</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].set_title(<span class="ss">f"Final answers : </span><span class="sc">{</span>final_answer<span class="sc">.</span>mean()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="ss">f"Estimated pi : </span><span class="sc">{</span>pi_hat<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>Oh nice ! </span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>We could see on one sample how out maximum likelyhood estimator allows us to recover the true proportion. </span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>Let's see how does the random event probability affect the ability to recover $\pi$.</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>We will run multiple experiments with 100 surveyees.</span>
 <span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_pi_hat(p,n<span class="op">=</span><span class="dv">100</span>,pi<span class="op">=</span> <span class="dv">40</span><span class="op">/</span><span class="dv">100</span>)<span class="op">-&gt;</span><span class="bu">float</span>:</span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>    true_answers <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, pi, n)</span>
-<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>    noise <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, p, n)</span>
-<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>    final_answer <span class="op">=</span> (noise <span class="op">==</span> true_answers).astype(<span class="bu">int</span>)</span>
-<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>    n1 <span class="op">=</span> final_answer.<span class="bu">sum</span>()</span>
-<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>    pi_hat <span class="op">=</span> (p<span class="op">-</span><span class="dv">1</span>)<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>p <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> (n1)<span class="op">/</span>(n<span class="op">*</span>(<span class="dv">2</span><span class="op">*</span>p <span class="op">-</span> <span class="dv">1</span>))</span>
-<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pi_hat</span>
-<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>num_ps <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>mc_iter <span class="op">=</span>  <span class="dv">100</span></span>
-<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>ps <span class="op">=</span> np.zeros(num_ps <span class="op">*</span> mc_iter)</span>
-<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>pihats <span class="op">=</span> np.zeros(num_ps <span class="op">*</span> mc_iter)</span>
-<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>pi <span class="op">=</span> <span class="dv">40</span><span class="op">/</span><span class="dv">100</span></span>
-<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, num_ps).<span class="bu">round</span>(<span class="dv">2</span>):</span>
-<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> mc <span class="kw">in</span> <span class="bu">range</span>(mc_iter):</span>
-<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>        pihats[i] <span class="op">=</span> get_pi_hat(p, pi <span class="op">=</span> pi)</span>
-<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>        ps[i] <span class="op">=</span> p</span>
-<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>        i<span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span> pd.DataFrame({</span>
-<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ps"</span> : ps,</span>
-<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pihats"</span> : pihats</span>
-<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">6</span>))</span>
-<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>sns.boxplot(df, x<span class="op">=</span><span class="st">"ps"</span>, y<span class="op">=</span><span class="st">"pihats"</span>)</span>
-<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>plt.axhline(pi, c<span class="op">=</span><span class="st">"red"</span>)</span>
-<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Probabilities for the random event, from 0 to 1"</span>)</span>
-<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>plt.xticks([])</span>
-<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"$</span><span class="ch">\\</span><span class="st">hat{</span><span class="ch">\\</span><span class="st">pi}$"</span>)</span>
-<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_pi_hat(p,n<span class="op">=</span><span class="dv">100</span>,pi<span class="op">=</span> <span class="dv">40</span><span class="op">/</span><span class="dv">100</span>)<span class="op">-&gt;</span><span class="bu">float</span>:</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>    true_answers <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, pi, n)</span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>    noise <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, p, n)</span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>    final_answer <span class="op">=</span> (noise <span class="op">==</span> true_answers).astype(<span class="bu">int</span>)</span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>    n1 <span class="op">=</span> final_answer.<span class="bu">sum</span>()</span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>    pi_hat <span class="op">=</span> (p<span class="op">-</span><span class="dv">1</span>)<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>p <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> (n1)<span class="op">/</span>(n<span class="op">*</span>(<span class="dv">2</span><span class="op">*</span>p <span class="op">-</span> <span class="dv">1</span>))</span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pi_hat</span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>num_ps <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>mc_iter <span class="op">=</span>  <span class="dv">100</span></span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>ps <span class="op">=</span> np.zeros(num_ps <span class="op">*</span> mc_iter)</span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>pihats <span class="op">=</span> np.zeros(num_ps <span class="op">*</span> mc_iter)</span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>pi <span class="op">=</span> <span class="dv">40</span><span class="op">/</span><span class="dv">100</span></span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p <span class="kw">in</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, num_ps).<span class="bu">round</span>(<span class="dv">2</span>):</span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> mc <span class="kw">in</span> <span class="bu">range</span>(mc_iter):</span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>        pihats[i] <span class="op">=</span> get_pi_hat(p, pi <span class="op">=</span> pi)</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>        ps[i] <span class="op">=</span> p</span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>        i<span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span> pd.DataFrame({</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ps"</span> : ps,</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pihats"</span> : pihats</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">6</span>))</span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>sns.boxplot(df, x<span class="op">=</span><span class="st">"ps"</span>, y<span class="op">=</span><span class="st">"pihats"</span>)</span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>plt.axhline(pi, c<span class="op">=</span><span class="st">"red"</span>)</span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Probabilities for the random event, from 0 to 1"</span>)</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>plt.xticks([])</span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"$</span><span class="ch">\\</span><span class="st">hat{</span><span class="ch">\\</span><span class="st">pi}$"</span>)</span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>We can see that the estimator is centered around the true value of $\pi$, but the closer we are to $50\%$ the bigger the variance, indeed when the random event sucess probability the surveyee uses to answer is equal to $50\%$, the answer provides no information at all. </span>
-<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>So, the closer p is to 0 or 1, the better the estimation, but it will be more likely for the surveyee to answer with bad faith, the choice of p is a trade off between statistical efficiency and peoples's trust.</span>
-<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>We can see that the estimator is centered around the true value of $\pi$, but the closer we are to $50\%$ the bigger the variance, indeed when the random event sucess probability the surveyee uses to answer is equal to $50\%$, the answer provides no information at all. </span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>So, the closer p is to 0 or 1, the better the estimation, but it will be more likely for the surveyee to answer with bad faith, the choice of p is a trade off between statistical efficiency and peoples's trust.</span>
 <span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conclusion </span></span>
-<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>It was short and small, but it was very fun looking at this problem ! </span>
-<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>There are more recent extensions to overcome weaknesses of this methods, the field of randomized responses is very rich and i just wanted to share that this field even exists :) See you ! </span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conclusion </span></span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>It was short and small, but it was very fun looking at this problem ! </span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>There are more recent extensions to overcome weaknesses of this methods, the field of randomized responses is very rich and i just wanted to share that this field even exists :) See you ! </span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
