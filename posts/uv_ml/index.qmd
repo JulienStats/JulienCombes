@@ -91,3 +91,20 @@ uv add -r requirements.txt # <2>
 ```
 
 Here, uv will create a full pyproject.toml where the python version and all the dependencies whith their versions are saved.
+
+## Simple Notebook setup
+
+In the case you do not want to setup a big project with requirements for long term re use, but only a small env for fast and easy data analysis for example.
+You just need to run this command to open a notebook using the env created in previous steps, in this way, you do not need more setup than this.
+
+```bash
+uv run --with jupyter jupyter lab
+```
+
+The minimal setup requiring absolutly nothing is as follows, uv takes care of installing jupyter and notebooks utils and only the required packages are installed.
+
+```bash
+uv venv --python 3.12
+uv pip install numpy seaborn matplotlib pandas seaborn scipy
+uv run --with jupyter jupyter lab
+```

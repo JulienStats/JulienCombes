@@ -84,7 +84,7 @@ class MyVoc(VOCDetection):
             ToTensorV2()
         ],
         bbox_params=A.BboxParams(
-            format='pascal_voc', # Specify input format
+            coord_format='pascal_voc', # Specify input format
             label_fields=['class_labels'],
             filter_invalid_bboxes=True)
         )

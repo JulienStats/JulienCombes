@@ -46,10 +46,10 @@ import torchmetrics
 from omegaconf import DictConfig, OmegaConf
 from lightning.pytorch.callbacks.early_stopping import EarlyStopping
 from lightning.pytorch.callbacks import ModelCheckpoint
-from lightning.pytorch.callbacks import Callback
+from lightning.pytorch.callbacks import Callback, LearningRateMonitor
 from torchcp.classification.predictor import SplitPredictor
 from torchcp.classification.score import APS, RAPS, SAPS
-
+from lightning.pytorch.loggers import MLFlowLogger
 from torchmetrics import Metric
 
 # to make the transform usable by torchvision dataset it needs to be a function that takes an image as input and return an image as well
@@ -114,18 +114,17 @@ test_loader= torch.utils.data.DataLoader(
     num_workers=5,
 )
 
-
 class ClassificationModule(L.LightningModule):
     def __init__(
         self, 
         categories :List[str],
-        config:DictConfig,
+        lr:float,
         ):
         
         super().__init__()
         self.categories = categories
         num_classes = len(categories)
-        self.config = config
+        self.lr = lr
         
         model = torchvision.models.resnet18(
             weights="IMAGENET1K_V1")
@@ -154,17 +153,23 @@ class ClassificationModule(L.LightningModule):
             torchmetrics.Recall(task = "multiclass", num_classes = num_classes, average = None),
         ])
 
+        self.save_hyperparameters()
+
     def forward(self, X):
         return self.model(X)
 
     def configure_optimizers(self):
 
-        optimizer = torch.optim.SGD(self.parameters(), lr = self.config.lr, weight_decay=1e-5, momentum=0.9)
+        optimizer = torch.optim.SGD(self.parameters(), lr = self.lr, weight_decay=1e-5, momentum=0.9)
 
-        # you can add a scheduler here as well and return it as 
-        # return [optimizer], [scheduler]
-        # 
-        return optimizer
+        scheduler = torch.optim.lr_scheduler.PolynomialLR(optimizer=optimizer, total_iters=self.trainer.estimated_stepping_batches)
+
+        scheduler_config ={
+            "scheduler": scheduler,
+            "interval": "step"
+        }
+
+        return [optimizer], [scheduler_config]
 
     def training_step(self, batch, batch_idx):
         images, targets = batch
@@ -243,29 +248,28 @@ class ClassificationModule(L.LightningModule):
         self.per_category_metrics.reset()
 
 
-config = OmegaConf.create({
-    "lr": 1e-3
-})
 
-# model = ClassificationModule(
-#     categories=train_set.classes,
-#     config=config
-# )
-
+model = ClassificationModule(
+    categories=train_set.classes,
+    lr=1e-3,
+)
+# mlf_logger = MLFlowLogger(experiment_name="lightning_logs", tracking_uri="file:./ml-runs")
 # trainer=  L.Trainer(
 #     max_epochs=100,
 #     precision = "16-mixed",
 #     enable_checkpointing=True,
 #     num_sanity_val_steps=0,
-#     log_every_n_steps=50,
+#     log_every_n_steps=1,
 #     check_val_every_n_epoch=1,
+#     logger=mlf_logger,
 #     callbacks=[
 #         EarlyStopping("Validation/Loss", patience=2,mode="min"),
-#         ModelCheckpoint(monitor="Validation/Loss", filename='cifar10-{epoch:02d}')
+#         ModelCheckpoint(monitor="Validation/Loss", filename='cifar10-{epoch:02d}'),
+#         LearningRateMonitor(logging_interval="step")
 #     ]
 # )
 
-# I wont train it each time 
+# # I wont train it each time 
 # trainer.fit(
 #     model,
 #     train_loader,
@@ -274,9 +278,8 @@ config = OmegaConf.create({
 
 # trainer.test(model,val_loader)
 model= ClassificationModule.load_from_checkpoint(
-    "lightning_logs/version_36/checkpoints/cifar10-epoch=03.ckpt",
-    categories=train_set.classes,
-    config=config
+    "ml-runs/804946329265122337/a65eae64ee9d48519ca0af15ed117465/checkpoints/cifar10-epoch=02.ckpt",
+
 )
 ```
 
@@ -297,7 +300,7 @@ targets = []
 with torch.no_grad():
     for b in test_loader:
         im, tar = b
-        pred = model(im.cuda()).softmax(1)
+        pred = model(im).softmax(1)
         preds.append(pred)
         targets.append(tar)
     preds = torch.cat(preds)
@@ -448,13 +451,13 @@ Here we could try to run this but with more classes to see how this affect the s
 bs = 32
 train_set = torchvision.datasets.CIFAR100(
     root=os.path.join(datarootdir, "cifar100"), 
-    download=False, 
+    download=True, 
     train=True,
     transform=train_trans)
 
 val_set = torchvision.datasets.CIFAR100(
     root=os.path.join(datarootdir, "cifar100"), 
-    download=False, 
+    download=True, 
     train=False,
     transform=test_trans)
 
@@ -487,7 +490,7 @@ test_loader= torch.utils.data.DataLoader(
 
 model = ClassificationModule(
     categories=train_set.classes,
-    config=config
+    lr = 1e-3
 )
 
 trainer=  L.Trainer(
@@ -513,9 +516,7 @@ trainer=  L.Trainer(
 # trainer.test(model,val_loader)
 
 model= ClassificationModule.load_from_checkpoint(
-    "lightning_logs/version_73/checkpoints/cifar100-epoch=02.ckpt",
-    categories=train_set.classes,
-    config=config
+    "lightning_logs/version_6/checkpoints/cifar100-epoch=00.ckpt",
 )
 
 for score_fn in ["aps", "raps", "saps"]:

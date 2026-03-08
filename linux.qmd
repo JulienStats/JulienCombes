@@ -12,7 +12,27 @@ Je me restreins aujourd'hui à Linux Mint, c'est la distribution que je trouve l
 La version que je conseille d'installer si vous n'avez pas de carte NVIDIA est LMDE, c'est une version qui sera très stable et modulable via l'installation des logiciel avec flatpak.
 
 
-# Bootable device not found please insert a bootable media, press enter to shutdown the computer
+# Dégafamisation
+
+Le passage a Linux est un choix avant tout politique qui questionne le monopole des entreprises américaines et notre dépendance à des acteurs privés 
+pour des outils essentiels. Il faut donc se dire que cette transition se fera avec son lot d'adaptations et de problèmes à résoudre, c'est autant d'occasions d'apprendre et de devenir plus compétent dans l'utilisation des ordinateurs. Il faut savoir qu'aujourdhui, les systèmes d'exploitations linux ont atteind une maturité telle que les problèmes sont très rares ou mineurs.
+
+En parallèle ou avant le passage a linux, vous pouvez déja essayer d'utiliser des logiciels open sources et européens à la place des version propriétaires, la transition vers linux n'en sera que plus facile. En effet certains logiciels ne sont pas disponibles sur Linux, mais pour la plupart d'entre eux, des alternatives existent. Je vais vous citer les alternatives aux outils les plus communs que j'ai pu trouver, mais si vous avez des remarques ou recommendations, je serai heureux de les entendres.
+
+Tout d'abors pour la suite google (drive, mail, contact agenda..), j'utilise la suite myksuite de [infomaniak](https://www.infomaniak.com/fr/ksuite/myksuite). Elle contient tout ce dont vous avez besoin et est assez accessible. Pour 20€ par an, vous avez 1To de stockage cloud ce qui est très pratique. Les agenda se synchronisent sur votre telephone, idem avec le drive. Pour l'instant j'en suis satisfait.
+Pour les logociels de bureautique, les suites libreoffice et onlyoffices sont toute deux top, only office ressemble un peu plus a word, donc si vous n'avez jamais utilisé libreoffice, onlyoffice peut vous convenir.
+
+::: {.callout-warning }
+## Gaming
+
+Le gaming se fait sous linux sans problème grace a steam, cependant, certains jeux utilisant des anti-triches commes tous les jeux de riot game
+ne sont pas jouables sur linux. Ca peut etre un point fort pour enfin arréter lol, mais en tout cas il faut le savoir avant de sauter le pas.
+::: 
+
+
+# Bugs
+
+## Bootable device not found please insert a bootable media, press enter to shutdown the computer
 
 J'ai eu cette erreur une fois sur un très vieil appareil. Le problème est que le bios est incompatible avec les OS d'après 2010.
 J'ai trouvé la solution dans [cet article (en anglais)](https://foxclone.org/downloads/20230509-LM21_legacy.pdf).
@@ -25,7 +45,7 @@ Les étapes succintes :
 
 Et lä tout va rouler
 
-# Installer des logiciels windows non disponibles sur Linux nativement
+## Installer des logiciels windows non disponibles sur Linux nativement
 
 Pour les enseignants, vous aurez probablement besoin du client pronote (le service Web n'as pas toutes les fonctionalités) d'émulateur de calculatrice graphique ou autre.
 Ces logiciels ne sont fournit que sur windows, c'est à dire que vous aurez un fichier .exe à executer. 

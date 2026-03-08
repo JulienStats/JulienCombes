@@ -99,9 +99,9 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-4cfdf6f06bd6939d44a7e68047bd8811.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-b409abdb0a8a29ac2aabeab0ede3756b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-4cfdf6f06bd6939d44a7e68047bd8811.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-73296a0000aba1267c29397ce5241921.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-ef0906f6ac1b4ddd32130dbaf4df197d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-73296a0000aba1267c29397ce5241921.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -470,7 +470,7 @@ window.Quarto = {
 <p><span class="math display">\[P(X_i = 1) = \pi p + (1 - \pi)(1 - p)\]</span> <span class="math display">\[P(X_i = 0) = (1 - \pi)p +  + \pi(1 - p)\]</span></p>
 <p>Which leads to a estimation <span class="citation" data-cites="warnerRandomizedResponseSurvey1965">(see the the original paper from <a href="#ref-warnerRandomizedResponseSurvey1965" role="doc-biblioref">Warner 1965</a> details)</span> :</p>
 <p><span class="math display">\[\hat{\pi} = \frac{p-1}{2p-1} + \frac{n_1}{n(2p - 1)}\]</span></p>
-<div id="ee974733" class="cell" data-execution_count="1">
+<div id="6a5c1e1f" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
@@ -502,7 +502,7 @@ window.Quarto = {
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="ss">f"Estimated pi : </span><span class="sc">{</span>pi_hat<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>Text(0.5, 0.98, 'Estimated pi : 0.400')</code></pre>
+<pre><code>Text(0.5, 0.98, 'Estimated pi : 0.433')</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -514,7 +514,7 @@ window.Quarto = {
 </div>
 <p>Oh nice ! We could see on one sample how out maximum likelyhood estimator allows us to recover the true proportion. Let’s see how does the random event probability affect the ability to recover <span class="math inline">\(\pi\)</span>.</p>
 <p>We will run multiple experiments with 100 surveyees.</p>
-<div id="51671561" class="cell" data-execution_count="2">
+<div id="bdcc69cb" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_pi_hat(p,n<span class="op">=</span><span class="dv">100</span>,pi<span class="op">=</span> <span class="dv">40</span><span class="op">/</span><span class="dv">100</span>)<span class="op">-&gt;</span><span class="bu">float</span>:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    true_answers <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, pi, n)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    noise <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, p, n)</span>

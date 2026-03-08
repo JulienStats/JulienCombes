@@ -5,3 +5,4 @@ _freeze
 .venv
 _environment
 **/*.quarto_ipynb
+*runs

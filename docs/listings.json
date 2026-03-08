@@ -1,5 +1,9 @@
 [
   {
+    "listing": "/publications.html",
+    "items": []
+  },
+  {
     "listing": "/index.html",
     "items": [
       "/posts/2026_01_10_ethics_randomness/index.html",
@@ -25,9 +29,5 @@
       "/posts/research_PAISS2025/index.html",
       "/posts/research_ijcnn/index.html"
     ]
-  },
-  {
-    "listing": "/publications.html",
-    "items": []
   }
 ]
