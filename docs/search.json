@@ -179,7 +179,14 @@
     "href": "publications.html",
     "title": "Publications",
     "section": "",
-    "text": "Hope it will not be empty at the end of the Phd 😢.\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "This preprint was released in January 2026 and was motivated by the fact that machine vision is prone to strong label shift, and we were worried that adding uncertainty based active learning strategy would increase the distance between the production and database distributions, thus worsening models predictions. The contribution is humble but it was a fun project that provided insights about active learning in industry."
+  },
+  {
+    "objectID": "publications.html#when-imbalance-comes-twice-active-learning-under-simulated-class-imbalance-and-label-shift-in-binary-semantic-segmentation",
+    "href": "publications.html#when-imbalance-comes-twice-active-learning-under-simulated-class-imbalance-and-label-shift-in-binary-semantic-segmentation",
+    "title": "Publications",
+    "section": "",
+    "text": "This preprint was released in January 2026 and was motivated by the fact that machine vision is prone to strong label shift, and we were worried that adding uncertainty based active learning strategy would increase the distance between the production and database distributions, thus worsening models predictions. The contribution is humble but it was a fun project that provided insights about active learning in industry."
   },
   {
     "objectID": "index.html",
@@ -187,6 +194,13 @@
     "title": "Julien Combes",
     "section": "",
     "text": "Randomness and ethics\n\n\n\n\n\n\nProbabilities\n\nENG\n\n\n\n\n\n\n\n\n\nJan 10, 2026\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nIndustrialize your slides\n\n\n\n\n\n\nPhd\n\nproductivity\n\nENG\n\ntuto\n\n\n\n\n\n\n\n\n\nJan 7, 2026\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nPandas 101\n\n\n\n\n\n\nDeepLearning\n\nENG\n\ncode\n\ntuto\n\n\n\n\n\n\n\n\n\nDec 23, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nReliable Image classifiers\n\n\n\n\n\n\nDeepLearning\n\nENG\n\nConformalPrediction\n\ncode\n\n\n\n\n\n\n\n\n\nDec 13, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nActive Learning does not work\n\n\n\n\n\n\nDeepLearning\n\nResearch\n\nENG\n\n\n\n\n\n\n\n\n\nDec 10, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nECAS 2025\n\n\nWinter School\n\n\n\nPhd\n\nproductivity\n\nENG\n\n\n\n\n\n\n\n\n\nDec 5, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nJRAF 2025\n\n\nAutumn School\n\n\n\nPhd\n\nconference\n\nENG\n\nFrugality\n\n\n\n\n\n\n\n\n\nDec 1, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nPAISS 2025\n\n\nSummer SChool\n\n\n\nPhd\n\ncode\n\nDeepLearning\n\nComputerVision\n\nENG\n\n\n\n\n\n\n\n\n\nSep 1, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nIJCNN 2025\n\n\nConference\n\n\n\nPhd\n\ncode\n\nDeepLearning\n\nComputerVision\n\nENG\n\n\n\n\n\n\n\n\n\nJun 25, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nD-Fine on pascal Voc\n\n\n\n\n\n\nPhd\n\ncode\n\nDeepLearning\n\nComputerVision\n\nENG\n\n\n\n\n\n\n\n\n\nJun 9, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nTools for Phd\n\n\n\n\n\n\nPhd\n\nproductivity\n\nENG\n\n\n\n\n\n\n\n\n\nMay 27, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nUV setup for computer vision using deep learning\n\n\n\n\n\n\nDeepLearning\n\ncode\n\nComputerVision\n\npython\n\nlinux\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nJulien Combes\n\n\n\n\n\n\n\n\n\n\n\n\nClassify CIFAR\n\n\n\n\n\n\nDeepLearning\n\ncode\n\nImageClassification\n\nComputerVision\n\nENG\n\n\n\n\n\n\n\n\n\nApr 13, 2025\n\n\nJulien Combes\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "talks.html",
+    "href": "talks.html",
+    "title": "Events",
+    "section": "",
+    "text": "Posters\n\nDocto Bib Day (michelin internal meeting within the research and development perimeter), Clermont-Ferrand, France, May 2026\nPrairie/MIAI Artificial Intelligence Summer School (PAISS) 2025, Grenoble, France, Sep 2025\n\n\n\nTalks\n\nRencontre des jeunes statisticiens (RJS), May 2026\n57th Journees des statistiques (JDS) 2026, Clermont-Ferrand, France June 2026"
   },
   {
     "objectID": "research.html",
@@ -200,7 +214,7 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "This blog is multi purpose and will serve as a diary, a self-reminder of what happened in the Phd and a repository for useful software code that I can easily share with others.\nI am currently in the second year of a PhD in Applied Mathematics. My research focuses on active learning and uncertainty quantification applied to computer vision.\nI am doing my PhD at Michelin, where there is a high demand for machine vision and not enough experts to label the data.\nI love learning and am very curious but software development is far from being a strength.\nMy passions :)\n\n\n\n\n\n\nboard games : Top3 (Brass Brirmingham, Magic the gathering, Ascencion)\n\n\n\n\n\n\n\nWine : top3 cepages (syrah, marsanne, chatus)\n\n\n\n\n\n\n\n\n\nEuphorbia characias"
+    "text": "This blog is multi purpose and will serve as a diary, a self-reminder of what happened in the Phd and a repository for useful software code that I can easily share with others.\nI am currently in the second year of a PhD in Applied Mathematics. My research focuses on active learning and uncertainty quantification, mainly using conformal prediction approaches applied to computer vision.\nI am doing my PhD at Michelin, where there is a high demand for machine vision and not enough experts to label the data.\nI love learning and am very curious but software development is far from being a strength.\nMy passions :)\n\n\n\n\n\n\nboard games : Top3 (Brass Brirmingham, Magic the gathering, Ascencion)\n\n\n\n\n\n\n\nWine : top3 cepages (syrah, marsanne, chatus)\n\n\n\n\n\n\n\n\n\nEuphorbia characias"
   },
   {
     "objectID": "posts/research_JRAF2025/index.html",

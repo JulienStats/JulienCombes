@@ -5,4 +5,14 @@ listing:
     - posts/publi*/*.qmd
 ---
 
+# Working papers
+
+## When Imbalance Comes Twice: Active Learning under Simulated Class Imbalance and Label Shift in Binary Semantic Segmentation
+
+[This preprint](https://arxiv.org/abs/2601.06209) was released in January 2026 and was motivated by the fact that machine vision is prone to strong label shift, and we were worried that adding
+uncertainty based active learning strategy would increase the distance between the production and database distributions, thus worsening models predictions.
+The contribution is humble but it was a fun project that provided insights about active learning in industry.
+
+# Publications
+
 Hope it will not be empty at the end of the Phd 😢.

@@ -10,6 +10,8 @@ website:
       - about.qmd
       - icon: github
         href: https://github.com/JulienStats
+      - icon: envelope
+        href: mailto:juliencombes63@protonmail.com
     left:
       - text: Posts
         href: index.qmd
@@ -17,8 +19,8 @@ website:
         href: research.qmd
       - text: Publications
         href: publications.qmd
-      - text: My Phd
-        href: my_phd.qmd
+      - text: Events
+        href: talks.qmd
       - text: Linux (FR)
         href: linux.qmd
         

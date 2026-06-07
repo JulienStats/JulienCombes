@@ -19,6 +19,7 @@ dependencies = [
     "opencv-python>=4.11.0.86",
     "openml>=0.15.1",
     "pandas>=2.3.3",
+    "pipe>=2.2",
     "plotly>=6.5.0",
     "pycocotools>=2.0.10",
     "relplot>=1.0.3",
