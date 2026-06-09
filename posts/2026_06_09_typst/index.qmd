@@ -1,0 +1,66 @@
+---
+title: "Path of Typst"
+author: "Julien Combes"
+date: "2026-06-09"
+categories: [tools, ENG, productivity]
+image: "image.png"
+bibliography: ../../biblio.bib
+---
+
+This article has been requested quite a lot so i am going to try to make a typst tips page (just know that i use it barely so it is going to take some time).
+
+Why would you want to use Typst ?
+
+- speed : it compiles so faster than latex that going back to lualatex feels like stone age.
+- error handling : errors coming from typst are way clearer than the ones from latex
+- interoperability : compatibility with tools like Quarto makes it usabel without having to write in it, so you have the best of both sides
+- being in control : typst is a whole new world, the language is easier to learn than TeX i would say, and if you know it (i guess) you can make anything you want while still understanding everything.
+
+Typst is still niche and not that used, conferences or journals obviously don't realease typst templates, but if enough people start to use and to enjoy this tool, it might make the world of writing more efficient and fun :).
+
+## Installation 
+
+There are multiple ways to install this but the best one is to install it with the rust cargo toolchain which makes everything easy.
+
+### Step 1 : install rust (skip if you are already a good person)
+
+i am on debian 13 but it should be easy for most situations, rust has became a popular tool.
+Install it on the cli via the following line taken from [rust homepage](https://rust-lang.org/tools/install/)
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+after restarting your shell, all the rust commands should be able, cargo included.
+
+### Step 2 : Install Typst
+ 
+Before installing typst you might need to install some more requirements, in my case i need to install openssl-devel.
+
+```bash
+sudo apt install libssl-dev
+```
+Then you can install typst.
+
+```bash
+cargo install --locked typst-cli
+```
+
+everything when unexpectedly fine, i have no bugs to report so far, if you have some you can tell me so i can add it here :)
+
+
+## Template i liked
+
+Phd thesis :
+
+- [Psl template](https://typst.app/universe/package/psl-thesis/)
+
+Posters :
+
+- [Very simple template](https://typst.app/universe/package/peace-of-posters), but we don't need more.
+
+Presentation :
+
+- [slides as well](https://typst.app/universe/package/ens-rennes-presentation) but not tested.
+
+
+I am still a terrible beginner but writing my thesis with typst would be very nice, and the gain in time scale with document lenght so it can be only good !

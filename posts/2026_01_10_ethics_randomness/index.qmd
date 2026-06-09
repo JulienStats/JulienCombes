@@ -4,6 +4,7 @@ author: "Julien Combes"
 date: "2026-01-10"
 categories: [Probabilities, ENG]
 image: "image.png"
+bibliography: ../../biblio.bib
 ---
 
 I have some anecdotes about some situations where humans introduce randomness in order to mutate the level of ethics of their pairs.
@@ -125,6 +126,13 @@ We can see that the estimator is centered around the true value of $\pi$, but th
 
 So, the closer p is to 0 or 1, the better the estimation, but it will be more likely for the surveyee to answer with bad faith, the choice of p is a trade off between statistical efficiency and peoples's trust.
 
+## Alternatives
+
+## Personal opinion
+
+When running a survey, i would think their is a unspoken contract between surveyors and surveyees where surveyors ask questions for which answers help the greater good, and surveyees gives their precious time to make the population aware about global people behaviours, opinions etc...
+Taking a survey as a surveyee should not harm you or have a negative impact, that is why i personnaly like the approach taken in this article because the randomness affect both parties equally. It worsen the estimation for statisticians, but make people safe for answering on a good faith.
+Moreover, those questions of protecting surveyees while still gathering informatives answers are related to differential privacy [@karmitsaComprehensiveGuideDifferential2026] which basically is a way of preventing adversarial actor to know wether a particular individual data has been used in a computation [@ioannidisRandomizedResponseDifferential2024]. The list approaches where statisticians designs negatively correlated answers in the question pool in order to trace back more easily who answers what and reduce the noise to zero is a kind of disrespect to the trust surveyees gave us, but i am not working on surveys so i might be wrong. But the noise in the estimation is the trade off to pay for trust.
 
 ## Conclusion 
  
