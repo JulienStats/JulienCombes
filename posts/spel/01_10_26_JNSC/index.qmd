@@ -1,0 +1,62 @@
+---
+title: "JNSC 2026"
+author: "Julien Combes"
+date: "2026-10-03"
+categories: [speleo, FR]
+image: "castelbouc.jpg"
+---
+
+JNSC : Journees nationales de la speleologie et du canyonnisme.
+
+A cette ocasion, le GSA a organise un week-end pour faire decouvrir la speleo aux curieux (moi inclus !).
+Le week-end a permis la decouverte de deux cavites sur la comune de Castelbouc dans les gorges du tarn (entre Ispagnac et Saint-Enemie).
+
+## Premier jour
+
+Trajet depuis Clermont-Ferrand et grotte horizontale Castelbouc 4. Pas besoin de materiel a part son casque et sa lampe, mais un bon sens de l'orientation est primordial. On se perd dans des grandes salles remplis de gros blocs, et les boyaux laissent voir tout un tas de trou dans lesquels il ne faut pas aller au risque de perdre le groupe !
+
+### Progression
+
+Pour progresser dans cette cavite, beaucoup de passage a ramper, les genouilleres sont appreciables.
+
+::: {layout-ncol="2"}
+![Entree de la cavite](j1/entree.jpg)
+ 
+![Defi plus mental que physique](j1/ramping.jpg)
+:::
+
+### Aspects remarquables
+
+::: {layout-ncol="2"}
+
+![Traces de pas de sauropodes](j1/patesdino.jpg)
+
+![Siphon terminal](j1/eau.jpg)
+:::
+
+La couleur de l'eau est toujours magnifique, la secheresse rend le siphon minuscule, il est cense etre plus etendu.
+
+
+## Deuxieme jour
+
+::: {layout-ncol="2"}
+
+Cette cavite etant plus verticale, il a fallut dans un premier temps equiper la cavite pour nous permettre de descendre le puits en 2 temps.
+Etant un grand nombre de participant, la queue en tete de puits nous a laisse le temps de faire  un cours sur les noeuds :
+
+![Noeud de chaise double](j2/chaisedouble.jpg)
+:::
+
+Nous avons pu descendre un beau puit qui arrive dans la resurgence a ciel ouvert sur le tarn (croyez moi je n'ai pas de photo donnant sur l'exterieur....)
+
+![Salle dans laquelle nous sommes descendu](j2/descente.jpg)
+
+Pour le desequipement nous avons pu profiter d'une belle vire ascendante qui nous a permis de chausser le bloqueur de point : 
+
+![Poignee Chaussee](j2/poigneechausee.jpg)
+
+Technique qui permet de s'aider de la corde dans les passage en montee ou les prises de mains et de pieds se font rares.
+
+On peut maintenant sortir et laver les affaires en prenant le temps de reflechir a tous les noeuds que nous avons appris.
+
+![](j1/affairespostj1.jpg)

@@ -23,11 +23,32 @@ I love learning and am very curious but software development is far from being a
 
 My passions :) 
 
-:::{layout="[[1, 1], [1]]"}
+## Board Games
 
-![board games : Top3 (Brass Brirmingham, Magic the gathering, Ascencion)](brass.jpg)
+::: {layout-ncol="3"}
+![Brass](assets/brass.jpg)
 
-![Wine : top3 cepages (syrah, marsanne, chatus)](tain.JPG)
+![Magic The gathering](assets/urzatower.jpg)
 
-![Euphorbia characias](euphorbes.jpg)
+![Ascencion](assets/ascencion.webp)
 :::
+
+## Wine
+
+::: {layout-ncol="2"}
+![Syrah](assets/hermitage.png)
+
+![Viognier](assets/condrieu.png)
+:::
+
+## Caving
+
+::: {layout-ncol="2"}
+
+![Water](assets/spel0.jpg)
+
+![Depth](assets/spel1.jpg)
+:::
+
+
+![Euphorbia characias](assets/euphorbes.jpg)

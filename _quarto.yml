@@ -23,7 +23,8 @@ website:
         href: talks.qmd
       - text: Linux (FR)
         href: linux.qmd
-        
+      - text: Speleo (FR)
+        href: spel.qmd
 format:
   html:
     respect-user-color-scheme: true

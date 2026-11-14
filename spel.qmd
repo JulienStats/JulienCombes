@@ -1,0 +1,19 @@
+---
+title: Speleo (FR)
+listing:
+  sort: "date desc"
+  contents: 
+    - posts/spel/*/*.qmd
+---
+
+J'ai attaque la speleo cette annnee et je compte mettre ici des cours comptes rendu pour consigner les sorties et mettre 2 3 photos.
+
+Les cavites que j'aimerai visiter au cours ma vie sont les suivantes :
+
+- Pierre saint martin traversee par le sl19
+- Coume Ouarnede :
+    - Traversee impossible
+    - gouffre des deux jean-paul
+- n'importe laquelle avec Aragonite :)
+
+Au plaisir de vous croiser en sortie ! (D'ici la j'espere savoir mettre mon descendeur...)
