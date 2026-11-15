@@ -1,6 +1,6 @@
 ---
 title: "About"
-image: pp.jpeg
+image: assets/pp.jpeg
 about:
   template: solana
   links:
